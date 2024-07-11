@@ -1,0 +1,11 @@
+{
+    "name": "creode/wordpress-blocks",
+    "description": "Block library and block development framework for WordPress blocks.",
+    "type": "wordpress-muplugin",
+    "authors": [
+        {
+            "name": "Creode Limited"
+        }
+    ],
+    "require": {}
+}
