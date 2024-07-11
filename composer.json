@@ -7,5 +7,7 @@
             "name": "Creode Limited"
         }
     ],
-    "require": {}
+    "require": {
+        "composer/installers": "*"
+    }
 }
