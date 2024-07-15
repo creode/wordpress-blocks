@@ -185,6 +185,14 @@ abstract class Block {
 		}
 	}
 
+	/**
+	 * Function for retrieving an array of child block names for a specified parent block.
+	 * Useful when a parent block should not allow any nested blocks apart from their own child blocks.
+	 * If this is the case, JSON encode the output this function and echo the result into the allowedBlocks attribute of the InnerBlocks element.
+	 *
+	 * @param string $parent_block_name The parent block name.
+	 * @return array|null An array of child block names, null if parent or child blocks cannot be found.
+	 */
 	public static function get_child_block_names( $parent_block_name ) {
 		$parent_child_relationship = apply_filters( 'creode_blocks_parent_child_relationship', array() );
 
