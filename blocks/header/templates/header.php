@@ -5,6 +5,8 @@
  * @package Creode Blocks
  */
 
+wp_enqueue_script( 'header' );
+
 $menus                = wp_get_nav_menus();
 $default_menu         = array_shift( $menus );
 $inner_block_template = array(
