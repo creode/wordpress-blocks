@@ -134,6 +134,7 @@ abstract class Block {
 				'name'            => $parent_block . '-' . $child_block->name,
 				'title'           => $child_block->label,
 				'render_template' => $child_block->template,
+				'category'        => $this->category(),
 				'parent'          => array(
 					'acf/' . $parent_block,
 				),
