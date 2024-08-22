@@ -80,34 +80,4 @@ class HeaderBlock extends Block {
 			),
 		);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function __construct() {
-		parent::__construct();
-		$this->register_script();
-	}
-
-	/**
-	 * Registers nessisary javascript.
-	 */
-	protected function register_script() {
-		add_action(
-			'wp_enqueue_scripts',
-			function () {
-				wp_register_script(
-					'header',
-					plugin_dir_url( __FILE__ ) . 'js/header.js',
-					array(
-						'jquery',
-					),
-					'1.0.0',
-					array(
-						'in_footer' => true,
-					)
-				);
-			}
-		);
-	}
 }
