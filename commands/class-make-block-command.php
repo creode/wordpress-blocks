@@ -30,14 +30,13 @@ class Make_Block_Command {
 	 * @param array $optional_args List of optional arguments.
 	 */
 	public function __invoke( $args, $optional_args ) {
-		$theme_base_path = $this->get_theme_base_path( $optional_args );
+		$theme = ! empty( $optional_args['theme'] ) ? $optional_args['theme'] : null;
+		$theme_base_path = $this->get_theme_base_path( $theme );
 
 		$block_label = $args[0];
 
 		$block_class_name = $this->generate_block_class_name( $block_label );
-
-		$block_slug_name = $this->generate_block_slug_name_from_class( $block_class_name );
-
+		$block_slug_name = $this->generate_block_slug_name( $block_label );
 		$block_folder_path = $this->create_block_folder_structure( $theme_base_path, $block_slug_name );
 
 		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path );
@@ -77,7 +76,8 @@ class Make_Block_Command {
 	 *
 	 * @return string
 	 */
-	protected function generate_block_slug_name_from_class( $block_class_name ) {
+	protected function generate_block_slug_name( $block_label ) {
+		$block_class_name = $this->generate_block_class_name( $block_label );
 		return strtolower( str_replace( '_', '-', $block_class_name ) );
 	}
 
@@ -131,14 +131,16 @@ class Make_Block_Command {
 
 	/**
 	 * Get the base path of the theme.
+	 * 
+	 * @param string $theme
 	 *
 	 * @return string Path to theme.
 	 */
-	private function get_theme_base_path() {
-		// Get the active theme.
-		$theme_base_path = get_stylesheet_directory();
-		if ( ! empty( $optional_args['theme'] ) ) {
-			$theme_base_path = get_theme_root() . '/' . $optional_args['theme'];
+	private function get_theme_base_path( ?string $theme ) {
+		if ( is_null( $theme ) ) {
+			$theme_base_path = get_stylesheet_directory();
+		} else {
+			$theme_base_path = get_theme_root() . '/' . $theme;
 		}
 
 		if ( ! file_exists( $theme_base_path ) ) {

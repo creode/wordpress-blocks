@@ -13,10 +13,10 @@ In order to create new blocks, you can add a new class to your theme or plugin a
 If you are utilising WP_CLI for your project, you can use the following command to create a new block class:
 
 ```bash
-wp make-block "<block-name>"
+wp make-block "Creode Footer" --theme="creode"
 ```
 
-This will create a newly configured block class and template file within your theme, inside the `blocks` directory.
+This will create a newly configured block class and template file within your theme, inside the `blocks` directory. The theme argument is optional and will default to the current theme.
 
 It will also output a couple of lines that can be copy and pasted into your `functions.php` file to include the block class and get started quickly.
 
