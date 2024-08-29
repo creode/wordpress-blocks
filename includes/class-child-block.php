@@ -48,6 +48,13 @@ class ChildBlock {
 	protected $child_blocks = array();
 
 	/**
+	 * Icon for Child block.
+	 *
+	 * @var string
+	 */
+	protected $icon = 'block-default';
+
+	/**
 	 * Data input function.
 	 *
 	 * @param string       $name The child block's name (must be hyphen separated).
@@ -61,13 +68,15 @@ class ChildBlock {
 		string $label,
 		array $fields = array(),
 		string $template = '',
-		array $child_blocks = array()
+		array $child_blocks = array(),
+		string $icon = 'block-default'
 	) {
 		$this->name         = $name;
 		$this->label        = $label;
 		$this->fields       = $fields;
 		$this->template     = $template;
 		$this->child_blocks = $child_blocks;
+		$this->icon         = $icon;
 	}
 
 	/**

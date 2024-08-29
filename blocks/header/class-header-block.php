@@ -11,39 +11,43 @@ namespace CreodeBlocks;
  * Header block definition.
  */
 class HeaderBlock extends Block {
+	/**
+	 * @inheritdoc
+	 */
+	protected $icon = 'menu';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function name() {
+	protected function name(): string {
 		return 'creode-header';
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function label() {
+	protected function label(): string {
 		return 'Creode Header';
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function fields() {
+	protected function fields(): array {
 		return array();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function template() {
+	protected function template(): string {
 		return plugin_dir_path( __FILE__ ) . 'templates/header.php';
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function child_blocks() {
+	protected function child_blocks(): array {
 		$menus_choices = array(
 			'' => 'None',
 		);
