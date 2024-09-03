@@ -133,7 +133,7 @@ abstract class Block {
 		unset( $block_data['render'] );
 
 		// Save the block contents to cache file.
-		file_put_contents( $cache_file, json_encode( $block_data, JSON_UNESCAPED_SLASHES ) );
+		file_put_contents( $cache_file, wp_json_encode( $block_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) );
 
 		register_block_type( $block_folder );
 	}
