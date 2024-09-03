@@ -101,9 +101,10 @@ abstract class Block {
 	 */
 	protected function register_block_type( array $block_data ): void {
 		// Check if the cache folder exists.
-		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks/';
-		$block_folder = $cache_folder . str_replace( '/', '-', $block_data['name'] );
+		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks';
+		$block_folder = $cache_folder . '/' . str_replace( '/', '-', $block_data['name'] );
 		$cache_file = $block_folder . '/block.json';
+
 		if ( file_exists( $cache_file ) ) {
 			register_block_type( $block_folder );
 			return;
