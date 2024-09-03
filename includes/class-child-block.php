@@ -55,6 +55,13 @@ class ChildBlock {
 	protected $icon = 'block-default';
 
 	/**
+	 * Allows configuration to supports section of block configuration.
+	 *
+	 * @var array
+	 */
+	protected $supports = array();
+
+	/**
 	 * Data input function.
 	 *
 	 * @param string       $name The child block's name (must be hyphen separated).
@@ -62,6 +69,8 @@ class ChildBlock {
 	 * @param array        $fields An array of field definitions in ACF format. Please see: https://www.advancedcustomfields.com/resources/register-fields-via-php/.
 	 * @param string       $template A path to the render template.
 	 * @param ChildBlock[] $child_blocks (Optional) Array of child blocks.
+	 * @param string       $icon (Optional) Icon for Child block.
+	 * @param array        $supports (Optional) Array of supports configuration.
 	 */
 	public function __construct(
 		string $name,
@@ -69,7 +78,8 @@ class ChildBlock {
 		array $fields = array(),
 		string $template = '',
 		array $child_blocks = array(),
-		string $icon = 'block-default'
+		string $icon = 'block-default',
+		array $supports = array(),
 	) {
 		$this->name         = $name;
 		$this->label        = $label;
@@ -77,6 +87,7 @@ class ChildBlock {
 		$this->template     = $template;
 		$this->child_blocks = $child_blocks;
 		$this->icon         = $icon;
+		$this->supports     = $supports;
 	}
 
 	/**

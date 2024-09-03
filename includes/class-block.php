@@ -19,6 +19,18 @@ abstract class Block {
 	protected $icon = 'block-default';
 
 	/**
+	 * Function for fully registering the block and all associated functionality.
+	 */
+	public function __construct() {
+		$this->register_acf_block();
+		$this->register_acf_fields();
+
+		foreach ( $this->child_blocks() as $child_block ) {
+			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
+		}
+	}
+
+	/**
 	 * Function for providing the block's name.
 	 *
 	 * @return string The block's name (must be hyphen separated).
@@ -65,15 +77,14 @@ abstract class Block {
 	}
 
 	/**
-	 * Function for fully registering the block and all associated functionality.
+	 * Provide additonal support options for the block.
+	 *
+	 * https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles
+	 *
+	 * @return array
 	 */
-	public function __construct() {
-		$this->register_acf_block();
-		$this->register_acf_fields();
-
-		foreach ( $this->child_blocks() as $child_block ) {
-			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
-		}
+	protected function supports(): array {
+		return array();
 	}
 
 	/**
@@ -88,6 +99,7 @@ abstract class Block {
 				'icon'       => $this->icon,
 				'render'     => $this->template(),
 				'textdomain' => 'wordpress-blocks',
+				'supports'   => $this->supports(),
 			)
 		);
 	}
@@ -129,6 +141,11 @@ abstract class Block {
 			'mode'           => 'preview',
 			'renderTemplate' => $block_data['render'],
 		);
+
+		// Remove support functionality if it is empty.
+		if ( empty( $block_data['supports'] ) ) {
+			unset( $block_data['supports'] );
+		}
 
 		// Remove render key from block data as we no longer need it.
 		unset( $block_data['render'] );
@@ -187,6 +204,7 @@ abstract class Block {
 					$parent_block,
 				),
 				'textdomain' => 'wordpress-blocks',
+				'supports'   => $child_block->supports,
 			)
 		);
 
