@@ -19,6 +19,18 @@ abstract class Block {
 	protected $icon = 'block-default';
 
 	/**
+	 * Function for fully registering the block and all associated functionality.
+	 */
+	public function __construct() {
+		$this->register_acf_block();
+		$this->register_acf_fields();
+
+		foreach ( $this->child_blocks() as $child_block ) {
+			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
+		}
+	}
+
+	/**
 	 * Function for providing the block's name.
 	 *
 	 * @return string The block's name (must be hyphen separated).
@@ -65,15 +77,14 @@ abstract class Block {
 	}
 
 	/**
-	 * Function for fully registering the block and all associated functionality.
+	 * Provide additonal support options for the block.
+	 *
+	 * https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles
+	 *
+	 * @return array
 	 */
-	public function __construct() {
-		$this->register_acf_block();
-		$this->register_acf_fields();
-
-		foreach ( $this->child_blocks() as $child_block ) {
-			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
-		}
+	protected function supports(): array {
+		return array();
 	}
 
 	/**
@@ -88,6 +99,7 @@ abstract class Block {
 				'icon'       => $this->icon,
 				'render'     => $this->template(),
 				'textdomain' => 'wordpress-blocks',
+				'supports'   => $this->supports(),
 			)
 		);
 	}
@@ -100,23 +112,29 @@ abstract class Block {
 	 * @return void
 	 */
 	protected function register_block_type( array $block_data ): void {
+		$wp_filesystem = $this->get_filesystem();
+		if ( ! $wp_filesystem ) {
+			throw new \Exception( 'Cannot cache block. Could not get filesystem.' );
+		}
+
 		// Check if the cache folder exists.
-		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks/';
-		$block_folder = $cache_folder . str_replace( '/', '-', $block_data['name'] );
-		$cache_file = $block_folder . '/block.json';
-		if ( file_exists( $cache_file ) ) {
+		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks';
+		$block_folder = $cache_folder . '/' . str_replace( '/', '-', $block_data['name'] );
+		$cache_file   = $block_folder . '/block.json';
+
+		if ( $wp_filesystem->exists( $cache_file ) ) {
 			register_block_type( $block_folder );
 			return;
 		}
 
 		// Create cache folder.
-		if ( ! file_exists( $cache_folder ) ) {
-			mkdir( $cache_folder, 0755, true );
+		if ( ! $wp_filesystem->exists( $cache_folder ) ) {
+			$wp_filesystem->mkdir( $cache_folder );
 		}
 
 		// Create block folder.
-		if ( ! file_exists( $block_folder ) ) {
-			mkdir( $block_folder, 0755, true );
+		if ( ! $wp_filesystem->exists( $block_folder ) ) {
+			$wp_filesystem->mkdir( $block_folder );
 		}
 
 		// Attach block schema to block data.
@@ -129,11 +147,16 @@ abstract class Block {
 			'renderTemplate' => $block_data['render'],
 		);
 
+		// Remove support functionality if it is empty.
+		if ( empty( $block_data['supports'] ) ) {
+			unset( $block_data['supports'] );
+		}
+
 		// Remove render key from block data as we no longer need it.
 		unset( $block_data['render'] );
 
 		// Save the block contents to cache file.
-		file_put_contents( $cache_file, json_encode( $block_data, JSON_UNESCAPED_SLASHES ) );
+		$wp_filesystem->put_contents( $cache_file, wp_json_encode( $block_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) );
 
 		register_block_type( $block_folder );
 	}
@@ -186,6 +209,7 @@ abstract class Block {
 					$parent_block,
 				),
 				'textdomain' => 'wordpress-blocks',
+				'supports'   => $child_block->supports,
 			)
 		);
 
@@ -247,5 +271,28 @@ abstract class Block {
 		}
 
 		return $parent_child_relationship[ $parent_block_name ];
+	}
+
+	/**
+	 * Attempts to get the WordPress filesystem.
+	 *
+	 * @return \WP_Filesystem_Base The WordPress filesystem.
+	 */
+	private function get_filesystem() {
+		global $wp_filesystem;
+
+		// If the filesystem is already initialised, return it.
+		if ( $wp_filesystem ) {
+			return $wp_filesystem;
+		}
+	
+		require_once( ABSPATH . '/wp-admin/includes/file.php' );
+	
+		// Check if credentials are needed.
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+	
+		return $wp_filesystem;
 	}
 }
