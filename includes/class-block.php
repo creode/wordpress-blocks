@@ -112,24 +112,29 @@ abstract class Block {
 	 * @return void
 	 */
 	protected function register_block_type( array $block_data ): void {
+		$wp_filesystem = $this->get_filesystem();
+		if ( ! $wp_filesystem ) {
+			throw new \Exception( 'Cannot cache block. Could not get filesystem.' );
+		}
+
 		// Check if the cache folder exists.
 		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks';
 		$block_folder = $cache_folder . '/' . str_replace( '/', '-', $block_data['name'] );
-		$cache_file = $block_folder . '/block.json';
+		$cache_file   = $block_folder . '/block.json';
 
-		if ( file_exists( $cache_file ) ) {
+		if ( $wp_filesystem->exists( $cache_file ) ) {
 			register_block_type( $block_folder );
 			return;
 		}
 
 		// Create cache folder.
-		if ( ! file_exists( $cache_folder ) ) {
-			mkdir( $cache_folder, 0755, true );
+		if ( ! $wp_filesystem->exists( $cache_folder ) ) {
+			$wp_filesystem->mkdir( $cache_folder );
 		}
 
 		// Create block folder.
-		if ( ! file_exists( $block_folder ) ) {
-			mkdir( $block_folder, 0755, true );
+		if ( ! $wp_filesystem->exists( $block_folder ) ) {
+			$wp_filesystem->mkdir( $block_folder );
 		}
 
 		// Attach block schema to block data.
@@ -151,7 +156,7 @@ abstract class Block {
 		unset( $block_data['render'] );
 
 		// Save the block contents to cache file.
-		file_put_contents( $cache_file, wp_json_encode( $block_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) );
+		$wp_filesystem->put_contents( $cache_file, wp_json_encode( $block_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) );
 
 		register_block_type( $block_folder );
 	}
@@ -266,5 +271,28 @@ abstract class Block {
 		}
 
 		return $parent_child_relationship[ $parent_block_name ];
+	}
+
+	/**
+	 * Attempts to get the WordPress filesystem.
+	 *
+	 * @return \WP_Filesystem_Base The WordPress filesystem.
+	 */
+	private function get_filesystem() {
+		global $wp_filesystem;
+
+		// If the filesystem is already initialised, return it.
+		if ( $wp_filesystem ) {
+			return $wp_filesystem;
+		}
+	
+		require_once( ABSPATH . '/wp-admin/includes/file.php' );
+	
+		// Check if credentials are needed.
+		if ( ! WP_Filesystem() ) {
+			return false;
+		}
+	
+		return $wp_filesystem;
 	}
 }
