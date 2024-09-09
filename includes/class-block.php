@@ -137,9 +137,9 @@ abstract class Block {
 			$wp_filesystem->mkdir( $block_folder );
 		}
 
-		// Attach block schema to block data.
+		// Attach block schema to block data. NOTE: ACF Currently only supports version 2.
 		$block_data['$schema']    = 'https://schemas.wp.org/trunk/block.json';
-		$block_data['apiVersion'] = 3;
+		$block_data['apiVersion'] = 2;
 
 		// Setup ACF Configuration for block.
 		$block_data['acf'] = array(
