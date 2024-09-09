@@ -26,4 +26,4 @@ Child blocks are defined within your block class inside the `child_blocks()` fun
 ## Roadmap
 
 - [ ] Continue to expand the base offering of block classes
-- [*] Implement a command to create new blocks in your theme using `WP_CLI`
+- [x] Implement a command to create new blocks in your theme using `WP_CLI`
