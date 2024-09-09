@@ -48,5 +48,6 @@ class Block_Cache {
 	protected function add_actions(): void {
 		add_action( 'load-post.php', array( $this, 'clear_block_cache' ) );
 		add_action( 'load-post-new.php', array( $this, 'clear_block_cache' ) );
+		add_action( 'load-site-editor.php', array( $this, 'clear_block_cache' ) );
 	}
 }
