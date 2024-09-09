@@ -19,6 +19,13 @@ abstract class Block {
 	protected $icon = 'block-default';
 
 	/**
+	 * Determines if this block provides any context to children.
+	 *
+	 * @var boolean
+	 */
+	protected $provides_context = false;
+
+	/**
 	 * Function for fully registering the block and all associated functionality.
 	 */
 	public function __construct() {
@@ -100,6 +107,7 @@ abstract class Block {
 				'render'     => $this->template(),
 				'textdomain' => 'wordpress-blocks',
 				'supports'   => $this->supports(),
+				'providesContext' => $this->provides_context,
 			)
 		);
 	}
@@ -150,6 +158,19 @@ abstract class Block {
 		// Remove support functionality if it is empty.
 		if ( empty( $block_data['supports'] ) ) {
 			unset( $block_data['supports'] );
+		}
+
+		// Handle context.
+		if ( ! empty( $block_data['usesContext'] ) && $block_data['usesContext'] ) {
+			$block_data['usesContext'] = $block_data['usesContext'];
+		} else {
+			unset( $block_data['usesContext'] );
+		}
+
+		if ( ! empty( $block_data['providesContext'] ) && $block_data['providesContext'] ) {
+			$block_data['providesContext'] = array( $block_data['name'] => 'data' );
+		} else {
+			unset( $block_data['providesContext'] );
 		}
 
 		// Remove render key from block data as we no longer need it.
@@ -210,6 +231,7 @@ abstract class Block {
 				),
 				'textdomain' => 'wordpress-blocks',
 				'supports'   => $child_block->supports,
+				'usesContext' => $this->provides_context ? array( $parent_block ) : false,
 			)
 		);
 
