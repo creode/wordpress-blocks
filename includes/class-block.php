@@ -125,11 +125,16 @@ abstract class Block {
 			throw new \Exception( 'Cannot cache block. Could not get filesystem.' );
 		}
 
-		// Check if the cache folder exists.
 		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks';
 		$block_folder = $cache_folder . '/' . str_replace( '/', '-', $block_data['name'] );
 		$cache_file   = $block_folder . '/block.json';
 
+		// Check if the cache root folder exists.
+		if ( ! $wp_filesystem->exists( WP_CONTENT_DIR . '/cache' ) ) {
+			$wp_filesystem->mkdir( WP_CONTENT_DIR . '/cache' );
+		}
+
+		// Check if the blocks cache folder exists.
 		if ( $wp_filesystem->exists( $cache_file ) ) {
 			register_block_type( $block_folder );
 			return;
