@@ -95,6 +95,17 @@ abstract class Block {
 	}
 
 	/**
+	 * Provides the capability of defining a default style object.
+	 *
+	 * https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#color-background
+	 *
+	 * @return array
+	 */
+	protected function default_style(): array {
+		return array();
+	}
+
+	/**
 	 * Function to register the block with ACF.
 	 */
 	protected function register_acf_block(): void {
@@ -176,6 +187,23 @@ abstract class Block {
 			$block_data['providesContext'] = array( $block_data['name'] => 'data' );
 		} else {
 			unset( $block_data['providesContext'] );
+		}
+
+		// Ensure that the attribute array is availible.
+		if ( ! isset( $block_data['attributes'] ) ) {
+			$block_data['attributes'] = array();
+		}
+
+		// Add default style object.
+		$default_style = $this->default_style();
+		if ( ! empty( $default_style ) ) {
+			if ( ! isset( $block_data['attributes']['style'] ) ) {
+				$block_data['attributes']['style'] = array(
+					'type' => 'object',
+				);
+			}
+
+			$block_data['attributes']['style']['default'] = $default_style;
 		}
 
 		// Remove render key from block data as we no longer need it.
