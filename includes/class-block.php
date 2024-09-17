@@ -140,15 +140,15 @@ abstract class Block {
 		$block_folder = $cache_folder . '/' . str_replace( '/', '-', $block_data['name'] );
 		$cache_file   = $block_folder . '/block.json';
 
-		// Check if the cache root folder exists.
-		if ( ! $wp_filesystem->exists( WP_CONTENT_DIR . '/cache' ) ) {
-			$wp_filesystem->mkdir( WP_CONTENT_DIR . '/cache' );
-		}
-
 		// Check if the blocks cache folder exists.
 		if ( $wp_filesystem->exists( $cache_file ) ) {
 			register_block_type( $block_folder );
 			return;
+		}
+
+		// Check if the cache root folder exists.
+		if ( ! $wp_filesystem->exists( WP_CONTENT_DIR . '/cache' ) ) {
+			$wp_filesystem->mkdir( WP_CONTENT_DIR . '/cache' );
 		}
 
 		// Create cache folder.
@@ -340,9 +340,9 @@ abstract class Block {
 		if ( $wp_filesystem ) {
 			return $wp_filesystem;
 		}
-	
-		require_once( ABSPATH . '/wp-admin/includes/file.php' );
-	
+
+		require_once ABSPATH . '/wp-admin/includes/file.php';
+
 		// Check if credentials are needed.
 		if ( ! WP_Filesystem() ) {
 			return false;
