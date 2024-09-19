@@ -12,6 +12,13 @@ namespace CreodeBlocks;
  */
 abstract class Block {
 	/**
+	 * Singleton instance of this class.
+	 *
+	 * @var Block
+	 */
+	private static $instance = null;
+
+	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
 	 *
 	 * @var string
@@ -28,13 +35,33 @@ abstract class Block {
 	/**
 	 * Function for fully registering the block and all associated functionality.
 	 */
-	public function __construct() {
+	private function __construct() {
 		$this->register_acf_block();
 		$this->register_acf_fields();
 
 		foreach ( $this->child_blocks() as $child_block ) {
 			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
 		}
+	}
+
+	/**
+	 * Set singleton instance of this class.
+	 */
+	public static function init(): void {
+		if ( self::$instance ) {
+			return;
+		}
+
+		self::$instance = new static();
+	}
+
+	/**
+	 * Get singleton instance of this class.
+	 *
+	 * @return Block The singleton instance of this class.
+	 */
+	public static function get_instance(): Block {
+		return self::$instance;
 	}
 
 	/**
