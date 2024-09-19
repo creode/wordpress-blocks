@@ -16,7 +16,7 @@ abstract class Block {
 	 *
 	 * @var Block
 	 */
-	private static $instance = null;
+	protected static $instance = null;
 
 	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
@@ -35,7 +35,7 @@ abstract class Block {
 	/**
 	 * Function for fully registering the block and all associated functionality.
 	 */
-	private function __construct() {
+	protected function __construct() {
 		$this->register_acf_block();
 		$this->register_acf_fields();
 
@@ -48,7 +48,7 @@ abstract class Block {
 	 * Set singleton instance of this class.
 	 */
 	public static function init(): void {
-		if ( self::$instance ) {
+		if ( static::$instance ) {
 			return;
 		}
 
