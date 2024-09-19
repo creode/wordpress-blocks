@@ -1,10 +1,19 @@
 <?php
 /**
- * :BLOCK_NAME
+ * :BLOCK_LABEL block class.
  */
+
 use CreodeBlocks\Block;
 
+/**
+ * :BLOCK_LABEL block class.
+ */
 class :BLOCK_CLASS_NAME extends Block {
+	/**
+	 * @inheritdoc
+	 */
+	protected static $instance = null;
+
 	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
 	 *

@@ -48,7 +48,7 @@ class Make_Block_Command {
 		WP_CLI::line( 'Add the following lines to your themes functions.php file:' );
 		WP_CLI::line();
 		WP_CLI::line( WP_CLI::colorize( "%Y%0$theme_require_path%n" ) );
-		WP_CLI::line( WP_CLI::colorize( "%Y%0new $block_class_name();%n" ) );
+		WP_CLI::line( WP_CLI::colorize( "%Y%0$block_class_name::init();%n" ) );
 	}
 
 	/**
@@ -66,7 +66,7 @@ class Make_Block_Command {
 		$block_class_name = str_replace( ' ', '_', $block_label );
 
 		// Run regex to strip anything out except for letters both upper and lowercase and dashes.
-		return preg_replace( '/[^a-zA-Z0-9_]/', '', $block_class_name );
+		return preg_replace( '/[^a-zA-Z0-9_]/', '', $block_class_name ) . '_Block';
 	}
 
 	/**
