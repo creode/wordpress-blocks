@@ -1,6 +1,6 @@
 <?php
 
-namespace CreodeBlocks;
+namespace Creode_Blocks;
 
 class Block_Cache {
 	/**

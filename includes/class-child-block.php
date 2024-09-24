@@ -5,12 +5,12 @@
  * @package Creode Blocks
  */
 
-namespace CreodeBlocks;
+namespace Creode_Blocks;
 
 /**
  * Class to store child block definition.
  */
-class ChildBlock {
+class Child_Block {
 
 	/**
 	 * The child block's name.
@@ -43,7 +43,7 @@ class ChildBlock {
 	/**
 	 * The child block's child blocks.
 	 *
-	 * @var ChildBlock[] Array of child blocks.
+	 * @var Child_Block[] Array of child blocks.
 	 */
 	protected $child_blocks = array();
 
@@ -68,7 +68,7 @@ class ChildBlock {
 	 * @param string       $label The child block's label.
 	 * @param array        $fields An array of field definitions in ACF format. Please see: https://www.advancedcustomfields.com/resources/register-fields-via-php/.
 	 * @param string       $template A path to the render template.
-	 * @param ChildBlock[] $child_blocks (Optional) Array of child blocks.
+	 * @param Child_Block[] $child_blocks (Optional) Array of child blocks.
 	 * @param string       $icon (Optional) Icon for Child block.
 	 * @param array        $supports (Optional) Array of supports configuration.
 	 */

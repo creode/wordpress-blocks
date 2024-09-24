@@ -29,7 +29,7 @@ $inner_block_template = array(
 <header class="header__wrapper">
 	<div class="header__inner">
 		<InnerBlocks className="header__sections"
-			allowedBlocks="<?php echo esc_attr( wp_json_encode( CreodeBlocks\Block::get_child_block_names( 'acf/creode-header' ) ) ); ?>"
+			allowedBlocks="<?php echo esc_attr( wp_json_encode( Creode_Blocks\Block::get_child_block_names( 'acf/creode-header' ) ) ); ?>"
 			template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
 		/>
 	</div>

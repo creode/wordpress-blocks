@@ -3,7 +3,7 @@
  * :BLOCK_LABEL block class.
  */
 
-use CreodeBlocks\Block;
+use Creode_Blocks\Block;
 
 /**
  * :BLOCK_LABEL block class.

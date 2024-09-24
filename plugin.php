@@ -15,6 +15,7 @@ define( 'CREODE_BLOCKS_PLUGIN_FOLDER', plugin_dir_path( __FILE__ ) );
 add_action(
 	'init',
 	function () {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/traits/trait-block-pattern-options.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-child-block.php';
 		require_once plugin_dir_path( __FILE__ ) . 'includes/class-block.php';
 		require_once plugin_dir_path( __FILE__ ) . 'blocks/all.php';
@@ -28,4 +29,4 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'make-block', 'Make_Block_Command' );
 }
 
-new CreodeBlocks\Block_Cache();
+new Creode_Blocks\Block_Cache();

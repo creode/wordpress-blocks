@@ -5,7 +5,7 @@
  * @package Creode Blocks
  */
 
-namespace CreodeBlocks;
+namespace Creode_Blocks;
 
 /**
  * Abstract class to extend for each block.
@@ -104,7 +104,7 @@ abstract class Block {
 	/**
 	 * Function for providing the child blocks
 	 *
-	 * @return ChildBlock[] Array of child blocks.
+	 * @return Child_Block[] Array of child blocks.
 	 */
 	protected function child_blocks(): array {
 		return array();
@@ -272,9 +272,9 @@ abstract class Block {
 	 * Function for fully registering child blocks.
 	 *
 	 * @param string     $parent_block The parent block name.
-	 * @param ChildBlock $child_block The child block to register.
+	 * @param Child_Block $child_block The child block to register.
 	 */
-	protected function register_child_block( string $parent_block, ChildBlock $child_block ): void {
+	protected function register_child_block( string $parent_block, Child_Block $child_block ): void {
 		if ( ! function_exists( 'acf_register_block_type' ) ) {
 			return;
 		}

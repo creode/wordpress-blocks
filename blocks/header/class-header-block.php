@@ -5,7 +5,7 @@
  * @package Creode Blocks
  */
 
-namespace CreodeBlocks;
+namespace Creode_Blocks;
 
 /**
  * Header block definition.
@@ -56,19 +56,19 @@ class HeaderBlock extends Block {
 		}
 
 		return array(
-			new ChildBlock(
+			new Child_Block(
 				'logo',
 				'Logo',
 				array(),
 				plugin_dir_path( __FILE__ ) . 'templates/logo.php'
 			),
-			new ChildBlock(
+			new Child_Block(
 				'general',
 				'General',
 				array(),
 				plugin_dir_path( __FILE__ ) . 'templates/general.php'
 			),
-			new ChildBlock(
+			new Child_Block(
 				'menu',
 				'Menu',
 				array(

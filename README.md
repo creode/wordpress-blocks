@@ -8,7 +8,7 @@ Installation of this can be done using composer: `composer require creode/wordpr
 This plugin once installed will be added to the mu-plugin folder so it is ready for it to be used in your project.
 
 ### Creating new blocks
-In order to create new blocks, you can add a new class to your theme or plugin and extend the `CreodeBlocks\Block` class.
+In order to create new blocks, you can add a new class to your theme or plugin and extend the `Creode_Blocks\Block` class.
 
 If you are utilising WP_CLI for your project, you can use the following command to create a new block class:
 
@@ -21,7 +21,7 @@ This will create a newly configured block class and template file within your th
 It will also output a couple of lines that can be copy and pasted into your `functions.php` file to include the block class and get started quickly.
 
 ### Creating child blocks
-Child blocks are defined within your block class inside the `child_blocks()` function. You can just need to return an array of new `CreodeBlocks\ChildBlock` instances from it.
+Child blocks are defined within your block class inside the `child_blocks()` function. You can just need to return an array of new `Creode_Blocks\Child_Block` instances from it.
 
 ## Roadmap
 
