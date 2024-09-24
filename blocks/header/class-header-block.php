@@ -10,7 +10,7 @@ namespace Creode_Blocks;
 /**
  * Header block definition.
  */
-class HeaderBlock extends Block {
+class Header_Block extends Block {
 	/**
 	 * @inheritdoc
 	 */
