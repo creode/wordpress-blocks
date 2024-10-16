@@ -8,7 +8,7 @@
 $menu_id = get_field( 'menu_id' );
 ?>
 
-<div class="header__section header__section--menu header__section--desktop-menu">
+<div class="header__section header__section--menu header__section--desktop-menu" <?php if ( ! is_admin() ) : ?>style="display:none;"<?php endif; ?>>
 	<div class="header__menu-toggle-wrapper" hidden aria-hidden>
 		<input id="header-menu-toggle" type="checkbox" class="header__menu-toggle" hidden aria-hidden>
 		<label for="header-menu-toggle" class="header__menu-toggle-label" aria-haspopup="menu" :aria-expanded="menuExpanded" aria-controls="header-menu">
