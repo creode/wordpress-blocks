@@ -64,9 +64,9 @@ abstract class Block {
 	/**
 	 * Get singleton instance of this class.
 	 *
-	 * @return Block The singleton instance of this class.
+	 * @return Block|null The singleton instance of this class.
 	 */
-	public static function get_instance(): Block {
+	public static function get_instance(): Block|null {
 		return self::$instance;
 	}
 
