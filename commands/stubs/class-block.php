@@ -15,6 +15,11 @@ class :BLOCK_CLASS_NAME extends Block {
 	protected static $instance = null;
 
 	/**
+	 * @inheritdoc
+	 */
+	protected function setup() {}
+
+	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
 	 *
 	 * @var string

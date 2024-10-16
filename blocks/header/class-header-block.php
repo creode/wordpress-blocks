@@ -11,6 +11,9 @@ namespace Creode_Blocks;
  * Header block definition.
  */
 class Header_Block extends Block {
+
+	use Trait_Menu_Integration;
+
 	/**
 	 * @inheritdoc
 	 */
@@ -48,13 +51,6 @@ class Header_Block extends Block {
 	 * {@inheritDoc}
 	 */
 	protected function child_blocks(): array {
-		$menus_choices = array(
-			'' => 'None',
-		);
-		foreach ( wp_get_nav_menus() as $menu_term ) {
-			$menus_choices[ $menu_term->term_id ] = $menu_term->name;
-		}
-
 		return array(
 			new Child_Block(
 				'logo',
@@ -77,7 +73,7 @@ class Header_Block extends Block {
 						'label'   => 'Menu',
 						'name'    => 'menu_id',
 						'type'    => 'select',
-						'choices' => $menus_choices,
+						'choices' => $this->get_menu_choices(),
 					),
 				),
 				plugin_dir_path( __FILE__ ) . 'templates/menu.php'

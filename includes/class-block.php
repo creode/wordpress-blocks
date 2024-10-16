@@ -35,7 +35,8 @@ abstract class Block {
 	/**
 	 * Function for fully registering the block and all associated functionality.
 	 */
-	protected function __construct() {
+	private function __construct() {
+		$this->setup();
 		$this->register_acf_block();
 		$this->register_acf_fields();
 
@@ -43,6 +44,11 @@ abstract class Block {
 			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
 		}
 	}
+
+	/**
+	 * Function to be overidden for performing block-specific setup actions.
+	 */
+	protected function setup() {}
 
 	/**
 	 * Set singleton instance of this class.

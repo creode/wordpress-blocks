@@ -2,7 +2,7 @@
 /**
  * Trait for managing and rendering integrated block pattern references.
  *
- * @package GS Festivals
+ * @package Creode Blocks
  */
 
 namespace Creode_Blocks;
