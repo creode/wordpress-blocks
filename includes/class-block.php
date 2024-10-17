@@ -242,6 +242,10 @@ abstract class Block {
 		// Remove render key from block data as we no longer need it.
 		unset( $block_data['render'] );
 
+		$block_data['example'] = array(
+			'viewportWidth' => 1200,
+		);
+
 		// Save the block contents to cache file.
 		$wp_filesystem->put_contents( $cache_file, wp_json_encode( $block_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES ) );
 
