@@ -15,6 +15,13 @@ class Header_Block extends Block {
 	use Trait_Menu_Integration;
 
 	/**
+	 * Singleton instance of this class.
+	 *
+	 * @var Block
+	 */
+	protected static $instance = null;
+
+	/**
 	 * @inheritdoc
 	 */
 	protected $icon = 'menu';
