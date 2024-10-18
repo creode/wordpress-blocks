@@ -49,7 +49,7 @@ class Header_Block extends Block {
 	 * {@inheritDoc}
 	 */
 	protected function template(): string {
-		return plugin_dir_path( __FILE__ ) . 'templates/header.php';
+		return plugin_dir_path( __FILE__ ) . 'templates/block.php';
 	}
 
 	/**
@@ -74,9 +74,9 @@ class Header_Block extends Block {
 				'Menu',
 				array(
 					array(
-						'key'     => 'field_header_menu',
+						'key'     => 'field_header_menu_location',
 						'label'   => 'Menu',
-						'name'    => 'menu_id',
+						'name'    => 'menu_location',
 						'type'    => 'select',
 						'choices' => $this->get_menu_choices(),
 					),

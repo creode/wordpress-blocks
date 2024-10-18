@@ -13,19 +13,46 @@ namespace Creode_Blocks;
 trait Trait_Menu_Integration {
 
 	/**
-	 * Returns all configured WordPress menus for use in ACF select fields.
+	 * Returns all WordPress menu locations for use in ACF select fields.
 	 *
 	 * @return array
 	 */
 	protected function get_menu_choices(): array {
-		$menus_choices = array(
-			'' => 'None',
-		);
-		foreach ( wp_get_nav_menus() as $menu_term ) {
-			$menus_choices[ $menu_term->term_id ] = $menu_term->name;
-		}
+		global $_wp_registered_nav_menus;
 
-		return $menus_choices;
+		return array_merge(
+			array(
+				'' => 'None',
+			),
+			$_wp_registered_nav_menus ? $_wp_registered_nav_menus : array()
+		);
 	}
 
+	/**
+	 * Renders a menu by menu location.
+	 *
+	 * @param string $location The menu location.
+	 */
+	public function render_menu_by_location( string $location ): void {
+		$menu_id = null;
+
+		foreach ( get_nav_menu_locations() as $loop_location => $loop_menu_id ) {
+			if ( $loop_location !== $location ) {
+				continue;
+			}
+
+			$menu_id = $loop_menu_id;
+		}
+
+		if ( ! $menu_id ) {
+			return;
+		}
+
+		wp_nav_menu(
+			array(
+				'container' => '',
+				'menu'      => $menu_id,
+			)
+		);
+	}
 }

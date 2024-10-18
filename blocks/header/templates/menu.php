@@ -5,7 +5,13 @@
  * @package Creode Blocks
  */
 
-$menu_id = get_field( 'menu_id' );
+$block = Creode_Blocks\Helpers::get_block_by_name( 'creode-header' );
+
+if ( ! $block ) {
+	return;
+}
+
+$menu_location = get_field( 'menu_location' );
 ?>
 
 <div class="header__section header__section--menu header__section--desktop-menu" <?php if ( ! is_admin() ) : ?>style="display:none;"<?php endif; ?>>
@@ -22,16 +28,7 @@ $menu_id = get_field( 'menu_id' );
 					Close menu
 				</button>
 			</div>
-			<?php if ( $menu_id ) : ?>
-				<?php
-					wp_nav_menu(
-						array(
-							'container' => '',
-							'menu'      => $menu_id,
-						)
-					);
-				?>
-			<?php endif; ?>
+			<?php $block->render_menu_by_location( ! empty( $menu_location ) ? $menu_location : '' ); ?>
 		</nav>
 	</div>
 </div>
