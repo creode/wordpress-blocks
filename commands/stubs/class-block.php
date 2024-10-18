@@ -10,14 +10,9 @@ use Creode_Blocks\Block;
  */
 class :BLOCK_CLASS_NAME extends Block {
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	protected static $instance = null;
-
-	/**
-	 * @inheritdoc
-	 */
-	protected function setup() {}
 
 	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
@@ -27,28 +22,33 @@ class :BLOCK_CLASS_NAME extends Block {
 	protected $icon = 'block-default';
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
+	 */
+	protected function setup() {}
+
+	/**
+	 * {@inheritdoc}
 	 */
 	protected function name(): string {
 		return ':BLOCK_NAME';
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	protected function label(): string {
 		return ':BLOCK_LABEL';
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	protected function fields(): array {
 		return array();
 	}
 
 	/**
-	 * @inheritdoc
+	 * {@inheritdoc}
 	 */
 	protected function template(): string {
 		return :BLOCK_TEMPLATE;
