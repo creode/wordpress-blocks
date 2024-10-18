@@ -59,15 +59,17 @@ abstract class Block {
 		}
 
 		static::$instance = new static();
-	}
 
-	/**
-	 * Get singleton instance of this class.
-	 *
-	 * @return Block|null The singleton instance of this class.
-	 */
-	public static function get_instance(): Block|null {
-		return static::$instance;
+		// Provide instance through globally availible filter.
+		$instance = static::$instance;
+		add_filter(
+			'creode_block_instances',
+			function ( array $instances ) use ( $instance ) {
+				$instances[ $instance->name() ] = $instance;
+
+				return $instances;
+			}
+		);
 	}
 
 	/**

@@ -1,4 +1,23 @@
 <?php
+/**
+ * Example block template file.
+ *
+ * @package Creode Blocks
+ */
+
+/**
+ * Load your block object.
+ * Replace "BLOCK_NAME_HERE" with your block name.
+ * Delete the following lines if not needed.
+ */
+$block = Creode_Blocks\Helpers::get_block_by_name( 'BLOCK_NAME_HERE' );
+
+if ( ! $block ) {
+	echo 'Example block output.';
+
+	return;
+}
+
 $allowed_inner_blocks = array(
 	'core/paragraph',
 );
