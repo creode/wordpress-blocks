@@ -42,9 +42,19 @@ trait Trait_Block_Pattern_Options {
 	 * @param string $block_pattern_slug The slug of the pattern to render.
 	 */
 	public static function render_block_pattern( string $block_pattern_slug ): void {
+		$allowed_html          = wp_kses_allowed_html( 'post' );
+		$allowed_html['input'] = array(
+			'id'          => true,
+			'type'        => true,
+			'class'       => true,
+			'hidden'      => true,
+			'aria-hidden' => true,
+		);
+		$allowed_html          = apply_filters( 'creode_blocks_inetgrated_pattern_allowed_html', $allowed_html );
+
 		$block_posts = get_posts(
 			array(
-				'post_type' => 'wp_block',
+				'post_type'   => 'wp_block',
 				'numberposts' => -1,
 			)
 		);
@@ -54,8 +64,7 @@ trait Trait_Block_Pattern_Options {
 				continue;
 			}
 
-			$block_pattern = parse_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' )[0];
-			echo wp_kses_post( render_block( $block_pattern ) );
+			echo wp_kses( do_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' ), $allowed_html );
 		}
 	}
 
