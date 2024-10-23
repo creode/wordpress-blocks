@@ -50,7 +50,7 @@ trait Trait_Block_Pattern_Options {
 			'hidden'      => true,
 			'aria-hidden' => true,
 		);
-		$allowed_html          = apply_filters( 'creode_blocks_inetgrated_pattern_allowed_html', $allowed_html );
+		$allowed_html          = apply_filters( 'creode_blocks_integrated_pattern_allowed_html', $allowed_html );
 
 		$block_posts = get_posts(
 			array(
