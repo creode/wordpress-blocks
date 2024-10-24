@@ -137,14 +137,16 @@ abstract class Block {
 	}
 
 	/**
-	 * Provide additonal support options for the block.
+	 * Provide additional support options for the block.
 	 *
 	 * https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles
 	 *
 	 * @return array
 	 */
 	protected function supports(): array {
-		return array();
+		return array(
+			'mode' => false,
+		);
 	}
 
 	/**
@@ -221,7 +223,7 @@ abstract class Block {
 
 		// Setup ACF Configuration for block.
 		$block_data['acf'] = array(
-			'mode'           => apply_filters( $block_data['name'] . '_editor_preview_mode', true ) ? 'preview' : 'edit',
+			'mode'           => apply_filters( $block_data['name'] . '_acf_block_mode', 'preview' ),
 			'renderTemplate' => $block_data['render'],
 		);
 
@@ -229,9 +231,6 @@ abstract class Block {
 		if ( empty( $block_data['supports'] ) ) {
 			$block_data['supports'] = array();
 		}
-
-		// Disable mode toggling.
-		$block_data['supports']['mode'] = false;
 
 		// Handle context.
 		if ( ! empty( $block_data['usesContext'] ) && $block_data['usesContext'] ) {

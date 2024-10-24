@@ -87,7 +87,7 @@ class Child_Block {
 		$this->template     = $template;
 		$this->child_blocks = $child_blocks;
 		$this->icon         = $icon;
-		$this->supports     = $supports;
+		$this->supports     = array_merge( array( 'mode' => false ), $supports );
 	}
 
 	/**

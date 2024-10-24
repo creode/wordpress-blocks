@@ -23,4 +23,13 @@ class Helpers {
 
 		return isset( $blocks[ $name ] ) ? $blocks[ $name ] : null;
 	}
+
+	public static function set_acf_block_mode( string $block_name, string $mode = 'preview' ) {
+		add_filter(
+			$block_name . '_acf_block_mode',
+			function () use ( $mode ) {
+				return $mode;
+			}
+		);
+	}
 }
