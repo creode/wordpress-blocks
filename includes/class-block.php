@@ -221,14 +221,17 @@ abstract class Block {
 
 		// Setup ACF Configuration for block.
 		$block_data['acf'] = array(
-			'mode'           => 'preview',
+			'mode'           => apply_filters( $block_data['name'] . '_editor_preview_mode', true ) ? 'preview' : 'edit',
 			'renderTemplate' => $block_data['render'],
 		);
 
-		// Remove support functionality if it is empty.
+		// Add support functionality if it is empty.
 		if ( empty( $block_data['supports'] ) ) {
-			unset( $block_data['supports'] );
+			$block_data['supports'] = array();
 		}
+
+		// Disable mode toggling.
+		$block_data['supports']['mode'] = false;
 
 		// Handle context.
 		if ( ! empty( $block_data['usesContext'] ) && $block_data['usesContext'] ) {
