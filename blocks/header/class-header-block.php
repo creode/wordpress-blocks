@@ -15,7 +15,9 @@ class Header_Block extends Block {
 	use Trait_Menu_Integration;
 
 	/**
-	 * {@inheritdoc}
+	 * Singleton instance of this class.
+	 *
+	 * @var Header_Block
 	 */
 	protected static $instance = null;
 

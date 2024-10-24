@@ -94,11 +94,22 @@ abstract class Block {
 	abstract protected function label(): string;
 
 	/**
+	 * Function for providing the block's description to be used within the WordPress UI.
+	 *
+	 * @return string The block's description.
+	 */
+	protected function description(): string {
+		return '';
+	}
+
+	/**
 	 * Function for providing fields array.
 	 *
 	 * @return array An array of field definitions in ACF format. Please see: https://www.advancedcustomfields.com/resources/register-fields-via-php/.
 	 */
-	abstract protected function fields(): array;
+	protected function fields(): array {
+		return array();
+	}
 
 	/**
 	 * Function for providing a path to the render template.
@@ -153,13 +164,14 @@ abstract class Block {
 	protected function register_acf_block(): void {
 		$this->register_block_type(
 			array(
-				'name'       => 'acf/' . $this->name(),
-				'title'      => $this->label(),
-				'category'   => $this->category(),
-				'icon'       => $this->icon,
-				'render'     => $this->template(),
-				'textdomain' => 'wordpress-blocks',
-				'supports'   => $this->supports(),
+				'name'            => 'acf/' . $this->name(),
+				'title'           => $this->label(),
+				'description'     => $this->description(),
+				'category'        => $this->category(),
+				'icon'            => $this->icon,
+				'render'          => $this->template(),
+				'textdomain'      => 'wordpress-blocks',
+				'supports'        => $this->supports(),
 				'providesContext' => $this->provides_context,
 			)
 		);
