@@ -156,8 +156,52 @@ class Search_And_Filter_Block extends Block {
 
 		return array(
 			new Child_Block(
+				'form',
+				'Search and Filter Form',
+				array(),
+				plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form.php',
+				array(
+					new Child_Block(
+						'search',
+						'Search and Filter Search',
+						array(),
+						plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form/search.php',
+					),
+					new Child_Block(
+						'choice',
+						'Search and Filter Choice',
+						array(),
+						plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form/choice.php',
+					),
+					new Child_Block(
+						'range',
+						'Search and Filter Range',
+						array(),
+						plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form/range.php',
+					),
+					new Child_Block(
+						'advanced',
+						'Search and Filter Advanced',
+						array(),
+						plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form/advanced.php',
+					),
+					new Child_Block(
+						'reusable',
+						'Search and Filter Reusable',
+						array(),
+						plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form/reusable.php',
+					),
+					new Child_Block(
+						'control',
+						'Search and Filter Control',
+						array(),
+						plugin_dir_path( __FILE__ ) . 'templates/child-blocks/form/control.php',
+					),
+				)
+			),
+			new Child_Block(
 				'results',
-				'Results',
+				'Search and Filter Results',
 				array(
 					array(
 						'key'           => 'field_search_and_filter_results_query_id',

@@ -5,19 +5,27 @@
  * @package Creode Blocks
  */
 
-$allowed_inner_blocks = array(
-	'core/heading',
-	'core/paragraph',
-	'core/list',
-);
-$inner_block_template = array(
+$allowed_inner_blocks = apply_filters(
+	'creode_blocks_search_and_filter_allowed_inner_blocks',
 	array(
 		'core/heading',
+		'core/paragraph',
+		'core/list',
+		'core/buttons',
+	)
+);
+$inner_block_template = apply_filters(
+	'creode_blocks_search_and_filter_inner_block_template',
+	array(
 		array(
-			'content' => 'Search and Filter',
+			'core/heading',
+			array(
+				'content' => 'Search and Filter',
+			),
 		),
-	),
-	array( 'acf/search-and-filter-results' ),
+		array( 'acf/search-and-filter-form' ),
+		array( 'acf/search-and-filter-results' ),
+	)
 );
 ?>
 <div class="search-and-filter__wrapper">
