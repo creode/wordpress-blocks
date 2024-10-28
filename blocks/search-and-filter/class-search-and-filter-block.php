@@ -17,6 +17,7 @@ use WP_Query;
  */
 class Search_And_Filter_Block extends Block {
 
+	use Trait_Has_Modifier_Classes;
 	use Trait_Block_Pattern_Options;
 
 	/**
@@ -42,6 +43,13 @@ class Search_And_Filter_Block extends Block {
 		$this->ensure_results_template_exists();
 
 		return true;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected function modifier_classes(): array {
+		return array();
 	}
 
 	/**
