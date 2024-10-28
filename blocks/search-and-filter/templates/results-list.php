@@ -20,7 +20,7 @@
 
 <?php wp_reset_postdata(); ?>
 
-<?php if ( 1 < $query->max_num_pages && 'default' === $pagination_type ) : ?>
+<?php if ( ! $disable_pagination && 1 < $query->max_num_pages && 'default' === $pagination_type ) : ?>
 	<div class="search-and-filter__pagination">
 		<?php
 			echo wp_kses_post(

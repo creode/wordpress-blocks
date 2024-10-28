@@ -21,7 +21,9 @@ class Search_And_Filter_Block extends Block {
 	use Trait_Block_Pattern_Options;
 
 	/**
-	 * {@inheritdoc}
+	 * Singleton instance of this class.
+	 *
+	 * @var Block
 	 */
 	protected static $instance = null;
 
@@ -40,6 +42,7 @@ class Search_And_Filter_Block extends Block {
 		}
 
 		$this->add_pattern_query_setting();
+		$this->disable_pagination_query_setting();
 		$this->ensure_results_template_exists();
 
 		return true;
@@ -99,6 +102,47 @@ class Search_And_Filter_Block extends Block {
 						'position' => array(
 							'placement' => 'after',
 							'setting'   => 'resultsShortcode',
+						),
+					)
+				);
+			}
+		);
+	}
+
+	/**
+	 * Adds a setting to Search and Filter queries to disable pagination.
+	 */
+	protected function disable_pagination_query_setting() {
+		add_action(
+			'search-filter/settings/init',
+			function () {
+				Search_Filter_Query_Settings::add_setting(
+					array(
+						'name'      => 'disablePagination',
+						'label'     => 'Disable pagination',
+						'group'     => 'integration',
+						'type'      => 'string',
+						'inputType' => 'Toggle',
+						'dependsOn' => array(
+							'relation' => 'AND',
+							'rules'    => array(
+								array(
+									'option'  => 'integrationType',
+									'compare' => '=',
+									'value'   => 'single',
+								),
+								array(
+									'option'  => 'singleIntegration',
+									'compare' => '=',
+									'value'   => 'results_shortcode',
+								),
+							),
+						),
+					),
+					array(
+						'position' => array(
+							'placement' => 'after',
+							'setting'   => 'resultRenderPattern',
 						),
 					)
 				);
@@ -277,6 +321,8 @@ class Search_And_Filter_Block extends Block {
 
 		$pagination_type = $search_filter_query->get_attribute( 'resultsPaginationType' );
 		$pagination_type = ! empty( $pagination_type ) ? $pagination_type : 'default';
+
+		$disable_pagination = $search_filter_query->get_attribute( 'disablePagination' ) === 'yes' ? true : false;
 
 		include apply_filters( 'creode_blocks_search_and_filter_results_list_template', plugin_dir_path( __FILE__ ) . 'templates/results-list.php' );
 	}
