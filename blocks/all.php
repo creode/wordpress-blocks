@@ -35,7 +35,8 @@ add_action(
 		);
 
 		Integrated_Pattern_Block::init();
-	}
+	},
+	5
 );
 
 // Load optional blocks.

@@ -40,12 +40,17 @@ abstract class Block {
 			return;
 		}
 
-		$this->register_acf_block();
-		$this->register_acf_fields();
+		add_action(
+			'init',
+			function () {
+				$this->register_acf_block();
+				$this->register_acf_fields();
 
-		foreach ( $this->child_blocks() as $child_block ) {
-			$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
-		}
+				foreach ( $this->child_blocks() as $child_block ) {
+					$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
+				}
+			}
+		);
 	}
 
 	/**
