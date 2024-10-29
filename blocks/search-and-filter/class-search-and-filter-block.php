@@ -299,7 +299,6 @@ class Search_And_Filter_Block extends Block {
 	 *
 	 * @param array    $args Array of arguments provided by Search and Filter to the results template.
 	 * @param WP_Query $query The WP_Query object privided by Search and Filter to the results template.
-	 * @throws WP_Error Throws an error if the search and filter query cannot be found.
 	 */
 	public function render_results_list( array $args, WP_Query $query ) {
 		if ( empty( $args['search_filter_query_id'] ) ) {
@@ -309,7 +308,8 @@ class Search_And_Filter_Block extends Block {
 		$search_filter_query = Search_Filter_Query::find( array( 'id' => $args['search_filter_query_id'] ) );
 
 		if ( 'WP_Error' === get_class( $search_filter_query ) ) {
-			throw $search_filter_query;
+			echo '<p>' . esc_html( $search_filter_query->get_error_message() ) . '</p>';
+			return;
 		}
 
 		$pattern = $search_filter_query->get_attribute( 'resultRenderPattern' );
