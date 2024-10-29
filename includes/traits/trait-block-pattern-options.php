@@ -42,16 +42,6 @@ trait Trait_Block_Pattern_Options {
 	 * @param string $block_pattern_slug The slug of the pattern to render.
 	 */
 	public static function render_block_pattern( string $block_pattern_slug ): void {
-		$allowed_html          = wp_kses_allowed_html( 'post' );
-		$allowed_html['input'] = array(
-			'id'          => true,
-			'type'        => true,
-			'class'       => true,
-			'hidden'      => true,
-			'aria-hidden' => true,
-		);
-		$allowed_html          = apply_filters( 'creode_blocks_integrated_pattern_allowed_html', $allowed_html );
-
 		$block_posts = get_posts(
 			array(
 				'post_type'   => 'wp_block',
@@ -64,7 +54,8 @@ trait Trait_Block_Pattern_Options {
 				continue;
 			}
 
-			echo wp_kses( do_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' ), $allowed_html );
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo preg_replace( '/<script.*?>(.*)?<\/script>/im', '', do_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' ) );
 		}
 	}
 
@@ -77,6 +68,7 @@ trait Trait_Block_Pattern_Options {
 	public static function render_block_pattern_in_post_context( int $post_id, string $block_pattern_slug ): void {
 		global $post;
 
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$post = get_post( $post_id, OBJECT );
 		setup_postdata( $post );
 		self::render_block_pattern( $block_pattern_slug );
