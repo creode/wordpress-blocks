@@ -139,7 +139,7 @@ abstract class Block {
 	/**
 	 * Provide additional support options for the block.
 	 *
-	 * https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles
+	 * Please see: https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles
 	 *
 	 * @return array
 	 */
@@ -152,7 +152,7 @@ abstract class Block {
 	/**
 	 * Provides the capability of defining a default style object.
 	 *
-	 * https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#color-background
+	 * Please see: https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#color-background
 	 *
 	 * @return array
 	 */
@@ -182,8 +182,8 @@ abstract class Block {
 	/**
 	 * Registers the block type using the provided block data.
 	 *
-	 * @param array $block_data 
-	 *
+	 * @param array $block_data The block data.
+	 * @throws \Exception If filesystem cannot be accessed.
 	 * @return void
 	 */
 	protected function register_block_type( array $block_data ): void {
@@ -304,7 +304,7 @@ abstract class Block {
 	/**
 	 * Function for fully registering child blocks.
 	 *
-	 * @param string     $parent_block The parent block name.
+	 * @param string      $parent_block The parent block name.
 	 * @param Child_Block $child_block The child block to register.
 	 */
 	protected function register_child_block( string $parent_block, Child_Block $child_block ): void {
@@ -407,7 +407,7 @@ abstract class Block {
 		if ( ! WP_Filesystem() ) {
 			return false;
 		}
-	
+
 		return $wp_filesystem;
 	}
 }
