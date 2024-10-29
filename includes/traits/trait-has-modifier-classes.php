@@ -20,6 +20,7 @@ trait Trait_Has_Modifier_Classes {
 	 */
 	public function get_modifier_class_string( string $base_class = 'example-block__wrapper' ): string {
 		return implode(
+			' ',
 			array_map(
 				function ( string $modifier_class ) use ( $base_class ) {
 					return $base_class . '--' . $modifier_class;
