@@ -65,7 +65,7 @@ class Search_And_Filter_Block extends Block {
 			array_push(
 				$choices,
 				array(
-					'value' => $value,
+					'value' => empty( $value ) ? '-' : $value,
 					'label' => $label,
 				)
 			);
