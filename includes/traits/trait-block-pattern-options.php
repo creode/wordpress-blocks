@@ -55,7 +55,7 @@ trait Trait_Block_Pattern_Options {
 			}
 
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo preg_replace( '/<script.*?>(.*)?<\/script>/im', '', do_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' ) );
+			echo preg_replace( '/<script.*?>(.*)?<\/script>/im', '', str_replace( PHP_EOL, '', do_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' ) ) );
 		}
 	}
 
