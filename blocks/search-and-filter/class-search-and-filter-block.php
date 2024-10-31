@@ -314,7 +314,7 @@ class Search_And_Filter_Block extends Block {
 
 		$pattern = $search_filter_query->get_attribute( 'resultRenderPattern' );
 
-		if ( empty( $pattern ) ) {
+		if ( empty( $pattern ) || '-' === $pattern ) {
 			echo '<p>Please choose a result render pattern for this search and filter query.</p>';
 			return;
 		}
