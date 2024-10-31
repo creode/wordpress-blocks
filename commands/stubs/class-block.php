@@ -26,7 +26,9 @@ class :BLOCK_CLASS_NAME extends Block {
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function setup(): bool {}
+	protected function setup(): bool {
+		return true;
+	}
 
 	/**
 	 * {@inheritdoc}
