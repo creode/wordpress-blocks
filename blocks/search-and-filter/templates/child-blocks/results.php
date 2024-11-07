@@ -14,5 +14,5 @@ if ( empty( $query_id ) ) {
 ?>
 
 <div class="search-and-filter__section search-and-filter__section--results">
-	<?php echo do_shortcode( '[searchandfilter query="' . $query_id . '" action="show-results"]' ); ?>
+	<p>Results will be shown here.</p>
 </div>
