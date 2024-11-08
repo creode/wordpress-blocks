@@ -9,6 +9,7 @@ namespace Creode_Blocks;
 
 // Load utility blocks.
 require_once plugin_dir_path( __FILE__ ) . 'integrated-pattern/class-integrated-pattern-block.php';
+require_once plugin_dir_path( __FILE__ ) . 'integrated-menu/class-integrated-menu-block.php';
 
 // Initialise utility blocks.
 add_action(
@@ -35,6 +36,7 @@ add_action(
 		);
 
 		Integrated_Pattern_Block::init();
+		Integrated_Menu_Block::init();
 	},
 	5
 );

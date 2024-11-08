@@ -45,6 +45,7 @@ trait Trait_Menu_Integration {
 		}
 
 		if ( ! $menu_id ) {
+			echo 'No menu found.';
 			return;
 		}
 
