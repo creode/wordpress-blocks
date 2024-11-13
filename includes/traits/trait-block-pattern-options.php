@@ -68,6 +68,8 @@ trait Trait_Block_Pattern_Options {
 	public static function render_block_pattern_in_post_context( int $post_id, string $block_pattern_slug ): void {
 		global $post;
 
+		$post_id = apply_filters( 'wpml_object_id', $post_id, 'post' );
+
 		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$post = get_post( $post_id, OBJECT );
 		setup_postdata( $post );
