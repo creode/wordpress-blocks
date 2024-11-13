@@ -1,6 +1,6 @@
 <?php
 /**
- * Trait for resticting a block to a specific editor context.
+ * Trait for restricting a block to a specific editor context.
  *
  * @package Creode Blocks
  */
@@ -12,7 +12,7 @@ use WP_Block_Type_Registry;
 use WP_Block_Type;
 
 /**
- * Trait for resticting a block to a specific editor context.
+ * Trait for restricting a block to a specific editor context.
  */
 trait Trait_Restrict_To_Editor_Context {
 
