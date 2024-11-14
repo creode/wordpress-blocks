@@ -22,7 +22,9 @@ class Header_Block extends Block {
 	protected static $instance = null;
 
 	/**
-	 * {@inheritDoc}
+	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
+	 *
+	 * @var string
 	 */
 	protected $icon = 'menu';
 

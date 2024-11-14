@@ -27,6 +27,7 @@ $inner_block_template = array(
 ?>
 
 <?php if ( ! $is_preview ) : ?>
+	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	<div <?php echo get_block_wrapper_attributes( array( 'class' => 'block__outer-wrapper' ) ); ?>>
 <?php endif; ?>
 

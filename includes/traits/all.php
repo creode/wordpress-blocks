@@ -5,6 +5,8 @@
  * @package Creode Blocks
  */
 
+namespace Creode_Blocks;
+
 require_once plugin_dir_path( __FILE__ ) . 'trait-restrict-to-editor-context.php';
 require_once plugin_dir_path( __FILE__ ) . 'trait-has-modifier-classes.php';
 require_once plugin_dir_path( __FILE__ ) . 'trait-block-pattern-options.php';
