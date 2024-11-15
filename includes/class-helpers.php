@@ -38,7 +38,7 @@ class Helpers {
 	 * Renders a content string (of blocks) in the context of a post.
 	 *
 	 * @param string $content The content string.
-	 * @param int    $post_id This ID of the context post.
+	 * @param int    $post_id The ID of the context post.
 	 */
 	public static function render_blocks_in_post_context( string $content, int $post_id ) {
 		global $post;
