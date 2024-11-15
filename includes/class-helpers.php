@@ -25,6 +25,34 @@ class Helpers {
 	}
 
 	/**
+	 * Renders and sanitizes a content string of blocks.
+	 *
+	 * @param string $content The content string.
+	 */
+	public static function render_blocks( string $content ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo preg_replace( '/<script.*?>(.*)?<\/script>/im', '', str_replace( PHP_EOL, '', do_blocks( $content ) ) );
+	}
+
+	/**
+	 * Renders a content string (of blocks) in the context of a post.
+	 *
+	 * @param string $content The content string.
+	 * @param int    $post_id This ID of the context post.
+	 */
+	public static function render_blocks_in_post_context( string $content, int $post_id ) {
+		global $post;
+
+		$post_id = apply_filters( 'wpml_object_id', $post_id, 'post' );
+
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		$post = get_post( $post_id, OBJECT );
+		setup_postdata( $post );
+		self::render_blocks( $content );
+		wp_reset_postdata();
+	}
+
+	/**
 	 * Sets the ACF block mode.
 	 *
 	 * @param string $block_name The full block name including vendor prefix.
