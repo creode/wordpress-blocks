@@ -47,7 +47,7 @@ abstract class Block {
 				$this->register_acf_fields();
 
 				foreach ( $this->child_blocks() as $child_block ) {
-					$this->register_child_block( 'acf/' . $this->name(), $child_block, $this->name() );
+					$this->register_child_block( 'acf/' . $this->name(), $child_block, array( 'acf/' . $this->name() ) );
 				}
 			}
 		);
@@ -311,8 +311,9 @@ abstract class Block {
 	 *
 	 * @param string      $parent_block The parent block name.
 	 * @param Child_Block $child_block The child block to register.
+	 * @param array       $ancestor_blocks An array of all ancester block names. Must include parent block name.
 	 */
-	protected function register_child_block( string $parent_block, Child_Block $child_block ): void {
+	protected function register_child_block( string $parent_block, Child_Block $child_block, array $ancestor_blocks ): void {
 		if ( ! function_exists( 'acf_register_block_type' ) ) {
 			return;
 		}
@@ -329,7 +330,8 @@ abstract class Block {
 				),
 				'textdomain' => 'wordpress-blocks',
 				'supports'   => $child_block->supports,
-				'usesContext' => $this->provides_context ? array( $parent_block ) : false,
+				'providesContext' => $this->provides_context,
+				'usesContext' => $this->provides_context ? $ancestor_blocks : false,
 			)
 		);
 
@@ -370,7 +372,8 @@ abstract class Block {
 		foreach ( $child_block->child_blocks as $grand_child_block ) {
 			$this->register_child_block(
 				$parent_block . '-' . $child_block->name,
-				$grand_child_block
+				$grand_child_block,
+				array_merge( $ancestor_blocks, array( $parent_block . '-' . $child_block->name ) )
 			);
 		}
 	}
