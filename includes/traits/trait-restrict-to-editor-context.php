@@ -40,7 +40,11 @@ trait Trait_Restrict_To_Editor_Context {
 
 		add_filter(
 			'allowed_block_types_all',
-			function ( bool|array $allowed_block_types, WP_Block_Editor_Context $block_editor_context ) use ( $block_name, $editor_context_name ) {
+			function ( bool|array $allowed_block_types, WP_Block_Editor_Context|null $block_editor_context ) use ( $block_name, $editor_context_name ) {
+				if ( is_null( $block_editor_context ) ) {
+					return $allowed_block_types;
+				}
+
 				// If the current editor context is the allowed editor context no restrition is needed.
 				if ( $block_editor_context->name === $editor_context_name ) {
 					return $allowed_block_types;
