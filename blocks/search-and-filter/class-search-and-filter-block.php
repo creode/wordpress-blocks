@@ -78,7 +78,7 @@ class Search_And_Filter_Block extends Block {
 					array(
 						'name'      => 'resultRenderPattern',
 						'label'     => 'Result render pattern',
-						'group'     => 'integration',
+						'group'     => 'location',
 						'type'      => 'string',
 						'inputType' => 'Select',
 						'options'   => $choices,
@@ -86,12 +86,7 @@ class Search_And_Filter_Block extends Block {
 							'relation' => 'AND',
 							'rules'    => array(
 								array(
-									'option'  => 'integrationType',
-									'compare' => '=',
-									'value'   => 'single',
-								),
-								array(
-									'option'  => 'singleIntegration',
+									'option'  => 'queryIntegration',
 									'compare' => '=',
 									'value'   => 'results_shortcode',
 								),
@@ -120,19 +115,14 @@ class Search_And_Filter_Block extends Block {
 					array(
 						'name'      => 'disablePagination',
 						'label'     => 'Disable pagination',
-						'group'     => 'integration',
+						'group'     => 'location',
 						'type'      => 'string',
 						'inputType' => 'Toggle',
 						'dependsOn' => array(
 							'relation' => 'AND',
 							'rules'    => array(
 								array(
-									'option'  => 'integrationType',
-									'compare' => '=',
-									'value'   => 'single',
-								),
-								array(
-									'option'  => 'singleIntegration',
+									'option'  => 'queryIntegration',
 									'compare' => '=',
 									'value'   => 'results_shortcode',
 								),
