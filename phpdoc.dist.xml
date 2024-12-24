@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://www.phpdoc.org"
 >
-    <title>Creode - WordPress Blocks</title>
+    <title>Blocks</title>
     <paths>
         <output>build/docs</output>
     </paths>
