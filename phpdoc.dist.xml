@@ -4,10 +4,12 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://www.phpdoc.org"
 >
-    <title>phpDocumentor</title>
+    <title>Creode - WordPress Blocks</title>
     <paths>
         <output>build/docs</output>
     </paths>
+
+    <setting name="template.color" value="deep-orange"/>
 
     <version number="3.0">
         <api format="php">
