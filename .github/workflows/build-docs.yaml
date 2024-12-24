@@ -47,7 +47,6 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
         with:
-          repository: "creode/wordpress-blocks"
           path: "docs"
 
       - name: "Download docs"
@@ -69,7 +68,6 @@ jobs:
         uses: "ad-m/github-push-action@master"
         with:
           directory: "docs"
-          repository: "creode/wordpress-blocks"
       
       - name: Deploy to GitHub Pages
         id: deployment
