@@ -17,21 +17,21 @@ use WP_Block_Type;
 trait Trait_Restrict_To_Editor_Context {
 
 	/**
-	 * Restrict block avalibility to the site editor only.
+	 * Restrict block availability to the site editor only.
 	 */
 	protected function restrict_to_site_editor() {
 		$this->restrict_to_editor_context( 'core/edit-site' );
 	}
 
 	/**
-	 * Restrict block avalibility to the post editor only.
+	 * Restrict block availability to the post editor only.
 	 */
 	protected function restrict_to_post_editor() {
 		$this->restrict_to_editor_context( 'core/edit-post' );
 	}
 
 	/**
-	 * Will ensure that the block is only availible within a specifield editor context.
+	 * Will ensure that the block is only available within a specified editor context.
 	 *
 	 * @param string $editor_context_name The name of the editor context. Please see: https://developer.wordpress.org/reference/classes/wp_block_editor_context/.
 	 */
@@ -50,7 +50,7 @@ trait Trait_Restrict_To_Editor_Context {
 					return $allowed_block_types;
 				}
 
-				// If $allowed_block_types is false, no further restruction can be made.
+				// If $allowed_block_types is false, no further restriction can be made.
 				if ( ! $allowed_block_types ) {
 					return $allowed_block_types;
 				}

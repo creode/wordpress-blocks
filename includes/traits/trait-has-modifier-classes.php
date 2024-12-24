@@ -13,10 +13,10 @@ namespace Creode_Blocks;
 trait Trait_Has_Modifier_Classes {
 
 	/**
-	 * Returns a string of additonal classes to be added to block wrappers.
+	 * Returns a string of additional classes to be added to block wrappers.
 	 *
-	 * @param string $base_class The base class that modiferes should be apended to.
-	 * @return string A string of additonal classes.
+	 * @param string $base_class The base class that modifiers should be appended to.
+	 * @return string A string of additional classes.
 	 */
 	public function get_modifier_class_string( string $base_class = 'example-block__wrapper' ): string {
 		return implode(

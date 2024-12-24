@@ -17,7 +17,7 @@ class :BLOCK_CLASS_NAME extends Block {
 	protected static $instance = null;
 
 	/**
-	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
+	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
 	 *
 	 * @var string
 	 */
