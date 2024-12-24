@@ -44,32 +44,6 @@ jobs:
 
     needs: ["build"]
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v4"
-        with:
-          path: "docs"
-          token: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: "Download docs"
-        uses: "actions/download-artifact@v4"
-        with:
-          name: "documentation"
-          path: "build/docs"
-        
-      - name: "Copy files"
-        run: "rsync -r --delete build/docs/ docs/docs/"
-
-      - name: "Commit"
-        uses: "stefanzweifel/git-auto-commit-action@v5"
-        with:
-          repository: "docs"
-          commit_message: "Update main documentation"
-
-      - name: "Push"
-        uses: "ad-m/github-push-action@master"
-        with:
-          directory: "docs"
-      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
