@@ -1,0 +1,76 @@
+name: "Documentation"
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "main"
+  pull_request: null
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+
+      - name: "Build"
+        uses: "phpDocumentor/phpDocumentor@master"
+        with:
+          target: "build/docs"
+    
+      - name: "Upload documentation artifacts"
+        if: "${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}"
+        uses: "actions/upload-artifact@v4.5.0"
+        with:
+          name: "documentation"
+          path: "build/docs"
+          retention-days: 1
+  
+  deploy:
+    name: "Deploy"
+    if: "${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}"
+    runs-on: "ubuntu-latest"
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    needs: ["build"]
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+        with:
+          repository: "creode/wordpress-blocks"
+          path: "docs"
+
+      - name: "Download docs"
+        uses: "actions/download-artifact@v4"
+        with:
+          name: "documentation"
+          path: "build/docs"
+        
+      - name: "Copy files"
+        run: "rsync -r --delete build/docs/ docs/docs/"
+
+      - name: "Commit"
+        uses: "stefanzweifel/git-auto-commit-action@v5"
+        with:
+          repository: "docs"
+          commit_message: "Update main documentation"
+
+      - name: "Push"
+        uses: "ad-m/github-push-action@master"
+        with:
+          directory: "docs"
+          repository: "creode/wordpress-blocks"
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
