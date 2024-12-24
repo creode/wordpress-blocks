@@ -35,8 +35,8 @@ class Make_Block_Command {
 
 		$block_label = $args[0];
 
-		$block_class_name = $this->generate_block_class_name( $block_label );
-		$block_slug_name = $this->generate_block_slug_name( $block_label );
+		$block_class_name  = $this->generate_block_class_name( $block_label );
+		$block_slug_name   = $this->generate_block_slug_name( $block_label );
 		$block_folder_path = $this->create_block_folder_structure( $theme_base_path, $block_slug_name );
 
 		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path );
@@ -70,9 +70,9 @@ class Make_Block_Command {
 	}
 
 	/**
-	 * Generates block slug name based on it's class name.
+	 * Generates block slug name based on its label.
 	 *
-	 * @param string $block_class_name
+	 * @param string $block_label  The block label.
 	 *
 	 * @return string
 	 */
@@ -84,10 +84,10 @@ class Make_Block_Command {
 	/**
 	 * Main functionality for creating and saving the block class.
 	 *
-	 * @param string $block_slug_name
-	 * @param string $block_label
-	 * @param string $block_class_name
-	 * @param string $block_folder_path
+	 * @param string $block_slug_name The block slug name.
+	 * @param string $block_label The block label.
+	 * @param string $block_class_name The block class name.
+	 * @param string $block_folder_path The block folder path.
 	 *
 	 * @return void
 	 */
@@ -160,13 +160,13 @@ class Make_Block_Command {
 	private function create_block_folder_structure( string $theme_base_path, string $block_folder_name ) {
 		// Create blocks folder.
 		$blocks_folder = $theme_base_path . '/blocks';
-		if (! file_exists( $blocks_folder ) ) {
+		if ( ! file_exists( $blocks_folder ) ) {
 			mkdir( $blocks_folder );
 		}
 
 		// Create block folder.
 		$block_folder = $blocks_folder . '/' . $block_folder_name;
-		if (file_exists( $block_folder ) ) {
+		if ( file_exists( $block_folder ) ) {
 			WP_CLI::error( "Block \"$block_folder_name\" already exists." );
 		}
 
@@ -174,13 +174,13 @@ class Make_Block_Command {
 
 		// Create templates folder.
 		$templates_folder = $block_folder . '/templates';
-		if (! file_exists( $templates_folder ) ) {
+		if ( ! file_exists( $templates_folder ) ) {
 			mkdir( $templates_folder );
 		}
 
 		// Copy the template into the templates folder.
 		$template_file = $templates_folder . '/block.php';
-		if (! file_exists( $template_file ) ) {
+		if ( ! file_exists( $template_file ) ) {
 			copy( CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/templates/block.php', $template_file );
 		}
 
