@@ -37,6 +37,11 @@
                         if (xhr.status < 400 && xhr.responseText) {
                             code.textContent = xhr.responseText;
                             Prism.highlightElement(code);
+
+                            // Fix for scrolling to lines (see attached issue): https://github.com/phpDocumentor/phpDocumentor/issues/3270
+                            const lineNumbers = document.getElementsByClassName("line-numbers");
+                            lineNumbers[0].scrollTop = lineNumbers[0].children[1].offsetTop;
+
                             return;
                         }
 
