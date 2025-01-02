@@ -16,6 +16,7 @@
             <source dsn=".">
                 <path>includes</path>
             </source>
+            <include-source>true</include-source>
             <ignore hidden="true" symlinks="true">
                 <path>includes/class-block-cache.php</path>
             </ignore>
