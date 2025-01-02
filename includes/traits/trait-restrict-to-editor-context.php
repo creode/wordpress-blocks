@@ -33,7 +33,9 @@ trait Trait_Restrict_To_Editor_Context {
 	/**
 	 * Will ensure that the block is only available within a specified editor context.
 	 *
-	 * @param string $editor_context_name The name of the editor context. Please see: https://developer.wordpress.org/reference/classes/wp_block_editor_context/.
+	 * @param string $editor_context_name The name of the editor context.
+	 *
+	 * @link https://developer.wordpress.org/reference/classes/wp_block_editor_context/ Block context documentation.
 	 */
 	protected function restrict_to_editor_context( string $editor_context_name ) {
 		$block_name = 'acf/' . $this->name();

@@ -32,7 +32,9 @@ trait Trait_Menu_Integration {
 	 * Renders a menu by menu location.
 	 *
 	 * @param string $location The menu location.
-	 * @param array  $args (optional) An array of arguments for rendering the menu. Please see https://developer.wordpress.org/reference/functions/wp_nav_menu/ for a full list of arguments.
+	 * @param array  $args (optional) An array of arguments for rendering the menu.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/wp_nav_menu/ Full list of menu arguments.
 	 */
 	public function render_menu_by_location( string $location, array $args = array() ): void {
 		$menu_id = $this->get_menu_id_by_location( $location );
