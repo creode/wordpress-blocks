@@ -38,8 +38,9 @@ class Make_Block_Command {
 		$block_class_name  = $this->generate_block_class_name( $block_label );
 		$block_slug_name   = $this->generate_block_slug_name( $block_label );
 		$block_folder_path = $this->create_block_folder_structure( $theme_base_path, $block_slug_name );
+		$theme_slug        = $this->get_theme_slug( $theme );
 
-		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path );
+		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug );
 
 		$theme_require_path = "require_once get_template_directory() . '/blocks/$block_slug_name/class-$block_slug_name.php';";
 
@@ -70,9 +71,9 @@ class Make_Block_Command {
 	}
 
 	/**
-	 * Generates block slug name based on its label.
+	 * Generates block slug name based on it's class name.
 	 *
-	 * @param string $block_label  The block label.
+	 * @param string $block_class_name
 	 *
 	 * @return string
 	 */
@@ -84,14 +85,15 @@ class Make_Block_Command {
 	/**
 	 * Main functionality for creating and saving the block class.
 	 *
-	 * @param string $block_slug_name The block slug name.
-	 * @param string $block_label The block label.
-	 * @param string $block_class_name The block class name.
-	 * @param string $block_folder_path The block folder path.
+	 * @param string $block_slug_name The slug of the block.
+	 * @param string $block_label The label of the block.
+	 * @param string $block_class_name The class name of the block.
+	 * @param string $block_folder_path The path to the block folder.
+	 * @param string $theme_slug The slug of the theme.
 	 *
 	 * @return void
 	 */
-	protected function make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path ) {
+	protected function make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug ) {
 		// Load the contents of the stub file.
 		$block_class_stub = file_get_contents( CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/class-block.php' );
 
@@ -103,6 +105,7 @@ class Make_Block_Command {
 				':BLOCK_LABEL'      => $block_label,
 				':BLOCK_TEMPLATE'   => "__DIR__ . '/templates/block.php'",
 				':BLOCK_CLASS_NAME' => $block_class_name,
+				':THEME_SLUG'       => $theme_slug,
 			)
 		);
 
@@ -116,8 +119,8 @@ class Make_Block_Command {
 	/**
 	 * Takes an array of replacements and replaces them in the stub.
 	 *
-	 * @param string $stub
-	 * @param array $replacements
+	 * @param string $stub The stub file contents.
+	 * @param array  $replacements An array of placeholders and their replacements.
 	 *
 	 * @return string
 	 */
@@ -130,9 +133,25 @@ class Make_Block_Command {
 	}
 
 	/**
+	 * Gets the theme slug.
+	 *
+	 * @param string $theme Optional slug of the theme.
+	 *
+	 * @return string
+	 */
+	private function get_theme_slug( ?string $theme ): string {
+		$theme_slug = $theme;
+		if ( is_null( $theme_slug ) ) {
+			$theme_slug = get_stylesheet();
+		}
+
+		return $theme_slug;
+	}
+
+	/**
 	 * Get the base path of the theme.
-	 * 
-	 * @param string $theme
+	 *
+	 * @param string $theme Optional slug of the theme.
 	 *
 	 * @return string Path to theme.
 	 */
@@ -153,8 +172,9 @@ class Make_Block_Command {
 	/**
 	 * Creates block folder structure.
 	 *
-	 * @param string $theme_base_path
-	 * @param string $block_folder_name
+	 * @param string $theme_base_path Path to theme.
+	 * @param string $block_folder_name Block folder name.
+	 *
 	 * @return string Path to folder where the block will go.
 	 */
 	private function create_block_folder_structure( string $theme_base_path, string $block_folder_name ) {
