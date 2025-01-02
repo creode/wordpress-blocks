@@ -19,7 +19,9 @@ abstract class Block {
 	protected static $instance = null;
 
 	/**
-	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
+	 * The blocks icon from dashicons or an inline SVG.
+	 *
+	 * @link https://developer.wordpress.org/resource/dashicons/ Dashicons Documentation.
 	 *
 	 * @var string
 	 */
@@ -110,7 +112,9 @@ abstract class Block {
 	/**
 	 * Function for providing fields array.
 	 *
-	 * @return array An array of field definitions in ACF format. Please see: https://www.advancedcustomfields.com/resources/register-fields-via-php/.
+	 * @link https://www.advancedcustomfields.com/resources/register-fields-via-php/ ACF Field Documentation.
+	 *
+	 * @return array An array of field definitions in ACF format.
 	 */
 	protected function fields(): array {
 		return array();
@@ -144,7 +148,7 @@ abstract class Block {
 	/**
 	 * Provide additional support options for the block.
 	 *
-	 * Please see: https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles
+	 * @link https://developer.wordpress.org/block-editor/getting-started/fundamentals/block-json/#using-block-supports-to-enable-settings-and-styles Block Supports Documentation.
 	 *
 	 * @return array
 	 */
@@ -157,7 +161,7 @@ abstract class Block {
 	/**
 	 * Provides the capability of defining a default style object.
 	 *
-	 * Please see: https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#color-background
+	 * @link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-supports/#color-background Block Supports Documentation.
 	 *
 	 * @return array
 	 */

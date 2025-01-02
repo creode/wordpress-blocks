@@ -23,7 +23,16 @@ It will also output a couple of lines that can be copy and pasted into your `fun
 ### Creating child blocks
 Child blocks are defined within your block class inside the `child_blocks()` function. You can just need to return an array of new `Creode_Blocks\Child_Block` instances from it.
 
+### Generating documentation locally
+This package uses PHPDoc to generate documentation for the blocks. To generate the documentation for testing purposes, you can run the following docker command:
+
+```bash
+docker run --rm -v $(pwd):/data phpdoc/phpdoc
+```
+
+This will create a new build/docs folder so you can view the documentation locally.
+
 ## Roadmap
 
-- [ ] Continue to expand the base offering of block classes
+- [ ] Ongoing: Continue to expand the base offering of block classes
 - [x] Implement a command to create new blocks in your theme using `WP_CLI`

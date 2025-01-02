@@ -29,7 +29,9 @@ class Child_Block {
 	/**
 	 * The child block's fields.
 	 *
-	 * @var array An array of field definitions in ACF format. Please see: https://www.advancedcustomfields.com/resources/register-fields-via-php/.
+	 * @var array An array of field definitions in ACF format.
+	 *
+	 * @link https://www.advancedcustomfields.com/resources/register-fields-via-php/ ACF Field documentation.
 	 */
 	protected $fields = array();
 
@@ -66,7 +68,7 @@ class Child_Block {
 	 *
 	 * @param string       $name The child block's name (must be hyphen separated).
 	 * @param string       $label The child block's label.
-	 * @param array        $fields An array of field definitions in ACF format. Please see: https://www.advancedcustomfields.com/resources/register-fields-via-php/.
+	 * @param array        $fields An array of field definitions in ACF format.
 	 * @param string       $template A path to the render template.
 	 * @param Child_Block[] $child_blocks (Optional) Array of child blocks.
 	 * @param string       $icon (Optional) Icon for Child block.
