@@ -25,7 +25,7 @@ trait Trait_Has_Modifier_Classes {
 				function ( string $modifier_class ) use ( $base_class ) {
 					return $base_class . '--' . $modifier_class;
 				},
-				$this->modifier_classes()
+				apply_filters( 'block-' . $this->name() . '-modifier-classes', $this->modifier_classes() )
 			)
 		);
 	}

@@ -42,6 +42,8 @@ abstract class Block {
 			return;
 		}
 
+		$this->initialize_traits();
+
 		add_action(
 			'init',
 			function () {
@@ -56,7 +58,27 @@ abstract class Block {
 	}
 
 	/**
-	 * Function to be overidden for performing block-specific setup actions.
+	 * Traits within this namespace and used by extensions of this class can declare initialization functions.
+	 * These functions should conform to the following naming convention: init_trait_name.
+	 * This function is responsible for calling the initialization functions.
+	 */
+	private function initialize_traits() {
+		foreach ( class_uses( $this::class ) as $trait ) {
+			$trait  = str_replace( __NAMESPACE__, '', $trait );
+			$trait  = str_replace( '\\', '', $trait );
+			$trait  = strtolower( $trait );
+			$method = 'init_' . $trait;
+
+			if ( ! method_exists( $this, $method ) ) {
+				continue;
+			}
+
+			$this->{$method}();
+		}
+	}
+
+	/**
+	 * Function to be overridden for performing block-specific setup actions.
 	 *
 	 * @return bool Whether the setup was successful.
 	 */
@@ -296,7 +318,7 @@ abstract class Block {
 			array(
 				'key'      => 'group_' . $this->name() . '_block',
 				'title'    => $this->label(),
-				'fields'   => $this->fields(),
+				'fields'   => apply_filters( 'block-' . $this->name() . '-fields', $this->fields() ),
 				'location' => array(
 					array(
 						array(
