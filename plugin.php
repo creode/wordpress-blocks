@@ -19,9 +19,11 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'blocks/all.php';
 require_once plugin_dir_path( __FILE__ ) . 'commands/class-make-block-command.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-block-cache.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-block-loader.php';
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	WP_CLI::add_command( 'make-block', 'Make_Block_Command' );
 }
 
 new Creode_Blocks\Block_Cache();
+Creode_Blocks\Block_Loader::init();

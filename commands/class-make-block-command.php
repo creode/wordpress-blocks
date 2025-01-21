@@ -46,7 +46,9 @@ class Make_Block_Command {
 
 		// Tell the user to require the block to the themes file and provide location.
 		WP_CLI::success( 'Block created successfully.' );
-		WP_CLI::line( 'Add the following lines to your themes functions.php file:' );
+		WP_CLI::line( 'The Creode Blocks MU plugin will attempt to load and initialize this block automatically.' );
+		WP_CLI::line( 'However this can be prevented using filters and blocks will not load or initialize if they must be be moved from the default location.' );
+		WP_CLI::line( 'In these instances add the following lines to your themes functions.php file to load and initialize manually:' );
 		WP_CLI::line();
 		WP_CLI::line( WP_CLI::colorize( "%Y%0$theme_require_path%n" ) );
 		WP_CLI::line( WP_CLI::colorize( "%Y%0$block_class_name::init();%n" ) );
