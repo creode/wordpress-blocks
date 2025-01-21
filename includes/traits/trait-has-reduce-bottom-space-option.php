@@ -24,7 +24,7 @@ trait Trait_Has_Reduce_Bottom_Space_Option {
 	}
 
 	/**
-	 * Check to ensue trait is used alongside Creode_Blocks\Trait_Has_Modifier_Classes.
+	 * Check to ensure trait is used alongside Creode_Blocks\Trait_Has_Modifier_Classes.
 	 *
 	 * @throws Exception Describes trait requirements and how to resolve the issue.
 	 */

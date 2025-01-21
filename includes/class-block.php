@@ -14,7 +14,7 @@ abstract class Block {
 	/**
 	 * Singleton instance of this class.
 	 *
-	 * @var Block
+	 * @var Block|null
 	 */
 	protected static $instance = null;
 
@@ -96,7 +96,7 @@ abstract class Block {
 
 		static::$instance = new static();
 
-		// Provide instance through globally availible filter.
+		// Provide instance through globally available filter.
 		$instance = static::$instance;
 		add_filter(
 			'creode_block_instances',
@@ -276,7 +276,7 @@ abstract class Block {
 			unset( $block_data['providesContext'] );
 		}
 
-		// Ensure that the attribute array is availible.
+		// Ensure that the attribute array is available.
 		if ( ! isset( $block_data['attributes'] ) ) {
 			$block_data['attributes'] = array();
 		}
@@ -337,7 +337,7 @@ abstract class Block {
 	 *
 	 * @param string      $parent_block The parent block name.
 	 * @param Child_Block $child_block The child block to register.
-	 * @param array       $ancestor_blocks An array of all ancester block names. Must include parent block name.
+	 * @param array       $ancestor_blocks An array of all ancestor block names. Must include parent block name.
 	 */
 	protected function register_child_block( string $parent_block, Child_Block $child_block, array $ancestor_blocks ): void {
 		if ( ! function_exists( 'acf_register_block_type' ) ) {
@@ -430,7 +430,7 @@ abstract class Block {
 	private function get_filesystem() {
 		global $wp_filesystem;
 
-		// If the filesystem is already initialised, return it.
+		// If the filesystem is already initialized, return it.
 		if ( $wp_filesystem ) {
 			return $wp_filesystem;
 		}
