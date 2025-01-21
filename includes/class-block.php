@@ -155,7 +155,7 @@ abstract class Block {
 	 * @return string The block's category.
 	 */
 	protected function category(): string {
-		return 'common';
+		return apply_filters( 'creode_blocks_default_category', 'common' );
 	}
 
 	/**

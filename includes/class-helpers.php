@@ -93,4 +93,18 @@ class Helpers {
 			}
 		);
 	}
+
+	/**
+	 * Sets the default category for new blocks. Must be called before blocks are initialized.
+	 *
+	 * @param string $category The default category for new blocks.
+	 */
+	public static function set_default_block_category( string $category ) {
+		add_filter(
+			'creode_blocks_default_category',
+			function () use ( $category ) {
+				return $category;
+			}
+		);
+	}
 }
