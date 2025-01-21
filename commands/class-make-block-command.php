@@ -226,7 +226,7 @@ class Make_Block_Command {
 			file_put_contents( $blocks_directory_path . '/all.php', $all_file_contents );
 		}
 
-		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . 'require_once plugin_dir_path( __FILE__ ) . \'' . $block_class_path . '\';', FILE_APPEND );
+		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . 'require_once __DIR__ . \'' . $block_class_path . '\';', FILE_APPEND );
 		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . $block_class_name . '::init();', FILE_APPEND );
 		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL, FILE_APPEND );
 	}
