@@ -42,14 +42,10 @@ class Make_Block_Command {
 
 		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug );
 
-		$theme_require_path = "require_once get_template_directory() . '/blocks/$block_slug_name/class-$block_slug_name.php';";
+		$this->add_block_to_loader_file( $block_class_name, "/$block_slug_name/class-$block_slug_name.php" );
 
 		// Tell the user to require the block to the themes file and provide location.
 		WP_CLI::success( 'Block created successfully.' );
-		WP_CLI::line( 'Add the following lines to your themes functions.php file:' );
-		WP_CLI::line();
-		WP_CLI::line( WP_CLI::colorize( "%Y%0$theme_require_path%n" ) );
-		WP_CLI::line( WP_CLI::colorize( "%Y%0$block_class_name::init();%n" ) );
 	}
 
 	/**
@@ -151,11 +147,11 @@ class Make_Block_Command {
 	/**
 	 * Get the base path of the theme.
 	 *
-	 * @param string $theme Optional slug of the theme.
+	 * @param string|null $theme Optional slug of the theme.
 	 *
 	 * @return string Path to theme.
 	 */
-	private function get_theme_base_path( ?string $theme ) {
+	private function get_theme_base_path( ?string $theme = null ) {
 		if ( is_null( $theme ) ) {
 			$theme_base_path = get_stylesheet_directory();
 		} else {
@@ -205,5 +201,33 @@ class Make_Block_Command {
 		}
 
 		return $block_folder;
+	}
+
+	/**
+	 * Adds code to load and initialize a block within the theme.
+	 *
+	 * @param string $block_class_name The block class name.
+	 * @param string $block_class_path A relative path (from the blocks directory) to the block class file.
+	 */
+	private function add_block_to_loader_file( string $block_class_name, string $block_class_path ) {
+		$blocks_directory_path = $this->get_theme_base_path() . '/blocks';
+
+		if ( ! file_exists( $blocks_directory_path . '/all.php' ) ) {
+			$theme             = wp_get_theme();
+			$all_file_contents = file_get_contents( CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/all.php' );
+
+			$all_file_contents = $this->replace_stub_placeholders(
+				$all_file_contents,
+				array(
+					':THEME_NAME' => $theme->get( 'Name' ),
+				)
+			);
+
+			file_put_contents( $blocks_directory_path . '/all.php', $all_file_contents );
+		}
+
+		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . 'require_once plugin_dir_path( __FILE__ ) . \'' . $block_class_path . '\';', FILE_APPEND );
+		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . $block_class_name . '::init();', FILE_APPEND );
+		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL, FILE_APPEND );
 	}
 }
