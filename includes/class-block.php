@@ -444,4 +444,14 @@ abstract class Block {
 
 		return $wp_filesystem;
 	}
+
+	/**
+	 * Get a field value from the current block context.
+	 *
+	 * @param string $field_name The field name.
+	 * @return mixed The field value.
+	 */
+	public function get_field( string $field_name ) {
+		return get_field( $field_name );
+	}
 }

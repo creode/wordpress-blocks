@@ -6,17 +6,11 @@
  */
 
 /**
- * Load your block object.
- * Replace "BLOCK_NAME_HERE" with your block name.
- * Delete the following lines if not needed.
+ * The block instance.
+ *
+ * @var BLOCK_CLASS_HERE
  */
 $block = Creode_Blocks\Helpers::get_block_by_name( 'BLOCK_NAME_HERE' );
-
-if ( ! $block ) {
-	echo 'Example block output.';
-
-	return;
-}
 
 $allowed_inner_blocks = array(
 	'core/paragraph',
@@ -32,12 +26,13 @@ $inner_block_template = array(
 <?php endif; ?>
 
 <div class="block__wrapper">
-
-	<InnerBlocks
-		allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
-		template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
-	/>
-
+	<div class="block__inner">
+		<InnerBlocks
+			allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
+			template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
+			class="block__blocks"
+		/>
+	</div>
 </div>
 
 <?php if ( ! $is_preview ) : ?>

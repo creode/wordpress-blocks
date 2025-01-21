@@ -5,13 +5,13 @@
  * @package Creode Blocks
  */
 
-$block = Creode_Blocks\Helpers::get_block_by_name( 'integrated-menu' );
-
-if ( ! $block ) {
-	return;
-}
-
-$menu_location = get_field( 'menu_location' );
+/**
+ * The block instance.
+ *
+ * @var Creode_Blocks\Integrated_Menu_Block
+ */
+$block         = Creode_Blocks\Helpers::get_block_by_name( 'integrated-menu' );
+$menu_location = $block->get_field( 'menu_location' );
 
 if ( empty( $menu_location ) ) {
 	echo 'Please select a menu location.';

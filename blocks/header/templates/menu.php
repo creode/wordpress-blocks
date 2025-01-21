@@ -5,13 +5,18 @@
  * @package Creode Blocks
  */
 
+/**
+ * The block instance.
+ *
+ * @var Creode_Blocks\Header_Block
+ */
 $block = Creode_Blocks\Helpers::get_block_by_name( 'creode-header' );
 
 if ( ! $block ) {
 	return;
 }
 
-$menu_location = get_field( 'menu_location' );
+$menu_location = $block->get_field( 'menu_location' );
 ?>
 
 <div class="header__section header__section--menu header__section--desktop-menu" <?php if ( ! is_admin() ) : ?>style="display:none;"<?php endif; ?>>

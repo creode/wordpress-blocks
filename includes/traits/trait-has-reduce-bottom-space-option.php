@@ -68,7 +68,7 @@ trait Trait_Has_Reduce_Bottom_Space_Option {
 		add_filter(
 			'block-' . $this->name() . '-modifier-classes',
 			function ( array $classes ) {
-				if ( ! empty( get_field( 'reduce_bottom_space' ) ) ) {
+				if ( ! empty( $this->get_field( 'reduce_bottom_space' ) ) ) {
 					array_push( $classes, 'reduce-bottom-space' );
 				}
 

@@ -5,7 +5,13 @@
  * @package Creode Blocks
  */
 
-$query_id = get_field( 'query_id' );
+/**
+ * The block instance.
+ *
+ * @var Creode_Blocks\Search_And_Filter_Block
+ */
+$block    = Creode_Blocks\Helpers::get_block_by_name( 'search-and-filter' );
+$query_id = $block->get_field( 'query_id' );
 
 if ( empty( $query_id ) ) {
 	echo 'Please choose a query.';
