@@ -8,7 +8,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'API Documentation', link: '/api/index.html' }
+      { text: 'API Documentation', link: 'https://blocks.creode.dev/api/index.html' }
     ],
 
     sidebar: [
