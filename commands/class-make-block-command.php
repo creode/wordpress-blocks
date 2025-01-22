@@ -42,7 +42,7 @@ class Make_Block_Command {
 
 		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug );
 
-		$this->add_block_to_loader_file( $block_class_name, "/$block_slug_name/class-$block_slug_name.php" );
+		$this->add_block_to_loader_file( $block_class_name, "/$block_slug_name/class-$block_slug_name.php", $theme );
 
 		// Tell the user to require the block to the themes file and provide location.
 		WP_CLI::success( 'Block created successfully.' );
@@ -206,11 +206,12 @@ class Make_Block_Command {
 	/**
 	 * Adds code to load and initialize a block within the theme.
 	 *
-	 * @param string $block_class_name The block class name.
-	 * @param string $block_class_path A relative path (from the blocks directory) to the block class file.
+	 * @param string      $block_class_name The block class name.
+	 * @param string      $block_class_path A relative path (from the blocks directory) to the block class file.
+	 * @param string|null $theme Optional slug of the theme.
 	 */
-	private function add_block_to_loader_file( string $block_class_name, string $block_class_path ) {
-		$blocks_directory_path = $this->get_theme_base_path() . '/blocks';
+	private function add_block_to_loader_file( string $block_class_name, string $block_class_path, ?string $theme = null ) {
+		$blocks_directory_path = $this->get_theme_base_path( $theme ) . '/blocks';
 
 		if ( ! file_exists( $blocks_directory_path . '/all.php' ) ) {
 			$theme             = wp_get_theme();
