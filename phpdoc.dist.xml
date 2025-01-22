@@ -6,7 +6,7 @@
 >
     <title>Blocks</title>
     <paths>
-        <output>build/docs</output>
+        <output>build/docs/api</output>
     </paths>
 
     <setting name="template.color" value="deep-orange"/>

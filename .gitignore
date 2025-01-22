@@ -1,3 +1,6 @@
 /vendor/
 /build
 .phpdoc/cache
+docs/.vitepress/dist
+docs/.vitepress/cache
+docs/api

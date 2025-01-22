@@ -9,5 +9,10 @@
     ],
     "require": {
         "composer/installers": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
     }
 }
