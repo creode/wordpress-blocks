@@ -41,7 +41,7 @@ class Make_Block_Command {
 		$theme_slug        = $this->get_theme_slug( $theme );
 
 		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug );
-
+		$this->make_block_template( $block_slug_name, $block_label, $block_class_name, $block_folder_path );
 		$this->add_block_to_loader_file( $block_class_name, "/$block_slug_name/class-$block_slug_name.php", $theme );
 
 		// Tell the user to require the block to the themes file and provide location.
@@ -194,13 +194,43 @@ class Make_Block_Command {
 			mkdir( $templates_folder );
 		}
 
-		// Copy the template into the templates folder.
-		$template_file = $templates_folder . '/block.php';
-		if ( ! file_exists( $template_file ) ) {
-			copy( CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/templates/block.php', $template_file );
+		return $block_folder;
+	}
+
+	/**
+	 * Generates a basic block template file.
+	 *
+	 * @param string $block_slug_name The slug of the block.
+	 * @param string $block_label The label of the block.
+	 * @param string $block_class_name The class name of the block.
+	 * @param string $block_folder_path The path to the block folder.
+	 */
+	private function make_block_template( string $block_slug_name, string $block_label, string $block_class_name, string $block_folder_path ) {
+		$theme                 = wp_get_theme();
+		$block_html_base_class = $block_slug_name;
+
+		// Remove suffix from block base class.
+		if ( '-block' === substr( $block_html_base_class, -6 ) ) {
+			$block_html_base_class = substr( $block_html_base_class, 0, -6 );
 		}
 
-		return $block_folder;
+		// Load the content of the stub file.
+		$content = file_get_contents( CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/templates/block.php' );
+
+		// Replace placeholders.
+		$content = $this->replace_stub_placeholders(
+			$content,
+			array(
+				':THEME_NAME'            => $theme->get( 'Name' ),
+				':BLOCK_NAME'            => $block_slug_name,
+				':BLOCK_LABEL'           => $block_label,
+				':BLOCK_CLASS'           => $block_class_name,
+				':BLOCK_HTML_BASE_CLASS' => $block_html_base_class,
+			)
+		);
+
+		// Write the content to the template file.
+		file_put_contents( $block_folder_path . '/templates/block.php', $content );
 	}
 
 	/**

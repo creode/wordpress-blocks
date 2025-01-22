@@ -11,8 +11,11 @@ use Creode_Blocks\Block;
  * :BLOCK_LABEL block class.
  */
 class :BLOCK_CLASS_NAME extends Block {
+
 	/**
-	 * {@inheritdoc}
+	 * Singleton instance of this class.
+	 *
+	 * @var :BLOCK_CLASS_NAME|null
 	 */
 	protected static $instance = null;
 
@@ -22,13 +25,6 @@ class :BLOCK_CLASS_NAME extends Block {
 	 * @var string
 	 */
 	protected $icon = 'block-default';
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function setup(): bool {
-		return true;
-	}
 
 	/**
 	 * {@inheritdoc}
@@ -54,7 +50,27 @@ class :BLOCK_CLASS_NAME extends Block {
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function child_blocks(): array {
+		return array();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function template(): string {
 		return :BLOCK_TEMPLATE;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function supports(): array {
+		return array(
+			'mode'  => false,
+			'color' => array(
+				'text'       => true,
+				'background' => true,
+			),
+		);
 	}
 }
