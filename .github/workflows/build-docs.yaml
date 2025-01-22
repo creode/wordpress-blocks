@@ -14,7 +14,19 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v4"
 
-      - name: "Build"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm # or pnpm / yarn
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Usage Docs
+        run: npm run docs:build
+
+      - name: Build API Docs
         uses: "phpDocumentor/phpDocumentor@master"
         with:
           target: "build/docs"
