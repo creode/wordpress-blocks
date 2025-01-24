@@ -17,7 +17,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'What is this plugin?', link: '/what-is-it' },
-          { text: 'Quick Start', link: '/quick-start' }
+          { text: 'Quick Start', link: '/quick-start' },
+          { text: 'Your first block', link: '/your-first-block' }
         ]
       },
       {
