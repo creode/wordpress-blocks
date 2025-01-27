@@ -1,9 +1,9 @@
 ---
-title: Block Creation
+title: Order Of Blocks
 editLink: false
 ---
 
-# Order of blocks
+# Order Of Blocks
 The order that blocks will appear within the WordPress block inserter depends on the order that they are initialized. Based on the previous example the "all.php" file will look like this:
 
 ```php
