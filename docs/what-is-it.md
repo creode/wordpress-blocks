@@ -6,7 +6,7 @@ This is a WordPress MU plugin which provides the infrastructure for the efficien
 
 ## Key features
  - Extendable block abstract class (Creode_Blocks\Block).
- - Block library.
  - WP-CLI command for the quick creation of bespoke blocks.
- - Block traits for the adding common functionality to individual blocks.
+ - Block traits for adding common functionality to individual blocks.
  - Helper class (Creode_Blocks\Helpers) containing various block related functions.
+ - Block library.
