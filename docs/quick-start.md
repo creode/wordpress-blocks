@@ -2,7 +2,9 @@
 title: Quick Start
 editLink: false
 ---
+
 # Quick Start
+
 ## Requirements
 This plugin requires the following to be installed and active on the WordPress site:
 - Advanced Custom Fields Pro - A pro license is required to handle block creation.

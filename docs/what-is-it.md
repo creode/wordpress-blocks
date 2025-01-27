@@ -2,4 +2,11 @@
 title: What is it?
 ---
 # What is it?
-This plugin is a WordPress plugin which facilitates the creation of blocks for the WordPress block editor. It is built using the WordPress ACF and the block editor. This module also contains infrastructure to assist in the creation of template based blocks.
+This is a WordPress MU plugin which provides the infrastructure for the efficient development of bespoke blocks for the WordPress editor. This plugin also contains functionality to assist in the creation of template based blocks.
+
+## Key features
+ - Extendable block abstract class (Creode_Blocks\Block).
+ - Block library.
+ - WP-CLI command for the quick creation of bespoke blocks.
+ - Block traits for the adding common functionality to individual blocks.
+ - Helper class (Creode_Blocks\Helpers) containing various block related functions.
