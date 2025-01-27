@@ -29,7 +29,8 @@ export default defineConfig({
           { text: 'Block Categorization', link: '/block-categorization' },
           { text: 'Block Fields', link: '/block-fields' },
           { text: 'Block Supports', link: '/block-supports' },
-          { text: 'The Block Template', link: '/the-block-template' }
+          { text: 'The Block Template', link: '/the-block-template' },
+          { text: 'Child Blocks', link: '/child-blocks' }
         ]
       }
     ],
