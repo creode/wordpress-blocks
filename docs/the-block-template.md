@@ -71,7 +71,7 @@ The most commonly used attributes for the InnerBlocks element are:
 /**
  * My New Block block template file.
  *
- * @package Gibraltar International Bank
+ * @package My Client's Brand
  */
 
 /**
