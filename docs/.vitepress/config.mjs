@@ -16,14 +16,21 @@ export default defineConfig({
         text: 'Introduction',
         collapsed: false,
         items: [
-          { text: 'What is this plugin?', link: '/what-is-it' },
+          { text: 'What Is It?', link: '/what-is-it' },
           { text: 'Quick Start', link: '/quick-start' }
         ]
       },
       {
         text: 'Blocks',
         items: [
+          { text: 'The Block Class', link: '/the-block-class' },
           { text: 'Creation', link: '/block-creation' },
+          { text: 'Order', link: '/order-of-blocks' },
+          { text: 'Categorization', link: '/block-categorization' },
+          { text: 'Fields', link: '/block-fields' },
+          { text: 'Supports', link: '/block-supports' },
+          { text: 'Templates', link: '/block-template' },
+          { text: 'Child Blocks', link: '/child-blocks' }
         ]
       }
     ],
