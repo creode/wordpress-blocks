@@ -1,9 +1,9 @@
 ---
-title: The Block Template
+title: Block Template
 editLink: false
 ---
 
-# The Block Template
+# Block Template
 
 Each block class must specify a "template" function. This must return a full path to a file that will be used to render the block. In the case of the WP-CLI "make-block" command this will be a file called "block.php".
 

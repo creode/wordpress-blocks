@@ -24,12 +24,12 @@ export default defineConfig({
         text: 'Blocks',
         items: [
           { text: 'The Block Class', link: '/the-block-class' },
-          { text: 'Block Creation', link: '/block-creation' },
-          { text: 'Order Of Blocks', link: '/order-of-blocks' },
-          { text: 'Block Categorization', link: '/block-categorization' },
-          { text: 'Block Fields', link: '/block-fields' },
-          { text: 'Block Supports', link: '/block-supports' },
-          { text: 'The Block Template', link: '/the-block-template' },
+          { text: 'Creation', link: '/block-creation' },
+          { text: 'Order', link: '/order-of-blocks' },
+          { text: 'Categorization', link: '/block-categorization' },
+          { text: 'Fields', link: '/block-fields' },
+          { text: 'Supports', link: '/block-supports' },
+          { text: 'Templates', link: '/block-template' },
           { text: 'Child Blocks', link: '/child-blocks' }
         ]
       }
