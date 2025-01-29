@@ -32,7 +32,15 @@ export default defineConfig({
           { text: 'Templates', link: '/block-template' },
           { text: 'Child Blocks', link: '/child-blocks' }
         ]
-      }
+      },
+      {
+        text: 'Block Traits',
+        collapsed: false,
+        items: [
+          { text: 'Introduction', link: '/block-traits-introduction' },
+		  { text: 'Auto Initialization', link: '/block-trait-auto-initialization' }
+        ]
+      },
     ],
 
     socialLinks: [
