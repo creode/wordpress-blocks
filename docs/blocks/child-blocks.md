@@ -57,7 +57,7 @@ For a block to define child blocks, the block class must have a "child_blocks" f
     - No additional processing of this value is performed, therefore it may be necessary to provide a contextualized term, such as "My New Block Section". This is to allow for maximum flexibility.
  - fields
     - An ACF fields array specific to the child block.
-    - Please see [Block Fields](block-fields) for details about this format.
+    - Please see [Block Fields](fields) for details about this format.
  - template
     - A complete path to a php file that will be used to render the child block.
  - child_blocks (Optional)
@@ -67,7 +67,7 @@ For a block to define child blocks, the block class must have a "child_blocks" f
     - An icon from dashicons or an inline SVG.
  - supports (Optional)
     - A block supports array.
-    - Please see [Block Supports](block-supports) for details about this format.
+    - Please see [Block Supports](supports) for details about this format.
 
 ## A complete example
 
