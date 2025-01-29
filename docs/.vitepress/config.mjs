@@ -38,7 +38,18 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Introduction', link: '/block-traits/introduction' },
-		  { text: 'Auto Initialization', link: '/block-traits/auto-initialization' }
+          { text: 'Auto Initialization', link: '/block-traits/auto-initialization' },
+          {
+            text: 'Available Traits',
+            items: [
+                { text: 'Editor Restriction', link: '/block-traits/traits/editor-restriction' },
+                { text: 'Unique ID', link: '/block-traits/traits/unique-id' },
+                { text: 'Modifier Classes', link: '/block-traits/traits/modifier-classes' },
+                { text: 'Reduce Bottom Spacing', link: '/block-traits/traits/reduce-bottom-spacing' },
+                { text: 'Pattern Rendering', link: '/block-traits/traits/pattern-rendering' },
+                { text: 'Menu Rendering', link: '/block-traits/traits/menu-rendering' },
+            ]
+          }
         ]
       },
     ],
