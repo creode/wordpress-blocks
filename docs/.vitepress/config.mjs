@@ -23,22 +23,22 @@ export default defineConfig({
       {
         text: 'Blocks',
         items: [
-          { text: 'The Block Class', link: '/the-block-class' },
-          { text: 'Creation', link: '/block-creation' },
-          { text: 'Order', link: '/order-of-blocks' },
-          { text: 'Categorization', link: '/block-categorization' },
-          { text: 'Fields', link: '/block-fields' },
-          { text: 'Supports', link: '/block-supports' },
-          { text: 'Templates', link: '/block-template' },
-          { text: 'Child Blocks', link: '/child-blocks' }
+          { text: 'The Block Class', link: '/blocks/the-block-class' },
+          { text: 'Creation', link: '/blocks/creation' },
+          { text: 'Order', link: '/blocks/order' },
+          { text: 'Categorization', link: '/blocks/categorization' },
+          { text: 'Fields', link: '/blocks/fields' },
+          { text: 'Supports', link: '/blocks/supports' },
+          { text: 'Templates', link: '/blocks/template' },
+          { text: 'Child Blocks', link: 'blocks/child-blocks' }
         ]
       },
       {
         text: 'Block Traits',
         collapsed: false,
         items: [
-          { text: 'Introduction', link: '/block-traits-introduction' },
-		  { text: 'Auto Initialization', link: '/block-trait-auto-initialization' }
+          { text: 'Introduction', link: '/block-traits/introduction' },
+		  { text: 'Auto Initialization', link: '/block-traits/auto-initialization' }
         ]
       },
     ],
