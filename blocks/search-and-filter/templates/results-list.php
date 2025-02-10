@@ -17,7 +17,7 @@
 		<?php endwhile; ?>
 	</div>
 <?php else : ?>
-	<p><?php echo esc_html( apply_filters( 'creode_blocks_search_and_filter_results_list_empty_message', 'No Results found.', $args, $query ) ); ?></p>
+	<?php echo wp_kses_post( apply_filters( 'creode_blocks_search_and_filter_results_list_empty_message', '<p>No Results found.</p>', $args, $query ) ); ?>
 <?php endif; ?>
 
 <?php wp_reset_postdata(); ?>
