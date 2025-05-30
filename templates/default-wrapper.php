@@ -6,12 +6,26 @@
  */
 
 /**
- * Ensure $block is availible if rendering is via an AJAX request.
+ * Ensure $block is available if rendering is via an AJAX request.
  *
  * @var array Details about the current block.
  */
 //phpcs:ignore -- requires auth;
 $block = ( empty( $block ) && acf_verify_ajax() && isset( $_REQUEST['block'] ) ) ? json_decode( wp_unslash( $_REQUEST['block'] ), true ) : $block;
+
+/**
+ * If block is still not available, do nothing.
+ */
+if ( empty( $block ) ) {
+	return;
+}
+
+/**
+ * If block name is not available, do nothing.
+ */
+if ( empty( $block['name'] ) ) {
+	return;
+}
 
 /**
  * Assign the block's name to a variable and remove the prefix.
@@ -26,6 +40,13 @@ $block_name = str_replace( 'acf/', '', $block['name'] );
  * @var Creode_Blocks\Block The instance for this block type.
  */
 $creode_block = Creode_Blocks\Helpers::get_block_by_name( $block_name );
+
+/**
+ * If Creode_Blocks\Block instance cannot be found, do nothing.
+ */
+if ( ! $creode_block ) {
+	return;
+}
 ?>
 
 <?php if ( ! $is_preview ) : ?>
