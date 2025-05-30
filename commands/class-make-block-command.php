@@ -75,6 +75,10 @@ class Make_Block_Command {
 	 */
 	protected function generate_block_slug_name( $block_label ) {
 		$block_class_name = $this->generate_block_class_name( $block_label );
+
+		// Remove the _Block suffix.
+		$block_class_name = str_replace( '_Block', '', $block_class_name );
+
 		return strtolower( str_replace( '_', '-', $block_class_name ) );
 	}
 
