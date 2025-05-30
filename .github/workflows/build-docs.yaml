@@ -3,7 +3,7 @@ name: "Documentation"
 on: # yamllint disable-line rule:truthy
   push:
     branches:
-      - "main"
+      - "*.x"
   pull_request: null
 
 jobs:
