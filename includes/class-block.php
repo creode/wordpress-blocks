@@ -11,6 +11,9 @@ namespace Creode_Blocks;
  * Abstract class to extend for each block.
  */
 abstract class Block {
+
+	use Trait_Has_Modifier_Classes;
+
 	/**
 	 * Singleton instance of this class.
 	 *
@@ -150,6 +153,15 @@ abstract class Block {
 	abstract protected function template(): string;
 
 	/**
+	 * Returns whether the default wrapper template should be used.
+	 *
+	 * @return bool Whether the default wrapper template should be used.
+	 */
+	protected function use_default_wrapper_template(): bool {
+		return true;
+	}
+
+	/**
 	 * Function for providing the block's category.
 	 *
 	 * @return string The block's category.
@@ -202,7 +214,7 @@ abstract class Block {
 				'description'     => $this->description(),
 				'category'        => $this->category(),
 				'icon'            => $this->icon,
-				'render'          => $this->template(),
+				'render'          => $this->use_default_wrapper_template() ? __DIR__ . '/../templates/default-wrapper.php' : $this->template(),
 				'textdomain'      => 'wordpress-blocks',
 				'supports'        => $this->supports(),
 				'providesContext' => $this->provides_context,
@@ -453,5 +465,14 @@ abstract class Block {
 	 */
 	public function get_field( string $field_name ) {
 		return get_field( $field_name );
+	}
+
+	/**
+	 * Get the path to the render template.
+	 *
+	 * @return string The path to the render template.
+	 */
+	public function get_template(): string {
+		return $this->template();
 	}
 }

@@ -35,5 +35,7 @@ trait Trait_Has_Modifier_Classes {
 	 *
 	 * @return array An array of terms.
 	 */
-	abstract protected function modifier_classes(): array;
+	protected function modifier_classes(): array {
+		return array();
+	}
 }
