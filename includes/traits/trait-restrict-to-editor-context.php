@@ -38,7 +38,7 @@ trait Trait_Restrict_To_Editor_Context {
 	 * @link https://developer.wordpress.org/reference/classes/wp_block_editor_context/ Block context documentation.
 	 */
 	protected function restrict_to_editor_context( string $editor_context_name ) {
-		$block_name = 'acf/' . $this->name();
+		$block_name = 'acf/' . $this->get_name();
 
 		add_filter(
 			'allowed_block_types_all',

@@ -20,7 +20,7 @@ trait Trait_Has_Unique_Id {
 	 * @return string A unique ID.
 	 */
 	public function get_unique_id(): string {
-		$block_name = $this->name();
+		$block_name = $this->get_name();
 		$iterator   = apply_filters( $block_name . '_iterator', 0 );
 
 		add_filter(

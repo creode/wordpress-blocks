@@ -34,21 +34,10 @@ $inner_block_template = array(
 );
 ?>
 
-<?php if ( ! $is_preview ) : ?>
-	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-	<div <?php echo get_block_wrapper_attributes( array( 'class' => ':BLOCK_HTML_BASE_CLASS__outer-wrapper' ) ); ?>>
-<?php endif; ?>
-
-<div class=":BLOCK_HTML_BASE_CLASS__wrapper">
-	<div class=":BLOCK_HTML_BASE_CLASS__inner">
-		<InnerBlocks
-			allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
-			template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
-			class=":BLOCK_HTML_BASE_CLASS__inner-blocks"
-		/>
-	</div>
+<div class=":BLOCK_HTML_BASE_CLASS__main">
+	<InnerBlocks
+		allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
+		template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
+		class=":BLOCK_HTML_BASE_CLASS__inner-blocks"
+	/>
 </div>
-
-<?php if ( ! $is_preview ) : ?>
-	</div>
-<?php endif; ?>

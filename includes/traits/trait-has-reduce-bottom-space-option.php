@@ -38,7 +38,7 @@ trait Trait_Has_Reduce_Bottom_Space_Option {
 	 * Adds a "Reduce Bottom Space" field to the current block field group.
 	 */
 	private function add_reduce_bottom_space_field() {
-		$block_name = $this->name();
+		$block_name = $this->get_name();
 
 		add_filter(
 			'block-' . $block_name . '-fields',
@@ -66,7 +66,7 @@ trait Trait_Has_Reduce_Bottom_Space_Option {
 	 */
 	private function add_reduce_bottom_space_modifier_class() {
 		add_filter(
-			'block-' . $this->name() . '-modifier-classes',
+			'block-' . $this->get_name() . '-modifier-classes',
 			function ( array $classes ) {
 				if ( ! empty( $this->get_field( 'reduce_bottom_space' ) ) ) {
 					array_push( $classes, 'reduce-bottom-space' );
