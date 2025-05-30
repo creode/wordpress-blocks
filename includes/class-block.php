@@ -7,6 +7,8 @@
 
 namespace Creode_Blocks;
 
+use Exception;
+
 /**
  * Abstract class to extend for each block.
  */
@@ -54,7 +56,7 @@ abstract class Block {
 				$this->register_acf_fields();
 
 				foreach ( $this->child_blocks() as $child_block ) {
-					$this->register_child_block( 'acf/' . $this->name(), $child_block, array( 'acf/' . $this->name() ) );
+					$this->register_child_block( 'acf/' . $this->get_name(), $child_block, array( 'acf/' . $this->get_name() ) );
 				}
 			}
 		);
@@ -104,7 +106,7 @@ abstract class Block {
 		add_filter(
 			'creode_block_instances',
 			function ( array $instances ) use ( $instance ) {
-				$instances[ $instance->name() ] = $instance;
+				$instances[ $instance->get_name() ] = $instance;
 
 				return $instances;
 			}
@@ -117,6 +119,22 @@ abstract class Block {
 	 * @return string The block's name (must be hyphen separated).
 	 */
 	abstract protected function name(): string;
+
+	/**
+	 * Get the block's name.
+	 *
+	 * @throws Exception If the name isn't valid.
+	 * @return string The block's name.
+	 */
+	public function get_name(): string {
+		$name = $this->name();
+
+		if ( ! preg_match( '/^[a-z0-9-]+$/', $name ) ) {
+			throw new Exception( 'All block names should be lowercase and hyphen-separated. The following is invalid: "' . esc_html( $name ) . '".' );
+		}
+
+		return $name;
+	}
 
 	/**
 	 * Function for providing the block's label to be used within the WordPress UI.
@@ -151,6 +169,22 @@ abstract class Block {
 	 * @return string The path to the render template.
 	 */
 	abstract protected function template(): string;
+
+	/**
+	 * Get the path to the render template.
+	 *
+	 * @throws Exception If the template file does not exist.
+	 * @return string The path to the render template.
+	 */
+	public function get_template(): string {
+		$template = $this->template();
+
+		if ( ! file_exists( $template ) ) {
+			throw new Exception( 'The following template file does not exist: ' . esc_html( $template ) . '.' );
+		}
+
+		return $template;
+	}
 
 	/**
 	 * Returns whether the default wrapper template should be used.
@@ -214,7 +248,7 @@ abstract class Block {
 				'description'     => $this->description(),
 				'category'        => $this->category(),
 				'icon'            => $this->icon,
-				'render'          => $this->use_default_wrapper_template() ? __DIR__ . '/../templates/default-wrapper.php' : $this->template(),
+				'render'          => $this->use_default_wrapper_template() ? __DIR__ . '/../templates/default-wrapper.php' : $this->get_template(),
 				'textdomain'      => 'wordpress-blocks',
 				'supports'        => $this->supports(),
 				'providesContext' => $this->provides_context,
@@ -226,13 +260,13 @@ abstract class Block {
 	 * Registers the block type using the provided block data.
 	 *
 	 * @param array $block_data The block data.
-	 * @throws \Exception If filesystem cannot be accessed.
+	 * @throws Exception If filesystem cannot be accessed.
 	 * @return void
 	 */
 	protected function register_block_type( array $block_data ): void {
 		$wp_filesystem = $this->get_filesystem();
 		if ( ! $wp_filesystem ) {
-			throw new \Exception( 'Cannot cache block. Could not get filesystem.' );
+			throw new Exception( 'Cannot cache block. Could not get filesystem.' );
 		}
 
 		$cache_folder = WP_CONTENT_DIR . '/cache/wp-blocks';
@@ -465,14 +499,5 @@ abstract class Block {
 	 */
 	public function get_field( string $field_name ) {
 		return get_field( $field_name );
-	}
-
-	/**
-	 * Get the path to the render template.
-	 *
-	 * @return string The path to the render template.
-	 */
-	public function get_template(): string {
-		return $this->template();
 	}
 }
