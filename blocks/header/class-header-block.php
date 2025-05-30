@@ -65,13 +65,17 @@ class Header_Block extends Block {
 				'logo',
 				'Logo',
 				array(),
-				plugin_dir_path( __FILE__ ) . 'templates/logo.php'
+				plugin_dir_path( __FILE__ ) . 'templates/logo.php',
+				array(),
+				'format-image'
 			),
 			new Child_Block(
 				'general',
 				'General',
 				array(),
-				plugin_dir_path( __FILE__ ) . 'templates/general.php'
+				plugin_dir_path( __FILE__ ) . 'templates/general.php',
+				array(),
+				'admin-generic'
 			),
 			new Child_Block(
 				'menu',
@@ -85,7 +89,9 @@ class Header_Block extends Block {
 						'choices' => $this->get_menu_choices(),
 					),
 				),
-				plugin_dir_path( __FILE__ ) . 'templates/menu.php'
+				plugin_dir_path( __FILE__ ) . 'templates/menu.php',
+				array(),
+				'menu',
 			),
 		);
 	}
