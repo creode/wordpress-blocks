@@ -14,6 +14,8 @@ use WP_Query;
 
 /**
  * Search and Filter block definition.
+ *
+ * @deprecated 1.0.0 Use an alternative block for search and filter functionality.
  */
 class Search_And_Filter_Block extends Block {
 
