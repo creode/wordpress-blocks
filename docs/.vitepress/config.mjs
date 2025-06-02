@@ -18,7 +18,8 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'What Is It?', link: '/what-is-it' },
-          { text: 'Quick Start', link: '/quick-start' }
+          { text: 'Quick Start', link: '/quick-start' },
+          { text: 'Upgrading', link: '/upgrading' },
         ]
       },
       {
