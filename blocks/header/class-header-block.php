@@ -95,4 +95,11 @@ class Header_Block extends Block {
 			),
 		);
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function use_default_wrapper_template(): bool {
+		return false;
+	}
 }
