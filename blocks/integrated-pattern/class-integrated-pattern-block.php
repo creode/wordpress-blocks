@@ -78,4 +78,11 @@ class Integrated_Pattern_Block extends Block {
 	protected function template(): string {
 		return plugin_dir_path( __FILE__ ) . 'templates/block.php';
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function use_default_wrapper_template(): bool {
+		return false;
+	}
 }

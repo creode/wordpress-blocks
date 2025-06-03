@@ -330,4 +330,11 @@ class Search_And_Filter_Block extends Block {
 
 		include apply_filters( 'creode_blocks_search_and_filter_results_list_template', plugin_dir_path( __FILE__ ) . 'templates/results-list.php' );
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function use_default_wrapper_template(): bool {
+		return false;
+	}
 }
