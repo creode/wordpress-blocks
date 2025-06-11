@@ -58,7 +58,8 @@ abstract class Block {
 				foreach ( $this->child_blocks() as $child_block ) {
 					$this->register_child_block( 'acf/' . $this->get_name(), $child_block, array( 'acf/' . $this->get_name() ) );
 				}
-			}
+			},
+			99
 		);
 	}
 
