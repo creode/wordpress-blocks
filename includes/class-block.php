@@ -55,7 +55,7 @@ abstract class Block {
 				$this->register_acf_block();
 				$this->register_acf_fields();
 
-				foreach ( $this->child_blocks() as $child_block ) {
+				foreach ( $this->get_child_blocks() as $child_block ) {
 					$this->register_child_block( 'acf/' . $this->get_name(), $child_block, array( 'acf/' . $this->get_name() ) );
 				}
 			},
@@ -212,6 +212,21 @@ abstract class Block {
 	 */
 	protected function child_blocks(): array {
 		return array();
+	}
+
+	/**
+	 * Get the child blocks array.
+	 *
+	 * @return array The child blocks array.
+	 */
+	public function get_child_blocks(): array {
+		$child_blocks = $this->child_blocks();
+		$child_blocks = apply_filters( 'creode_child_blocks', $child_blocks );
+
+		$filter       = 'creode_child_blocks_' . str_replace( '-', '_', $this->get_name() );
+		$child_blocks = apply_filters( $filter, $child_blocks );
+
+		return $child_blocks;
 	}
 
 	/**

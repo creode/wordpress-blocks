@@ -249,3 +249,26 @@ The final HTML would be as follows:
 	</div>
 </div>
 ```
+
+## Child block filtering
+
+Child blocks can be filtered prior to initialization. To filter all child blocks for all parent blocks, use the "creode_child_blocks" To filter blocks for a specific parent, tse an underscore separated representation of the parent block name with the prefix "creode_child_blocks_". Please see the following example which will add a new child block to the block named "my-test-block":
+
+```php
+add_filter(
+	'creode_child_blocks_my_test_block',
+	function ( array $child_blocks ) {
+		array_push(
+			$child_blocks,
+			new Child_Block(
+				'new-child-block',
+				'New Child Block',
+				array(),
+				__DIR__ . '/templates/new-child-block.php'
+			)
+		);
+
+		return $child_blocks;
+	}
+);
+```
