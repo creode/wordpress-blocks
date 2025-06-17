@@ -10,14 +10,6 @@
     "require": {
         "composer/installers": "*"
     },
-    "require-dev": {
-        "rector/rector": "^2.0"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Creode\\Blocks\\Utils\\Rector\\": "utils/rector/src"
-        }
-    },
     "config": {
         "allow-plugins": {
             "composer/installers": true
