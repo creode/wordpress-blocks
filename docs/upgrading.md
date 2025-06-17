@@ -38,7 +38,7 @@ composer require --dev creode/blocks-rector-ruleset
 Once done you need to run the following command to upgrade your blocks, take specific note of the `{theme-name}` placeholder which should be replaced with the name of your WordPress theme:
 
 ```bash
-/vendor/bin/rector process wp-content/themes/{theme-name} --config=vendor/creode/wordpress-blocks-rector/config/blocks-1-0.php
+vendor/bin/rector process wp-content/themes/{theme-name} --config=vendor/creode/wordpress-blocks-rector/config/blocks-1-0.php
 ```
 
 The rector project can be found here: https://github.com/creode/wordpress-blocks-rector.
