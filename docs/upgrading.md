@@ -31,7 +31,7 @@ We have created a Rector ruleset to help you upgrade your blocks. This can be us
 You can install this ruleset by running the following command:
 
 ```bash
-composer require --dev creode/blocks-rector-ruleset
+composer require --dev creode/wordpress-blocks-rector
 ```
 
 #### Usage
