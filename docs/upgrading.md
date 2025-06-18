@@ -49,5 +49,5 @@ This will automatically make your blocks compatible with the new version.
 After running the command, you can uninstall the ruleset by running the following command:
 
 ```bash
-composer remove --dev creode/blocks-rector-ruleset
+composer remove --dev creode/wordpress-blocks-rector
 ```
