@@ -42,7 +42,7 @@ class Make_Block_Command {
 
 		$this->make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug );
 		$this->make_block_template( $block_slug_name, $block_label, $block_class_name, $block_folder_path );
-		$this->add_block_to_loader_file( $block_class_name, "/$block_slug_name/class-$block_slug_name.php", $theme );
+		$this->add_block_to_loader_file( $block_class_name, "/$block_slug_name/class-$block_slug_name-block.php", $theme );
 
 		// Tell the user to require the block to the themes file and provide location.
 		WP_CLI::success( 'Block created successfully.' );
@@ -94,6 +94,8 @@ class Make_Block_Command {
 	 * @return void
 	 */
 	protected function make_block_class( $block_slug_name, $block_label, $block_class_name, $block_folder_path, $theme_slug ) {
+		$theme = wp_get_theme();
+
 		// Load the contents of the stub file.
 		$block_class_stub = file_get_contents( CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/class-block.php' );
 
@@ -106,12 +108,12 @@ class Make_Block_Command {
 				':BLOCK_TEMPLATE'   => "__DIR__ . '/templates/block.php'",
 				':BLOCK_CLASS_NAME' => $block_class_name,
 				':THEME_SLUG'       => $theme_slug,
-				':BLOCK_VERSION'    => $this->get_block_plugin_version(),
+				':THEME_NAME'       => $theme->get( 'Name' ),
 			)
 		);
 
 		// Setup block class filepath.
-		$block_class_file_path = $block_folder_path . '/class-' . $block_slug_name . '.php';
+		$block_class_file_path = $block_folder_path . '/class-' . $block_slug_name . '-block.php';
 
 		// Write the stub file to the block class file.
 		file_put_contents( $block_class_file_path, $block_class_stub );

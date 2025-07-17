@@ -49,6 +49,8 @@ if ( ! $creode_block ) {
 }
 ?>
 
+<?php do_action( 'before_block_' . $block_name ); ?>
+
 <?php if ( ! $is_preview ) : ?>
 	<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	<div <?php echo get_block_wrapper_attributes( array( 'class' => $block_name . '__outer-wrapper' ) ); ?>>
@@ -63,3 +65,5 @@ if ( ! $creode_block ) {
 <?php if ( ! $is_preview ) : ?>
 	</div>
 <?php endif; ?>
+
+<?php do_action( 'after_block_' . $block_name ); ?>

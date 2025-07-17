@@ -20,10 +20,6 @@ The block class instance can be retrieved within the template file using the "ge
 $block = Creode_Blocks\Helpers::get_block_by_name( 'my-new-block-block' );
 ```
 
-::: info
-The reason that a helper function should be used here (as opposed to accessing the $instance property directly or via a public block class function) is due to the fact that block classes can be extended. Therefore in the example above there is no guarantee that the object retrieved is a direct instance of My_New_Block_Block or the value stored within the My_New_Block_Block::$instance property. The object could be an instance of a class which extends My_New_Block_Block but uses the same name.
-:::
-
 This can be vary useful for calling public functions that the class provides. The most common is the "get_field" function which is available on all block classes.
 
 ## Get field

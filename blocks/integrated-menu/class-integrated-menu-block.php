@@ -15,13 +15,6 @@ class Integrated_Menu_Block extends Block {
 	use Trait_Menu_Integration;
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Integrated_Pattern_Block
-	 */
-	protected static $instance = null;
-
-	/**
 	 * The block icon.
 	 *
 	 * @var string

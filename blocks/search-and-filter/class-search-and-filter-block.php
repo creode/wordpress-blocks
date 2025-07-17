@@ -23,13 +23,6 @@ class Search_And_Filter_Block extends Block {
 	use Trait_Block_Pattern_Options;
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Block
-	 */
-	protected static $instance = null;
-
-	/**
 	 * {@inheritDoc}
 	 */
 	protected function setup(): bool {

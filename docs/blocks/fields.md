@@ -33,13 +33,6 @@ use Creode_Blocks\Block;
 class Your_First_Block extends Block {
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Your_First_Block|null
-	 */
-	protected static $instance = null;
-
-	/**
 	 * {@inheritdoc}
 	 */
 	protected function name(): string {

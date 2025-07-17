@@ -3,7 +3,7 @@
  * :BLOCK_LABEL block class.
  *
  * @version :BLOCK_VERSION
- * @package :THEME_SLUG
+ * @package :THEME_NAME
  */
 
 use Creode_Blocks\Block;
@@ -12,13 +12,6 @@ use Creode_Blocks\Block;
  * :BLOCK_LABEL block class.
  */
 class :BLOCK_CLASS_NAME extends Block {
-
-	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var :BLOCK_CLASS_NAME|null
-	 */
-	protected static $instance = null;
 
 	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
