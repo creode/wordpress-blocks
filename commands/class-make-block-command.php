@@ -109,6 +109,7 @@ class Make_Block_Command {
 				':BLOCK_CLASS_NAME' => $block_class_name,
 				':THEME_SLUG'       => $theme_slug,
 				':THEME_NAME'       => $theme->get( 'Name' ),
+				':BLOCK_VERSION'    => $this->get_block_plugin_version(),
 			)
 		);
 
@@ -267,5 +268,20 @@ class Make_Block_Command {
 		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . 'require_once __DIR__ . \'' . $block_class_path . '\';', FILE_APPEND );
 		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL . $block_class_name . '::init();', FILE_APPEND );
 		file_put_contents( $blocks_directory_path . '/all.php', PHP_EOL, FILE_APPEND );
+	}
+
+	/**
+	 * Determines the version of the block plugin.
+	 *
+	 * @return string
+	 */
+	private function get_block_plugin_version(): string {
+		// Read it from the composer.lock file?
+		$block_version = '1.0.0';
+		if ( class_exists( '\Composer\InstalledVersions' ) ) {
+			$block_version = \Composer\InstalledVersions::getPrettyVersion( 'creode/wordpress-blocks' );
+		}
+
+		return $block_version;
 	}
 }
