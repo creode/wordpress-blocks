@@ -109,6 +109,7 @@ class Make_Block_Command {
 				':BLOCK_CLASS_NAME' => $block_class_name,
 				':THEME_SLUG'       => $theme_slug,
 				':THEME_NAME'       => $theme->get( 'Name' ),
+				':BLOCK_VERSION'    => $this->get_block_plugin_version(),
 			)
 		);
 
