@@ -17,11 +17,11 @@ abstract class Block {
 	use Trait_Has_Modifier_Classes;
 
 	/**
-	 * Singleton instance of this class.
+	 * Singleton instances for extensions of this class.
 	 *
-	 * @var Block|null
+	 * @var Block[]
 	 */
-	protected static $instance = null;
+	private static $instances = array();
 
 	/**
 	 * The blocks icon from dashicons or an inline SVG.
@@ -96,22 +96,20 @@ abstract class Block {
 	 * Set singleton instance of this class.
 	 */
 	public static function init(): void {
-		if ( static::$instance ) {
+		if ( isset( static::$instances[ static::class ] ) ) {
 			return;
 		}
 
-		static::$instance = new static();
+		static::$instances[ static::class ] = new static();
+	}
 
-		// Provide instance through globally available filter.
-		$instance = static::$instance;
-		add_filter(
-			'creode_block_instances',
-			function ( array $instances ) use ( $instance ) {
-				$instances[ $instance->get_name() ] = $instance;
-
-				return $instances;
-			}
-		);
+	/**
+	 * Get all block instances.
+	 *
+	 * @return Block[]
+	 */
+	public static function get_instances(): array {
+		return static::$instances;
 	}
 
 	/**

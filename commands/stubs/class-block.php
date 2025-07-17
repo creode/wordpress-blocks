@@ -13,13 +13,6 @@ use Creode_Blocks\Block;
 class :BLOCK_CLASS_NAME extends Block {
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var :BLOCK_CLASS_NAME|null
-	 */
-	protected static $instance = null;
-
-	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
 	 *
 	 * @var string
