@@ -10,6 +10,8 @@ use Creode_Blocks\Block;
 
 /**
  * :BLOCK_LABEL block class.
+ *
+ * @wordpress-block-version :BLOCK_VERSION
  */
 class :BLOCK_CLASS_NAME extends Block {
 
