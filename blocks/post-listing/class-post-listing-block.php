@@ -13,13 +13,6 @@ namespace Creode_Blocks;
 class Post_Listing_Block extends Block {
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Post_Listing_Block|null
-	 */
-	protected static $instance = null;
-
-	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
 	 *
 	 * @var string

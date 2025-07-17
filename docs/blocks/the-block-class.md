@@ -18,8 +18,6 @@ Each block class must have the following required functions:
  - "label" (must return text to label the block within the admin UI)
  - "template" (must return a complete path to a php file that will be used to render the block)
 
-Each block should also contain a protected static $instance property. This will be used to store a single instance of the class. This instance can be retrieved globally using a helper function.
-
 ### Your first block
 
 Please see the following example of the most basic block class:
@@ -38,13 +36,6 @@ use Creode_Blocks\Block;
  * Your First block class.
  */
 class Your_First_Block extends Block {
-
-	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Your_First_Block|null
-	 */
-	protected static $instance = null;
 
 	/**
 	 * {@inheritdoc}

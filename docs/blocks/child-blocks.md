@@ -90,13 +90,6 @@ use Creode_Blocks\Child_Block;
 class My_New_Block_Block extends Block {
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var My_New_Block_Block|null
-	 */
-	protected static $instance = null;
-
-	/**
 	 * {@inheritdoc}
 	 */
 	protected function name(): string {

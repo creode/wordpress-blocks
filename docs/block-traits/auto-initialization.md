@@ -31,13 +31,6 @@ class Your_First_Block extends Block {
 	use Testing_Trait;
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Your_First_Block|null
-	 */
-	protected static $instance = null;
-
-	/**
 	 * {@inheritdoc}
 	 */
 	protected function name(): string {

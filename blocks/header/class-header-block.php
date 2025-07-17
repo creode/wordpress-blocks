@@ -15,13 +15,6 @@ class Header_Block extends Block {
 	use Trait_Menu_Integration;
 
 	/**
-	 * Singleton instance of this class.
-	 *
-	 * @var Header_Block
-	 */
-	protected static $instance = null;
-
-	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/
 	 *
 	 * @var string
