@@ -2,7 +2,6 @@
 /**
  * :BLOCK_LABEL block class.
  *
- * @version :BLOCK_VERSION
  * @package :THEME_NAME
  */
 
