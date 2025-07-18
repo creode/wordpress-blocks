@@ -2,7 +2,7 @@
 /**
  * :BLOCK_LABEL block class.
  *
- * @package :THEME_NAME
+ * @package :PACKAGE_NAME
  */
 
 use Creode_Blocks\Block;

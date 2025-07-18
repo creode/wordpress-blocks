@@ -1,5 +1,7 @@
 <?php
 
+namespace Creode_Blocks\Make_Block\Services;
+
 class File {
 	/**
 	 * Gets all the files in a directory recursively.
@@ -9,8 +11,8 @@ class File {
 	 * @return array
 	 */
 	public static function get_all_files_in_directory( string $base_path ) {
-		$directory = new RecursiveDirectoryIterator( $base_path );
-		$iterator  = new RecursiveIteratorIterator( $directory );
+		$directory = new \RecursiveDirectoryIterator( $base_path );
+		$iterator  = new \RecursiveIteratorIterator( $directory );
 		$files     = array();
 
 		foreach ( $iterator as $file ) {

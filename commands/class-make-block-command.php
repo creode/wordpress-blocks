@@ -1,4 +1,7 @@
 <?php
+
+use Creode_Blocks\Make_Block;
+
 /**
  * Make Command class.
  *
@@ -31,14 +34,14 @@ class Make_Block_Command {
 	 */
 	public function __invoke( $args, $optional_args ) {
 		// Set the block label.
-		Block_Details::get_instance()->block_label = $args[0];
+		$block_label = $args[0];
 
 		// Set the theme slug.
-		Block_Details::get_instance()->block_theme_slug = $optional_args['theme'] ?? null;
+		$block_theme_slug = $optional_args['theme'] ?? null;
 
 		try {
 			// Create the block.
-			Make_Block::run();
+			new Make_Block( $block_label, $block_theme_slug );
 		} catch ( Exception $e ) {
 			WP_CLI::error( $e->getMessage() );
 		}

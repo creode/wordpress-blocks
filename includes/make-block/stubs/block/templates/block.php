@@ -2,7 +2,7 @@
 /**
  * :BLOCK_LABEL block template file.
  *
- * @package :THEME_NAME
+ * @package :PACKAGE_NAME
  */
 
 /**

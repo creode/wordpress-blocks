@@ -1,21 +1,38 @@
 <?php
 
+namespace Creode_Blocks\Make_Block\Actions;
+
+use Creode_Blocks\Make_Block\Services\Block_Details;
+
 /**
  * Handles the creation of new block files.
  */
 class Create_New_Block_Files {
 	/**
+	 * The class for holding the block details.
+	 *
+	 * @var Block_Details
+	 */
+	protected $block_details;
+
+	public function __construct( Block_Details $block_details ) {
+		$this->block_details = $block_details;
+
+		$this->handle();
+	}
+
+	/**
 	 * Runs the creation of the new block files.
 	 *
 	 * @throws Exception If the block already exists.
 	 */
-	public static function run() {
+	protected function handle() {
 		// Get the block folder path.
-		$block_folder_path = Block_Details::get_instance()->get_block_folder_path();
+		$block_folder_path = $this->block_details->get_block_folder_path();
 
 		// Check if the block exists.
 		if ( file_exists( $block_folder_path ) ) {
-			throw new Exception( 'Block already exists.' );
+			throw new \Exception( 'Block already exists.' );
 		}
 
 		// Create the block folder, if it doesn't exist.
@@ -24,7 +41,7 @@ class Create_New_Block_Files {
 		}
 
 		// Copy the stubs directory to the block folder.
-		$source = CREODE_BLOCKS_PLUGIN_FOLDER . 'commands/stubs/block';
+		$source = $this->block_details->get_stubs_path() . '/block';
 		$destination = $block_folder_path;
 
 		// Recursively copy the stubs directory to the block folder.
