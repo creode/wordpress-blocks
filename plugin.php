@@ -23,6 +23,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	// Helpers.
 	require_once plugin_dir_path( __FILE__ ) . 'commands/helpers/class-block-details.php';
 	require_once plugin_dir_path( __FILE__ ) . 'commands/helpers/class-block-replacements.php';
+	require_once plugin_dir_path( __FILE__ ) . 'commands/helpers/class-file.php';
 
 	// Actions.
 	require_once plugin_dir_path( __FILE__ ) . 'commands/actions/interface-runnable.php';

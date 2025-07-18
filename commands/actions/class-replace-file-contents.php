@@ -10,7 +10,7 @@ class Replace_File_Contents implements Runnable {
 	 * @return void
 	 */
 	public static function run() {
-		$files = self::get_files( Block_Details::get_instance()->get_block_folder_path() );
+		$files = File::get_all_files_in_directory( Block_Details::get_instance()->get_block_folder_path() );
 
 		// Loop through the files and replace the contents.
 		foreach ( $files as $file ) {
@@ -31,30 +31,5 @@ class Replace_File_Contents implements Runnable {
 			// Write the contents back to the file.
 			file_put_contents( $file, $file_contents );
 		}
-	}
-
-	/**
-	 * Gets the files in the block folder.
-	 *
-	 * @param string $base_path The base path to the block folder.
-	 *
-	 * @return array
-	 */
-	protected static function get_files( string $base_path ) {
-		$directory = new RecursiveDirectoryIterator( $base_path );
-		$iterator  = new RecursiveIteratorIterator( $directory );
-		$files     = array();
-
-		foreach ( $iterator as $file ) {
-			// Skip if the file is a directory.
-			if ( ! $file->isFile() ) {
-				continue;
-			}
-
-			// Add the file to the files array.
-			$files[] = $file->getPathname();
-		}
-
-		return $files;
 	}
 }

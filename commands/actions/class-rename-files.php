@@ -7,7 +7,7 @@ class Rename_Files implements Runnable {
 	 * @return void
 	 */
 	public static function run() {
-		$files = self::get_files( Block_Details::get_instance()->get_block_folder_path() );
+		$files = File::get_all_files_in_directory( Block_Details::get_instance()->get_block_folder_path() );
 
 		// Loop through the files and apply placeholder renames.
 		foreach ( $files as $file ) {
@@ -28,28 +28,5 @@ class Rename_Files implements Runnable {
 			// Rename the file, preserve the path from the $file attribute.
 			rename( $file, dirname( $file ) . '/' . $file_name );
 		}
-	}
-
-	/**
-	 * Gets the files in a specific folder.
-	 *
-	 * @param string $base_path The base path to the block folder.
-	 *
-	 * @return array
-	 */
-	protected static function get_files( string $base_path ) {
-		$directory = new RecursiveDirectoryIterator( $base_path );
-		$iterator  = new RecursiveIteratorIterator( $directory );
-		$files     = array();
-
-		foreach ( $iterator as $file ) {
-			if ( ! $file->isFile() ) {
-				continue;
-			}
-
-			$files[] = $file->getPathname();
-		}
-
-		return $files;
 	}
 }
