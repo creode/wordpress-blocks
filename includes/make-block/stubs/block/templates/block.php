@@ -2,15 +2,15 @@
 /**
  * :BLOCK_LABEL block template file.
  *
- * @package :THEME_NAME
+ * @package :PACKAGE_NAME
  */
 
 /**
  * The block instance.
  *
- * @var :BLOCK_CLASS
+ * @var :BLOCK_CLASS_NAME
  */
-$block = Creode_Blocks\Helpers::get_block_by_name( ':BLOCK_NAME' );
+$block = Creode_Blocks\Helpers::get_block_by_name( ':BLOCK_SLUG' );
 
 $example_field        = $block->get_field( 'example_field' );
 $allowed_inner_blocks = array(

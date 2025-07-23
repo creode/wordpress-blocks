@@ -2,7 +2,7 @@
 /**
  * :BLOCK_LABEL block class.
  *
- * @package :THEME_NAME
+ * @package :PACKAGE_NAME
  */
 
 use Creode_Blocks\Block;
@@ -10,7 +10,7 @@ use Creode_Blocks\Block;
 /**
  * :BLOCK_LABEL block class.
  *
- * @wordpress-block-version :BLOCK_VERSION
+ * @wordpress-block-version :BLOCK_PLUGIN_VERSION
  */
 class :BLOCK_CLASS_NAME extends Block {
 
@@ -25,7 +25,7 @@ class :BLOCK_CLASS_NAME extends Block {
 	 * {@inheritdoc}
 	 */
 	protected function name(): string {
-		return ':BLOCK_NAME';
+		return ':BLOCK_SLUG';
 	}
 
 	/**
