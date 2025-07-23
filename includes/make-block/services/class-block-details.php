@@ -62,6 +62,9 @@ class Block_Details {
 	public function get_block_slug_name(): string {
 		$block_class_name = $this->get_block_class_name();
 
+		// Remove the _Block suffix.
+		$block_class_name = str_replace( '_Block', '', $block_class_name );
+
 		return strtolower( str_replace( '_', '-', $block_class_name ) );
 	}
 
@@ -139,7 +142,7 @@ class Block_Details {
 	 * @return string
 	 */
 	public function get_relative_block_class_path(): string {
-		return '/' . $this->get_block_slug_name() . '/class-' . $this->get_block_slug_name() . '.php';
+		return '/' . $this->get_block_slug_name() . '/class-' . $this->get_block_class_file_name() . '.php';
 	}
 
 	/**
@@ -148,7 +151,21 @@ class Block_Details {
 	 * @return string
 	 */
 	public function get_block_class_path(): string {
-		return $this->get_block_folder_path() . '/class-' . $this->get_block_slug_name() . '.php';
+		return $this->get_block_folder_path() . '/class-' . $this->get_block_class_file_name() . '.php';
+	}
+
+	/**
+	 * Gets the block class file name.
+	 *
+	 * @return string
+	 */
+	public function get_block_class_file_name(): string {
+		$block_class_name = $this->get_block_class_name();
+
+		// Convert to lowercase.
+		$block_class_file_name = strtolower( str_replace( '_', '-', $block_class_name ) );
+
+		return $block_class_file_name;
 	}
 
 	/**

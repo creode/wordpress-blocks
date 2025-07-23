@@ -34,6 +34,7 @@ class Block_Replacements {
 			':BLOCK_SLUG'            => $this->block_details->get_block_slug_name(),
 			':BLOCK_TEMPLATE'        => $this->block_details->get_block_template_path(),
 			':BLOCK_CLASS_NAME'      => $this->block_details->get_block_class_name(),
+			':BLOCK_CLASS_FILE_NAME' => $this->block_details->get_block_class_file_name(),
 			':BLOCK_FOLDER'          => $this->block_details->get_block_folder_name(),
 			':BLOCK_FOLDER_PATH'     => $this->block_details->get_block_folder_path(),
 			':BLOCK_HTML_BASE_CLASS' => $this->block_details->get_block_html_base_class(),
