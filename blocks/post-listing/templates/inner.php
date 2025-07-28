@@ -12,6 +12,5 @@ $allowed_inner_blocks = array(
 
 <InnerBlocks
 	allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
-	templateLock="false"
 	class="post-listing__query-inner"
 />

@@ -22,6 +22,5 @@ $allowed_inner_blocks = array(
 <InnerBlocks
 	allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
 	template="<?php echo esc_attr( wp_json_encode( $block->get_inner_block_template() ) ); ?>"
-	templateLock="all"
 	class="post-listing__query-wrapper"
 />
