@@ -8,11 +8,14 @@
         }
     ],
     "require": {
-        "composer/installers": "*"
+        "creode/mu-plugin-installer": "*"
     },
     "config": {
         "allow-plugins": {
-            "composer/installers": true
+            "creode/mu-plugin-installer": true
         }
+    },
+    "extra": {
+        "wordpress-muplugin-entry": "mu-plugin.php"
     }
 }
