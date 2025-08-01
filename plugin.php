@@ -25,6 +25,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/actions/class-rename-files.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/actions/class-replace-file-contents.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/actions/class-setup-block-include.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/actions/class-add-scss-to-all-file.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/actions/class-recompile-assets.php';
 
 	// Services.
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/services/class-block-details.php';
