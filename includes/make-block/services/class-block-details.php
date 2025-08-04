@@ -63,7 +63,10 @@ class Block_Details {
 		$block_class_name = $this->get_block_class_name();
 
 		// Remove the _Block suffix.
-		$block_class_name = str_replace( '_Block', '', $block_class_name );
+		if ( str_ends_with( $block_class_name, '_Block' ) ) {
+			// Remove the last 6 characters due to the underscore and the 5 characters of the suffix.
+			$block_class_name = substr( $block_class_name, 0, -6 );
+		}
 
 		return strtolower( str_replace( '_', '-', $block_class_name ) );
 	}
