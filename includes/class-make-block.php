@@ -4,6 +4,7 @@ namespace Creode_Blocks;
 
 use Creode_Blocks\Make_Block\Actions\{Create_New_Block_Files, Rename_Files, Replace_File_Contents, Setup_Block_Include, Add_Scss_To_All_File, Recompile_Assets};
 use Creode_Blocks\Make_Block\Services\Block_Details;
+use Creode_Blocks\Make_Block\Services\Block_Options;
 use Creode_Blocks\Make_Block\Services\Block_Replacements;
 
 /**
@@ -67,14 +68,38 @@ class Make_Block {
 	public $setup_block_include;
 
 	/**
+	 * The class for adding the SCSS to the all file.
+	 *
+	 * @var Add_Scss_To_All_File
+	 */
+	public $add_scss_to_all_file;
+
+	/**
+	 * The class for recompiling assets.
+	 *
+	 * @var Recompile_Assets
+	 */
+	public $recompile_assets;
+
+	/**
+	 * Block options object.
+	 *
+	 * @var Block_Options
+	 */
+	public Block_Options $options;
+
+	/**
 	 * Create the block.
 	 *
 	 * @param string $label The label of the block.
 	 * @param string $theme_slug The slug of the theme.
+	 * @param array $options The options for the block.
 	 */
-	public function __construct( string $label, ?string $theme_slug = null ) {
+	public function __construct( string $label, ?string $theme_slug = null, array $options = array() ) {
 		$this->label = $label;
 		$this->theme_slug = $theme_slug;
+
+		$this->options = $this->get_options( $options );
 
 		// Get the package path.
 		$package_path = $this->get_package_path( $this->theme_slug );
@@ -84,7 +109,7 @@ class Make_Block {
 		$this->block_replacements = new Block_Replacements( $this->block_details );
 
 		// Call functionality to create the new block files.
-		$this->create_new_block_files = new Create_New_Block_Files( $this->block_details );
+		$this->create_new_block_files = new Create_New_Block_Files( $this->block_details, $this->options );
 		$this->rename_files           = new Rename_Files( $this->block_details, $this->block_replacements );
 		$this->replace_file_contents  = new Replace_File_Contents( $this->block_details, $this->block_replacements );
 		$this->setup_block_include    = new Setup_Block_Include( $this->block_details, $this->block_replacements );
@@ -119,5 +144,17 @@ class Make_Block {
 		}
 
 		return $theme_base_path . '/blocks';
+	}
+
+	/**
+	 * Parse the options.
+	 *
+	 * @param array $options The options for the block.
+	 *
+	 * @return Block_Options
+	 */
+	protected function get_options( array $options ): Block_Options {
+		return (new Block_Options( $options ))
+			->set_scss( $options['scss'] ?? true );
 	}
 }

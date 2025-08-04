@@ -31,6 +31,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	// Services.
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/services/class-block-details.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/services/class-block-replacements.php';
+	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/services/class-block-options.php';
 	require_once plugin_dir_path( __FILE__ ) . 'includes/make-block/services/class-file.php';
 
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-make-block.php';

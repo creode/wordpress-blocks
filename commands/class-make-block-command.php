@@ -23,6 +23,9 @@ class Make_Block_Command {
 	 * [--theme=<active-theme>]
 	 * : The slug of the theme to create the block in.
 	 *
+	 * [--scss=<true|false>]
+	 * : Whether to generate a SCSS file for the block.
+	 *
 	 * ## EXAMPLES
 	 *
 	 * wp make-block "Creode Footer" --theme=creode
@@ -41,7 +44,13 @@ class Make_Block_Command {
 
 		try {
 			// Create the block.
-			new Make_Block( $block_label, $block_theme_slug );
+			new Make_Block(
+				$block_label,
+				$block_theme_slug,
+				array(
+					'scss' => $optional_args['scss'] ?? true,
+				)
+			);
 		} catch ( Exception $e ) {
 			WP_CLI::error( $e->getMessage() );
 		}
