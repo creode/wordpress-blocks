@@ -31,7 +31,7 @@ class Rename_Files {
 	 * @param Block_Replacements $block_replacements
 	 */
 	public function __construct( Block_Details $block_details, Block_Replacements $block_replacements ) {
-		$this->block_details = $block_details;
+		$this->block_details      = $block_details;
 		$this->block_replacements = $block_replacements;
 
 		$this->handle();
