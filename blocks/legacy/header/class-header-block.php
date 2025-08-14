@@ -10,7 +10,7 @@ namespace Creode_Blocks;
 /**
  * Header block definition.
  */
-class Header_Block extends Block {
+class Legacy_Header_Block extends Block {
 
 	use Trait_Menu_Integration;
 
