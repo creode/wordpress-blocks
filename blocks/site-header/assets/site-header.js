@@ -161,9 +161,10 @@ class Site_Header {
 
 		this.elements.mobileMenuToggle.attr('aria-checked', checked ? 'true' : 'false');
 		this.elements.mobileMenuToggle.attr('aria-expanded', checked ? 'true' : 'false');
+		document.activeElement.blur();
+		this.elements.mobileMenuWrapper.prop('inert', ! checked);
 		this.elements.mobileMenuWrapper.prop('hidden', ! checked);
 		this.elements.mobileMenuWrapper.attr('aria-hidden', checked ? 'false' : true);
-		this.elements.mobileMenuWrapper.prop('inert', ! checked);
 	}
 
 	/**
