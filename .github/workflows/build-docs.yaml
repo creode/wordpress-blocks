@@ -5,6 +5,9 @@ on: # yamllint disable-line rule:truthy
     branches:
       - "*.x"
   pull_request: null
+  workflow_dispatch:
+    branches:
+      - '*.x'
 
 jobs:
   build:
