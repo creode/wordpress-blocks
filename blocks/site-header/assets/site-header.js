@@ -1,8 +1,31 @@
+/**
+ * Class representing a site header component with accessibility and mobile menu support.
+ *
+ * This class ensures that each header instance is uniquely identified, manages ARIA and inert
+ * attributes for accessibility, and sets up event listeners for responsive and accessible
+ * mobile menu toggling.
+ */
 class Site_Header {
 
+	/**
+	 * Unique instance number for this header, used to generate unique IDs for internal elements.
+	 * @type {number|null}
+	 */
 	instanceNumber = null;
+
+	/**
+	 * Stores jQuery references to important DOM elements in the header.
+	 * @type {Object}
+	 * @property {jQuery} wrapper - The main header wrapper element.
+	 * @property {jQuery} mobileMenuToggle - The mobile menu toggle button.
+	 * @property {jQuery} mobileMenuWrapper - The mobile menu wrapper element.
+	 */
 	elements = {};
 
+	/**
+	 * Create a Site_Header instance.
+	 * @param {jQuery} wrapper - The jQuery-wrapped root element for the site header instance.
+	 */
 	constructor(wrapper) {
 		this.setInstanceNumber();
 		this.loadElements(wrapper);
@@ -12,6 +35,11 @@ class Site_Header {
 		this.activate();
 	}
 
+	/**
+	 * Sets a unique instance number for this header instance.
+	 * This is used to generate unique IDs for elements such as the mobile menu.
+	 * The number is stored on the global window object to ensure uniqueness across instances.
+	 */
 	setInstanceNumber() {
 		if (typeof window.headerCount == 'undefined') {
 			window.headerCount = -1;
@@ -21,6 +49,10 @@ class Site_Header {
 		this.instanceNumber = window.headerCount;
 	}
 
+	/**
+	 * Loads and stores key DOM elements for this instance.
+	 * @param {jQuery} wrapper - The jQuery-wrapped root element for the site header instance.
+	 */
 	loadElements(wrapper) {
 		this.elements.wrapper = wrapper;
 		this.elements.mobileMenuToggle = wrapper.find('.site-header__mobile-menu-toggle');
@@ -76,6 +108,13 @@ class Site_Header {
 		);
 	}
 
+	/**
+	 * Initializes the mobile menu functionality for this header instance.
+	 *
+	 * - Sets a unique ID on the mobile menu wrapper and links it to the toggle button via `aria-controls`.
+	 * - Attaches click event listeners for toggling the mobile menu.
+	 * - Listens for a custom 'mobile_menu_toggle' event on the window.
+	 */
 	initializeMobileMenu() {
 		let id = 'header-mobile-menu-wrapper-' + this.instanceNumber;
 
@@ -108,6 +147,13 @@ class Site_Header {
 		);
 	}
 
+	/**
+	 * Toggles the visibility and ARIA/inert attributes of the mobile menu.
+	 * 
+	 * This method:
+	 * - Updates `aria-checked` and `aria-expanded` on the toggle button.
+	 * - Shows/hides the menu wrapper with `hidden`, `aria-hidden`, and `inert`.
+	 */
 	toggleMobileMenu() {
 		let checked = this.elements.mobileMenuToggle.attr('aria-checked') == 'true' ? true : false;
 
@@ -120,10 +166,18 @@ class Site_Header {
 		this.elements.mobileMenuWrapper.prop('inert', ! checked);
 	}
 
+	/**
+	 * Adds the 'site-header__wrapper--active' class to the wrapper after initialization.
+	 * This can be used in CSS to make the header opaque or trigger other visual changes.
+	 */
 	activate() {
 		this.elements.wrapper.addClass('site-header__wrapper--active');
 	}
 
+	/**
+	 * Helper functions for the Site_Header class.
+	 * @type {Object}
+	 */
 	helpers = {
 		/**
 		 * Checks if the environment supports layout and computed style features needed
@@ -162,6 +216,10 @@ class Site_Header {
 	}
 }
 
+/**
+ * On document ready, initialize a Site_Header instance for each `.site-header__wrapper` element.
+ * Each instance is stored globally in window.siteHeader.
+ */
 jQuery(document).ready(
 	() => {
 		window.siteHeader = [];
