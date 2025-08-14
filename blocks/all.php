@@ -42,6 +42,6 @@ add_action(
 );
 
 // Load optional blocks.
-require_once plugin_dir_path( __FILE__ ) . 'header/class-header-block.php';
+require_once plugin_dir_path( __FILE__ ) . 'legacy/header/class-header-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'post-listing/class-post-listing-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'search-and-filter/class-search-and-filter-block.php';
