@@ -1,0 +1,23 @@
+@use '/scss/globals';
+
+@mixin render {
+	.desktop-menu__wrapper {
+		& > ul {
+			display: flex;
+			flex-wrap: wrap;
+			gap: globals.$space-vertical globals.$space-horizontal;
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+
+			& > li {
+				margin: 0;
+				padding: 0;
+
+				& > a {
+					display: block;
+				}
+			}
+		}
+	}
+}
