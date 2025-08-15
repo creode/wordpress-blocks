@@ -64,8 +64,10 @@ class Toggle_Menu_Walker extends Walker_Nav_Menu {
 	 * @return string            The markup for the opening <ul>.
 	 */
 	protected function get_submenu_open_markup( $submenu_id, $depth, $args ) {
-		$indent = str_repeat( "\t", $depth );
-		return "\n$indent<ul id=\"" . esc_attr( $submenu_id ) . "\" class=\"sub-menu\" hidden aria-hidden=\"true\">\n";
+		$indent      = str_repeat( "\t", $depth );
+		$ul          = "\n$indent<ul id=\"" . esc_attr( $submenu_id ) . "\" class=\"sub-menu\" hidden aria-hidden=\"true\">\n";
+		$back_toggle = '<li class="menu-item menu-item-back-toggle"><button type="button" class="submenu-toggle" role="switch" aria-checked="false" aria-expanded="false" aria-controls="' . esc_attr( $submenu_id ) . '"><span class="screen-reader-text">Back</span></button></li>';
+		return $ul . $back_toggle;
 	}
 
 	/**

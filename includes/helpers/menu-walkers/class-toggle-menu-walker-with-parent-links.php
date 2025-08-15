@@ -57,7 +57,7 @@ class Toggle_Menu_Walker_With_Parent_Links extends Toggle_Menu_Walker {
 	 */
 	protected function get_submenu_open_markup( $submenu_id, $depth, $args ) {
 		$indent = str_repeat( "\t", $depth );
-		$output = "\n$indent<ul id=\"" . esc_attr( $submenu_id ) . "\" class=\"sub-menu\" hidden aria-hidden=\"true\">\n";
+		$output = parent::get_submenu_open_markup( $submenu_id, $depth, $args );
 
 		// Add parent link as first <li> in the submenu.
 		if ( isset( $this->parent_stack[ $depth ] ) ) {
