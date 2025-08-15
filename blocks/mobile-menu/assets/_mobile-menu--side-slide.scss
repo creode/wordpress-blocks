@@ -3,6 +3,7 @@
 		overflow: hidden;
 
 		& > ul {
+			min-height: calc(var(--height-of-tallest-sub-menu) * 1px);
 			transform: translate(calc(var(--active-menu-level) * -100%), 0);
 			transition: transform 0.3s;
 		}

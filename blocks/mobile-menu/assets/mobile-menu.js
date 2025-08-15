@@ -25,6 +25,8 @@ class Mobile_Menu {
 		this.loadElements(wrapper);         // Cache relevant DOM elements.
 		this.initializeToggle();            // Attach event listeners to the main menu toggle.
 		this.initializeSubmenuToggles();    // Attach event listeners for sub-menu toggles.
+		this.setSubMenuHeightCssVariable();
+		jQuery(window).resize(()=>{ this.setSubMenuHeightCssVariable() });
 	}
 
 	/**
@@ -79,6 +81,7 @@ class Mobile_Menu {
 				this.closeAllSubmenus(submenuId); // Close all except the one being toggled
 				this.toggleSubmenu(submenuId);
 				this.setMenuLevelCSSVariable(submenuId);
+				this.setSubMenuHeightCssVariable();
 			}
 		);
 	}
@@ -210,6 +213,35 @@ class Mobile_Menu {
 			}
 		}
 		return level;
+	}
+
+	/**
+	 * For each menuWrapper, this calculates the height of it's tallest sub-menu.
+	 * It assigns this value to menuWrapper element's height-of-tallest-sub-menu CSS variable.
+	 */
+	setSubMenuHeightCssVariable() {
+		this.elements.menuWrapper.each(
+			(index) => {
+				const menuWrapper = this.elements.menuWrapper.eq(index);
+				const subMenus = menuWrapper.find('.sub-menu');
+				let greatestHeight = 0;
+
+				subMenus.each(
+					(index) => {
+						const subMenu = subMenus.eq(index);
+						const height = subMenu.outerHeight();
+
+						if (height <= greatestHeight) {
+							return;
+						}
+
+						greatestHeight = height;
+					}
+				);
+
+				this.setMenuWrapperCSSVariable('height-of-tallest-sub-menu', greatestHeight, index);
+			}
+		);
 	}
 
 	/**
