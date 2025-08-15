@@ -23,6 +23,7 @@ class Mobile_Menu {
 	 */
 	constructor(wrapper) {
 		this.loadElements(wrapper);         // Cache relevant DOM elements.
+		this.setFocusableStates();
 		this.initializeToggle();            // Attach event listeners to the main menu toggle.
 		this.initializeSubmenuToggles();    // Attach event listeners for sub-menu toggles.
 		this.setSubMenuHeightCssVariable();
@@ -96,6 +97,8 @@ class Mobile_Menu {
 	closeAllSubmenus(exceptionSubmenuId) {
 		const submenus = this.elements.menuWrapper.find('ul[id^="sub-menu-"]');
 
+		document.activeElement.blur();
+
 		submenus.each(
 			(index) => {
 				const submenu = submenus.eq(index);
@@ -116,6 +119,8 @@ class Mobile_Menu {
 				button.attr('aria-checked', 'false');
 			}
 		);
+
+		this.setFocusableStates();
 	}
 
 	/**
@@ -163,6 +168,8 @@ class Mobile_Menu {
 			submenu.attr('aria-hidden', 'false');
 			submenu.attr('data-active', 'true');
 		}
+
+		this.setFocusableStates();
 	}
 
 	/**
@@ -240,6 +247,29 @@ class Mobile_Menu {
 				);
 
 				this.setMenuWrapperCSSVariable('height-of-tallest-sub-menu', greatestHeight, index);
+			}
+		);
+	}
+
+	/**
+	 * Ensures that focusable elements within non-active menus are inert.
+	 * Ensures that focusable elements eithin active menus are not inert.
+	 */
+	setFocusableStates() {
+		this.elements.menuWrapper.each(
+			(index) => {
+				const menuWrapper = this.elements.menuWrapper.eq(index);
+
+				menuWrapper.find('a, button').prop('inert', true);
+
+				let activeMenu = menuWrapper.children('ul');
+				const activeSubMenu = menuWrapper.find('.sub-menu[data-active="true"]');
+
+				if (activeSubMenu.length) {
+					activeMenu = activeSubMenu;
+				}
+
+				activeMenu.children('li').children('a, button').prop('inert', false);
 			}
 		);
 	}
