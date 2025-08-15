@@ -52,6 +52,14 @@ class Mobile_Menu {
 	}
 
 	/**
+	 * Triggers a global event to toggle the mobile menu's state.
+	 * Separate scripts should listen for the 'mobile_menu_toggle' event and handle show/hide logic.
+	 */
+	toggle() {
+		jQuery(window).trigger('mobile_menu_toggle');
+	}
+
+	/**
 	 * Sets up event delegation for all sub-menu toggle buttons within the menu wrapper.
 	 * This ensures that any .submenu-toggle button, regardless of its location or when it is added,
 	 * will have the correct toggle behavior.
@@ -70,6 +78,7 @@ class Mobile_Menu {
 				const submenuId = button.attr('aria-controls');
 				this.closeAllSubmenus(submenuId); // Close all except the one being toggled
 				this.toggleSubmenu(submenuId);
+				this.setMenuLevelCSSVariable(submenuId);
 			}
 		);
 	}
@@ -96,6 +105,7 @@ class Mobile_Menu {
 				// Hide submenu
 				submenu.attr('hidden', 'hidden');
 				submenu.attr('aria-hidden', 'true');
+				submenu.attr('data-active', 'false');
 
 				// Update corresponding toggle button
 				const button = this.elements.menuWrapper.find('.submenu-toggle[aria-controls="' + submenuId + '"]');
@@ -116,7 +126,8 @@ class Mobile_Menu {
 	 */
 	toggleSubmenu(submenuId) {
 		const submenu = jQuery('#' + submenuId);
-		const button = jQuery('.submenu-toggle[aria-controls="' + submenuId + '"]');
+		const subMenuParents = submenu.parents('.sub-menu');
+		const button = this.elements.menuWrapper.find('.submenu-toggle[aria-controls="' + submenuId + '"]');
 
 		if (submenu.length === 0 || button.length === 0) {
 			return;
@@ -128,22 +139,94 @@ class Mobile_Menu {
 		button.attr('aria-expanded', (!isOpen).toString());
 		button.attr('aria-checked', (!isOpen).toString());
 
+		// Ensure parent sub-menus are visible.
+		subMenuParents.removeAttr('hidden');
+		subMenuParents.attr('aria-hidden', 'false');
+
 		// Toggle submenu visibility and accessibility
 		if (isOpen) {
 			submenu.attr('hidden', 'hidden');
 			submenu.attr('aria-hidden', 'true');
+			submenu.attr('data-active', 'false');
+
+			// Activate parent sub-menu.
+			const firstSubMenuParent = subMenuParents.first();
+			const firstSubMenuParentToggle = this.elements.menuWrapper.find('.submenu-toggle[aria-controls="' + firstSubMenuParent.prop('id') + '"]');
+			firstSubMenuParent.attr('data-active', 'true');
+			firstSubMenuParentToggle.attr('aria-expanded', 'true');
+			firstSubMenuParentToggle.attr('aria-checked', 'true');
 		} else {
 			submenu.removeAttr('hidden');
 			submenu.attr('aria-hidden', 'false');
+			submenu.attr('data-active', 'true');
 		}
 	}
 
 	/**
-	 * Triggers a global event to toggle the mobile menu's state.
-	 * Separate scripts should listen for the 'mobile_menu_toggle' event and handle show/hide logic.
+	 * Sets the --menu-level CSS variable on the appropriate menu wrapper,
+	 * reflecting the nesting level of the currently active (visible) sub-menu.
+	 *
+	 * @param {string} submenuId - The ID of the sub-menu <ul> element.
 	 */
-	toggle() {
-		jQuery(window).trigger('mobile_menu_toggle');
+	setMenuLevelCSSVariable(submenuId) {
+		this.elements.menuWrapper.each(
+			(index) =>  {
+				const menuWrapper = this.elements.menuWrapper.eq(index);
+
+				if(!menuWrapper.find('#' + submenuId).length) {
+					return;
+				}
+
+				this.setMenuWrapperCSSVariable('active-menu-level', this.getMenuLevel(menuWrapper), index);
+			}
+		);
+	}
+
+	/**
+	 * Determines the nesting level (depth) of the currently active sub-menu within a given menu wrapper.
+	 * Level 0 = top-level menu, 1 = first sub-menu, etc.
+	 *
+	 * @param {jQuery} menuWrapper - The jQuery object for the menu wrapper.
+	 * @returns {number} The nesting level (integer, 0 or greater). Returns 0 if no active submenu is found.
+	 */
+	getMenuLevel(menuWrapper) {
+		// Find the first visible submenu within this wrapper
+		const submenu = menuWrapper.find('ul[id^="sub-menu-"][data-active="true"]').first();
+
+		if (!submenu.length) {
+			return 0;
+		}
+
+		let level = 1;
+		let current = submenu;
+
+		while (
+			current.length &&
+			!current.parent().is(menuWrapper)
+		) {
+			current = current.parent().closest('ul[id^="sub-menu-"]');
+			if (current.length) {
+				level++;
+			}
+		}
+		return level;
+	}
+
+	/**
+	 * Sets a CSS variable on a menu wrapper element, or all wrappers if no index is provided.
+	 *
+	 * @param {string} variableName - The CSS variable name (without the '--' prefix, e.g., 'menu-level').
+	 * @param {string|number} value - The value to assign to the CSS variable.
+	 * @param {number} [menuWrapperIndex] - (Optional) The index of the menu wrapper within the page.
+	 */
+	setMenuWrapperCSSVariable(variableName, value, menuWrapperIndex) {
+		let menuWrapper = this.elements.menuWrapper;
+
+		if (typeof menuWrapperIndex !== 'undefined') {
+			menuWrapper = this.elements.menuWrapper.eq(menuWrapperIndex);
+		}
+
+		menuWrapper.css('--' + variableName, value);
 	}
 }
 

@@ -1,0 +1,31 @@
+@mixin render {
+	.mobile-menu__menu-wrapper {
+		overflow: hidden;
+
+		& > ul {
+			transform: translate(calc(var(--active-menu-level) * -100%), 0);
+			transition: transform 0.3s;
+		}
+
+		ul {
+			position: relative;
+			width: 100%;
+
+			& > li {
+				& > ul {
+					position: absolute;
+					top: 0;
+					left: 100%;
+					width: 100%;
+					opacity: 1;
+
+					&[hidden] {
+						display: flex;
+						opacity: 0;
+						transition: opacity 0s linear 0.3s;
+					}
+				}
+			}
+		}
+	}
+}
