@@ -43,17 +43,29 @@ class Toggle_Menu_Walker extends Walker_Nav_Menu {
 	 * @param array  $args   An array of arguments. @see wp_nav_menu().
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
-		$indent = str_repeat( "\t", $depth );
-
 		// Get the pending submenu ID for this level (assigned in start_el).
 		$submenu_id = array_shift( $this->pending_submenu_ids );
 		if ( ! $submenu_id ) {
 			// Fallback to unique ID if something went wrong.
-			self::$submenu_count++;
+			++self::$submenu_count;
 			$submenu_id = 'sub-menu-' . self::$submenu_count;
 		}
 
-		$output .= "\n$indent<ul id=\"" . esc_attr( $submenu_id ) . "\" class=\"sub-menu\" hidden aria-hidden=\"true\">\n";
+		$output .= $this->get_submenu_open_markup( $submenu_id, $depth, $args );
+	}
+
+	/**
+	 * Returns the opening markup for a submenu <ul>.
+	 * Child classes may override this to inject additional <li>s, etc.
+	 *
+	 * @param string $submenu_id The unique ID for the submenu <ul>.
+	 * @param int    $depth      Menu depth.
+	 * @param array  $args       Menu arguments.
+	 * @return string            The markup for the opening <ul>.
+	 */
+	protected function get_submenu_open_markup( $submenu_id, $depth, $args ) {
+		$indent = str_repeat( "\t", $depth );
+		return "\n$indent<ul id=\"" . esc_attr( $submenu_id ) . "\" class=\"sub-menu\" hidden aria-hidden=\"true\">\n";
 	}
 
 	/**

@@ -7,4 +7,4 @@
 
 namespace Creode_Blocks;
 
-require_once __DIR__ . '/class-toggle-menu-walker.php';
+require_once __DIR__ . '/menu-walkers/all.php';

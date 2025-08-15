@@ -103,4 +103,23 @@ class Mobile_Menu_Block extends Block {
 			}
 		);
 	}
+
+	/**
+	 * Retrieve a menu walker instance.
+	 *
+	 * By default, this method returns an instance of Toggle_Menu_Walker_With_Parent_Links,
+	 * which will render a WordPress menu where sub-menus are initially hidden and
+	 * toggle buttons are added for menu items with children, along with a parent link as
+	 * the first item in each sub-menu.
+	 *
+	 * This method can be overridden to return:
+	 * - Walker_Nav_Menu for a standard WordPress menu,
+	 * - Toggle_Menu_Walker for menus with toggle buttons only,
+	 * - Toggle_Menu_Walker_With_Parent_Links for menus with both toggle buttons and parent links (default).
+	 *
+	 * @return Walker_Nav_Menu Instance of the desired menu walker.
+	 */
+	public function get_menu_walker() {
+		return new Toggle_Menu_Walker_With_Parent_Links();
+	}
 }
