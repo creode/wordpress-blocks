@@ -7,6 +7,8 @@
 
 namespace Creode_Blocks;
 
+use Walker_Nav_Menu;
+
 /**
  * Mobile Menu block class.
  *
@@ -106,9 +108,9 @@ class Mobile_Menu_Block extends Block {
 					array_merge(
 						array(
 							// When sub-menus are activated, ensure all external focusable elements are made non-focusable. Usefull when non-active menus/sub-menus are off screen. E.g. a slide-slide style menu format.
-							'setFocusableStates'   => true,
+							'setFocusableStates'   => false,
 							// If setFocusableStates is true, then makeParentLinksInert will also make inert any link that has a sub-menu. This means that the sub-menu can be activated and the parent link can be accessed from there.
-							'makeParentLinksInert' => true,
+							'makeParentLinksInert' => false,
 						),
 						$this->get_javascript_config()
 					)
@@ -139,11 +141,6 @@ class Mobile_Menu_Block extends Block {
 	/**
 	 * Retrieve a menu walker instance.
 	 *
-	 * By default, this method returns an instance of Toggle_Menu_Walker_With_Parent_Links,
-	 * which will render a WordPress menu where sub-menus are initially hidden and
-	 * toggle buttons are added for menu items with children, along with a parent link as
-	 * the first item in each sub-menu.
-	 *
 	 * This method can be overridden to return:
 	 * - Walker_Nav_Menu for a standard WordPress menu,
 	 * - Toggle_Menu_Walker for menus with toggle buttons only,
@@ -152,6 +149,8 @@ class Mobile_Menu_Block extends Block {
 	 * @return Walker_Nav_Menu Instance of the desired menu walker.
 	 */
 	public function get_menu_walker() {
-		return new Toggle_Menu_Walker_With_Parent_Links();
+		return new Walker_Nav_Menu();
 	}
 }
+
+require_once __DIR__ . '/variations/class-side-slide-mobile-menu-block.php';

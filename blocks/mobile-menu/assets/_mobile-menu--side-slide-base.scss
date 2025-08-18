@@ -9,10 +9,18 @@
 		}
 
 		ul {
+			display: flex;
+			flex-direction: column;
 			position: relative;
 			width: 100%;
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
 
 			& > li {
+				margin: 0;
+				padding: 0;
+
 				& > ul {
 					position: absolute;
 					top: 0;
@@ -26,6 +34,13 @@
 						z-index: -1;
 						opacity: 0;
 						transition: opacity 0s linear 0.3s;
+					}
+				}
+
+				& > a,
+				& > button {
+					&:not([inert]) {
+						cursor: pointer;
 					}
 				}
 			}
