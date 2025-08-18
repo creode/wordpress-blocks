@@ -1,0 +1,44 @@
+@use 'mobile-menu--side-slide-base';
+@use '/scss/globals';
+
+@mixin render {
+	@include mobile-menu--side-slide-base.render;
+
+	.mobile-menu__menu-outer-wrapper {
+		margin-left: calc(globals.$space-horizontal * -1);
+		margin-right: calc(globals.$space-horizontal * -1);
+	}
+
+	.mobile-menu__menu-wrapper {
+		ul {
+			gap: 0;
+			border-top: solid 1px;
+
+			& > li {
+				border-bottom: solid 1px;
+
+				& > button,
+				& > a {
+					display: block;
+					width: 100%;
+					padding: calc(globals.$space-vertical * 0.5) globals.$space-horizontal;
+					background-color: transparent;
+					outline-offset: -5px;
+					border: none;
+					text-align: left;
+					font-family: globals.$font-standard;
+					font-size: 1rem;
+					color: black;
+				}
+
+				&.menu-item-has-children > a {
+					display: none;
+				}
+
+				&.menu-item-parent-link > a {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}
