@@ -21,6 +21,6 @@ $menu_location = $block->get_field( 'menu_location' );
 	<?php if ( empty( $menu_location ) ) : ?>
 		Please select a menu.
 	<?php else : ?>
-		<?php $block->render_menu_by_location( $menu_location ); ?>
+		<?php $block->render_menu_by_location( $menu_location, $block->get_menu_render_arguments() ); ?>
 	<?php endif; ?>
 </div>

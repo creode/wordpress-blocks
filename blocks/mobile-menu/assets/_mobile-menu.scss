@@ -53,23 +53,5 @@
 		& > *  {
 			margin-bottom: globals.$space-bottom;
 		}
-
-		ul {
-			display: flex;
-			flex-direction: column;
-			margin: 0;
-			padding: 0;
-			gap: globals.$space-vertical globals.$space-horizontal;
-			list-style-type: none;
-
-			& > li {
-				margin: 0;
-				padding: 0;
-
-				& > a {
-					display: block;
-				}
-			}
-		}
 	}
 }
