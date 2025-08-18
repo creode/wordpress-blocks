@@ -87,7 +87,7 @@ class Mobile_Menu_Block extends Block {
 	/**
 	 * Registers the mobile-menu JavaScript file.
 	 */
-	protected function register_script() {
+	private function register_script() {
 		add_action(
 			'wp_enqueue_scripts',
 			function () {
@@ -100,8 +100,40 @@ class Mobile_Menu_Block extends Block {
 					1,
 					true
 				);
+				wp_localize_script(
+					'mobile_menu',
+					'mobileMenuConfig',
+					array_merge(
+						array(
+							// When sub-menus are activated, ensure all external focusable elements are made non-focusable. Usefull when non-active menus/sub-menus are off screen. E.g. a slide-slide style menu format.
+							'setFocusableStates'   => true,
+							// If setFocusableStates is true, then makeParentLinksInert will also make inert any link that has a sub-menu. This means that the sub-menu can be activated and the parent link can be accessed from there.
+							'makeParentLinksInert' => true,
+						),
+						$this->get_javascript_config()
+					)
+				);
 			}
 		);
+	}
+
+	/**
+	 * Provides to overides to the default JavaScript config.
+	 *
+	 * @return array Overides to the default JavaScript config.
+	 */
+	protected function get_javascript_config(): array {
+		return array();
+	}
+
+	/**
+	 * Returns an array of menu render arguments.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/wp_nav_menu/ Full list of menu arguments.
+	 * @return array An array of menu render arguments.
+	 */
+	public function get_menu_render_arguments(): array {
+		return array();
 	}
 
 	/**

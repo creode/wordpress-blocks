@@ -256,6 +256,10 @@ class Mobile_Menu {
 	 * Ensures that focusable elements eithin active menus are not inert.
 	 */
 	setFocusableStates() {
+		if (!mobileMenuConfig.setFocusableStates) {
+			return;
+		}
+
 		this.elements.menuWrapper.each(
 			(index) => {
 				const menuWrapper = this.elements.menuWrapper.eq(index);
@@ -270,6 +274,10 @@ class Mobile_Menu {
 				}
 
 				activeMenu.children('li').children('a, button').prop('inert', false);
+
+				if ( mobileMenuConfig.makeParentLinksInert ) {
+					activeMenu.children('li.menu-item-has-children').children('a').prop('inert', true);
+				}
 			}
 		);
 	}

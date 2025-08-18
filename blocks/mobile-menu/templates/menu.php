@@ -17,10 +17,22 @@ $block = Helpers::get_block_by_name( 'mobile-menu' );
 $menu_location = $block->get_field( 'menu_location' );
 ?>
 
-<div class="mobile-menu__menu-wrapper">
-	<?php if ( empty( $menu_location ) ) : ?>
-		Please select a menu.
-	<?php else : ?>
-		<?php $block->render_menu_by_location( $menu_location, array( 'walker' => $block->get_menu_walker() ) ); ?>
-	<?php endif; ?>
+<div class="mobile-menu__menu-outer-wrapper">
+	<div class="mobile-menu__menu-wrapper">
+		<?php if ( empty( $menu_location ) ) : ?>
+			Please select a menu.
+		<?php else : ?>
+			<?php
+				$block->render_menu_by_location(
+					$menu_location,
+					array_merge(
+						$block->get_menu_render_arguments(),
+						array(
+							'walker' => $block->get_menu_walker(),
+						)
+					)
+				);
+			?>
+		<?php endif; ?>
+	</div>
 </div>
