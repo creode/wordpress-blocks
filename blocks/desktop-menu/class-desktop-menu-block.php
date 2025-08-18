@@ -66,4 +66,14 @@ class Desktop_Menu_Block extends Block {
 	protected function use_default_wrapper_template(): bool {
 		return false;
 	}
+
+	/**
+	 * Returns an array of menu render arguments.
+	 *
+	 * @link https://developer.wordpress.org/reference/functions/wp_nav_menu/ Full list of menu arguments.
+	 * @return array An array of menu render arguments.
+	 */
+	public function get_menu_render_arguments(): array {
+		return array();
+	}
 }
