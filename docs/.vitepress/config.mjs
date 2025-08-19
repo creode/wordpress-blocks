@@ -20,7 +20,12 @@ export default defineConfig({
         items: [
           { text: 'What Is It?', link: '/what-is-it' },
           { text: 'Quick Start', link: '/quick-start' },
-          { text: 'Upgrading', link: '/upgrading' },
+          { text: 'Upgrading', link: '/upgrading', items: [
+            { text: 'Introduction', link: '/upgrading/index.md' },
+            { text: '1.x to 2.x', link: '/upgrading/1.x-2.x.md' },
+            { text: '0.x to 1.x', link: '/upgrading/0.x-1.x.md' },
+            { text: 'Rector', link: '/upgrading/rector.md' },
+          ]},
           { text: 'Changelog', link: '/changelog' },
         ]
       },

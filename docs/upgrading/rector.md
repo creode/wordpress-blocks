@@ -1,3 +1,8 @@
+---
+title: Rector ruleset
+editLink: false
+---
+
 # Rector ruleset
 We have created a Rector ruleset to help you upgrade your blocks. This can be used to automatically make your blocks compatible with the new version.
 
