@@ -4,7 +4,28 @@ editLink: false
 ---
 
 # Upgrading
-This guide covers breaking changes between versions of the block plugin. If you are upgrading from a version prior to 1.x, you will need to follow the instructions below.
+This guide covers breaking changes between versions of the block plugin. If you are upgrading from a version prior to 2.x, you will need to follow the instructions below.
+
+## Upgrading from 1.x to 2.x
+
+### Changes to the header block
+The header block has been updated as part of version 2. This improves the flexibility of the header block and allows for more customisation. If you are using the header block on your site, you will need to update any use statements from `Creode_Blocks\Header_Block` to `Creode_Blocks\Legacy_Header_Block`.
+
+### Changes to the block class
+#### Removal of the `category()` method
+The block class has been updated in version 1 to remove the need for a `category()` method in blocks. This is now controlled by a filter that is applied in your theme. This change can be actioned manually for every block or you can use the Rector ruleset to automatically make your blocks compatible with the new version.
+
+#### Removal of the `$instance` class property
+The `$instance` class property has been removed from the block class as it is no longer required to function due to some internal changes to the block class.
+
+### Rector ruleset
+You can find the Rector setup instructions for this plugin [here](rector.md).
+
+For version 2.x of the block plugin, you can use the following command to upgrade your blocks, take specific note of the `{theme-name}` placeholder which should be replaced with the name of your WordPress theme:
+
+```bash
+vendor/bin/rector process wp-content/themes/{theme-name} --config=vendor/creode/wordpress-blocks-rector/config/blocks-2-0-0.php
+```
 
 ## Upgrading from 0.x to 1.x
 
@@ -23,31 +44,3 @@ protected function use_default_wrapper_template(): bool {
 ```
 
 This ensures that the block will not use the default wrapper template.
-
-### Rector ruleset
-We have created a Rector ruleset to help you upgrade your blocks. This can be used to automatically make your blocks compatible with the new version.
-
-#### Installation
-You can install this ruleset by running the following command:
-
-```bash
-composer require --dev creode/wordpress-blocks-rector
-```
-
-#### Usage
-Once done you need to run the following command to upgrade your blocks, take specific note of the `{theme-name}` placeholder which should be replaced with the name of your WordPress theme:
-
-```bash
-vendor/bin/rector process wp-content/themes/{theme-name} --config=vendor/creode/wordpress-blocks-rector/config/blocks-1-0.php
-```
-
-The rector project can be found here: https://github.com/creode/wordpress-blocks-rector.
-
-This will automatically make your blocks compatible with the new version.
-
-#### Uninstallation
-After running the command, you can uninstall the ruleset by running the following command:
-
-```bash
-composer remove --dev creode/wordpress-blocks-rector
-```
