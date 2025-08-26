@@ -69,7 +69,16 @@ abstract class Block {
 	 * This function is responsible for calling the initialization functions.
 	 */
 	private function initialize_traits() {
-		foreach ( class_uses( $this::class ) as $trait ) {
+		$traits = class_uses( $this::class );
+
+		foreach ( class_parents( $this::class ) as $parent ) {
+			$traits = array_merge(
+				class_uses( $parent ),
+				$traits
+			);
+		}
+
+		foreach ( $traits as $trait ) {
 			$trait  = str_replace( __NAMESPACE__, '', $trait );
 			$trait  = str_replace( '\\', '', $trait );
 			$trait  = strtolower( $trait );
