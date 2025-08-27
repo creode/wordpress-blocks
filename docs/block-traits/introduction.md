@@ -93,6 +93,6 @@ You can create your own traits that follow the same patterns. See the [Auto Init
 
 - **New to traits?** Start with the [Traits Overview](./traits-overview.md) for practical examples
 - **Want to understand auto-initialization?** Read the [Auto Initialization](./auto-initialization.md) guide
-- **Ready to implement?** Choose a trait from the [Available Traits](./traits/) section and follow its documentation
+- **Ready to implement?** Choose a trait from the [Available Traits](./traits-overview.md) section and follow its documentation
 - **Using default wrapper?** Check the [Modifier Classes](./traits/modifier-classes.md) guide to see how automatic integration works
 - **Need custom templates?** Understand how `use_default_wrapper_template()` affects trait behavior
