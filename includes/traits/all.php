@@ -17,3 +17,4 @@ require_once plugin_dir_path( __FILE__ ) . 'trait-has-reduce-bottom-space-option
 require_once plugin_dir_path( __FILE__ ) . 'trait-block-pattern-options.php';
 require_once plugin_dir_path( __FILE__ ) . 'trait-menu-integration.php';
 require_once plugin_dir_path( __FILE__ ) . 'trait-has-icons.php';
+require_once plugin_dir_path( __FILE__ ) . 'trait-has-color-choices.php';
