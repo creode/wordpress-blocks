@@ -48,15 +48,19 @@ export default defineConfig({
         items: [
           { text: 'Introduction', link: '/block-traits/introduction' },
           { text: 'Auto Initialization', link: '/block-traits/auto-initialization' },
+          { text: 'Traits Overview', link: '/block-traits/traits-overview' },
           {
             text: 'Available Traits',
             items: [
-                { text: 'Editor Restriction', link: '/block-traits/traits/editor-restriction' },
                 { text: 'Unique ID', link: '/block-traits/traits/unique-id' },
                 { text: 'Modifier Classes', link: '/block-traits/traits/modifier-classes' },
-                { text: 'Reduce Bottom Spacing', link: '/block-traits/traits/reduce-bottom-spacing' },
-                { text: 'Pattern Rendering', link: '/block-traits/traits/pattern-rendering' },
-                { text: 'Menu Rendering', link: '/block-traits/traits/menu-rendering' },
+                { text: 'Reduce Bottom Space', link: '/block-traits/traits/reduce-bottom-spacing' },
+                { text: 'Icons', link: '/block-traits/traits/icons' },
+                { text: 'Color Choices', link: '/block-traits/traits/color-choices' },
+                { text: 'Block Patterns', link: '/block-traits/traits/block-patterns' },
+                { text: 'Menu Integration', link: '/block-traits/traits/menu-rendering' },
+                { text: 'Editor Restriction', link: '/block-traits/traits/editor-restriction' },
+                { text: 'Post Type Restriction', link: '/block-traits/traits/post-type-restriction' },
             ]
           }
         ]
