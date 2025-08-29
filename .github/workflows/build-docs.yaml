@@ -3,11 +3,13 @@ name: "Documentation"
 on: # yamllint disable-line rule:truthy
   push:
     branches:
-      - "*.x"
-  pull_request: null
+      - "2.x"
+  pull_request:
+    branches:
+      - "2.x"
   workflow_dispatch:
     branches:
-      - '*.x'
+      - '2.x'
 
 jobs:
   build:
@@ -34,16 +36,18 @@ jobs:
         with:
           target: "build/docs/api"
 
+      # Only upload artifacts when pushing to 2.x (not on PRs)
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3.0.1
-        if: "${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && endsWith(github.ref, '.x') }}"
+        if: "${{ github.event_name == 'push' }}"
         with:
           path: "build/docs"
           retention-days: 1
   
   deploy:
     name: "Deploy"
-    if: "${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/') && endsWith(github.ref, '.x') }}"
+    # Only deploy on pushes to 2.x (not on PRs)
+    if: "${{ github.event_name == 'push' }}"
     runs-on: "ubuntu-latest"
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
