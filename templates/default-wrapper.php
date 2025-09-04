@@ -56,7 +56,10 @@ if ( ! $creode_block ) {
 	<div <?php echo get_block_wrapper_attributes( array( 'class' => $block_name . '__outer-wrapper' ) ); ?>>
 <?php endif; ?>
 
-	<div class="<?php echo esc_attr( $block_name ); ?>__wrapper <?php echo esc_attr( $creode_block->get_modifier_class_string( $block_name . '__wrapper' ) ); ?>">
+	<div
+		class="<?php echo esc_attr( $block_name ); ?>__wrapper <?php echo esc_attr( $creode_block->get_modifier_class_string( $block_name . '__wrapper' ) ); ?>"
+		style="<?php echo esc_attr( $creode_block->get_css_variable_string() ); ?>"
+	>
 		<div class="<?php echo esc_attr( $block_name ); ?>__inner">
 			<?php require $creode_block->get_template(); ?>
 		</div>
