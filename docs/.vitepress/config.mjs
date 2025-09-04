@@ -54,6 +54,7 @@ export default defineConfig({
             items: [
                 { text: 'Unique ID', link: '/block-traits/traits/unique-id' },
                 { text: 'Modifier Classes', link: '/block-traits/traits/modifier-classes' },
+                { text: 'CSS Variables', link: '/block-traits/traits/css-variables' },
                 { text: 'Reduce Bottom Space', link: '/block-traits/traits/reduce-bottom-spacing' },
                 { text: 'Icons', link: '/block-traits/traits/icons' },
                 { text: 'Color Choices', link: '/block-traits/traits/color-choices' },

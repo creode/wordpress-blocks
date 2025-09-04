@@ -32,9 +32,10 @@ class My_Block extends Block {
 **Important:** Some traits are automatically included in the `Block` abstract class by default:
 
 - **`Trait_Has_Modifier_Classes`** - Automatically included, no need to add manually
+- **`Trait_Has_CSS_Variables`** - Automatically included, no need to add manually
 - **Other traits** - Must be explicitly added as needed
 
-**Important:** The automatic calling of trait methods (like `get_modifier_class_string()`) only happens when the `use_default_wrapper_template()` method returns `true`. When this method returns `true`, the contents of your template file are automatically enclosed within the default block wrapper template, which calls trait methods automatically.
+**Important:** The automatic calling of trait methods (like `get_modifier_class_string()` and `get_css_variable_string()`) only happens when the `use_default_wrapper_template()` method returns `true`. When this method returns `true`, the contents of your template file are automatically enclosed within the default block wrapper template, which calls trait methods automatically.
 
 **All blocks must always provide a `template()` function that returns a valid path to a template file.** The `use_default_wrapper_template()` method only determines whether your template content is wrapped in the default wrapper.
 
@@ -49,6 +50,7 @@ The plugin provides the following traits, each designed for specific functionali
 ### Core Functionality
 - **[Unique ID](./traits/unique-id.md)** - Generate unique identifiers for blocks
 - **[Modifier Classes](./traits/modifier-classes.md)** - Manage CSS modifier classes *(automatically included)*
+- **[CSS Variables](./traits/css-variables.md)** - Supply CSS variables for dynamic styling *(automatically included)*
 - **[Reduce Bottom Space](./traits/reduce-bottom-spacing.md)** - Add spacing control options *(requires Modifier Classes)*
 
 ### Content Enhancement
