@@ -15,6 +15,7 @@ use Exception;
 abstract class Block {
 
 	use Trait_Has_Modifier_Classes;
+	use Trait_Has_CSS_Variables;
 
 	/**
 	 * Singleton instances for extensions of this class.
