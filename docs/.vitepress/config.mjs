@@ -66,6 +66,21 @@ export default defineConfig({
           }
         ]
       },
+      {
+        text: 'Helpers',
+        collapsed: false,
+        items: [
+          { text: 'Introduction', link: '/helpers/index' },
+          { text: 'set_default_block_category', link: '/helpers/set_default_block_category' },
+          { text: 'get_block_by_name', link: '/helpers/get_block_by_name' },
+          { text: 'render_blocks', link: '/helpers/render_blocks' },
+          { text: 'render_blocks_in_post_context', link: '/helpers/render_blocks_in_post_context' },
+          { text: 'render_inner_blocks_in_post_context', link: '/helpers/render_inner_blocks_in_post_context' },
+          { text: 'render_blocks_with_dynamic_context', link: '/helpers/render_blocks_with_dynamic_context' },
+          { text: 'add_dynamic_context_to_blocks', link: '/helpers/add_dynamic_context_to_blocks' },
+          { text: 'set_acf_block_mode', link: '/helpers/set_acf_block_mode' }
+        ]
+      },
     ],
 
     socialLinks: [
