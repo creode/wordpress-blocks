@@ -14,13 +14,32 @@ namespace Creode_Blocks;
  */
 $block = Helpers::get_block_by_name( 'post-listing' );
 
+$dynamic_context = array();
+
+if ( $block->get_field( 'sort_by' ) === 'metafield' ) {
+	$dynamic_context['creode_blocks_sort_by'] = 'metafield';
+	$dynamic_context['sort_meta_key']         = $block->get_field( 'metafield_sort_by' );
+	$dynamic_context['sort_meta_order']       = $block->get_field( 'metafield_sort_order' );
+}
+
 $allowed_inner_blocks = array(
 	'core/query',
 );
 ?>
 
-<InnerBlocks
-	allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
-	template="<?php echo esc_attr( wp_json_encode( $block->get_inner_block_template() ) ); ?>"
-	class="post-listing__query-wrapper"
-/>
+<?php if ( ! $is_preview && isset( $wp_block ) && isset( $wp_block->parsed_block ) && isset( $wp_block->parsed_block['innerBlocks'] ) ) : ?>
+	<div class="post-listing__query-wrapper">
+		<?php
+		Helpers::render_blocks_with_dynamic_context(
+			$wp_block->parsed_block['innerBlocks'],
+			$dynamic_context
+		);
+		?>
+	</div>
+<?php else : ?>
+	<InnerBlocks
+		allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
+		template="<?php echo esc_attr( wp_json_encode( $block->get_inner_block_template() ) ); ?>"
+		class="post-listing__query-wrapper"
+	/>
+<?php endif; ?>

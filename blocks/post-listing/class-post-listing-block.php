@@ -43,6 +43,110 @@ class Post_Listing_Block extends Block {
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function fields(): array {
+		$fields = array();
+
+		$fields = array_merge( $fields, $this->get_sort_overide_fields() );
+
+		return $fields;
+	}
+
+	/**
+	 * Returns an ACF fields array for providing sort option overides.
+	 *
+	 * @return array The sort fields array.
+	 */
+	protected function get_sort_overide_fields(): array {
+		$fields = array(
+			array(
+				'key'          => 'field_post_listing_sort_by',
+				'name'         => 'sort_by',
+				'label'        => 'Sort By (Override)',
+				'instructions' => 'Select how you want to sort the posts. This will override the sort order set in the query block settings.',
+				'type'         => 'select',
+				'choices'      => array(
+					''          => 'No override',
+					'metafield' => 'Metafield',
+				),
+			),
+		);
+
+		$fields = array_merge( $fields, $this->get_metafield_sort_fields() );
+
+		return $fields;
+	}
+
+	/**
+	 * Returns an ACF fields array for providing metafield sort options.
+	 *
+	 * @return array The metafield sort fields array.
+	 */
+	protected function get_metafield_sort_fields(): array {
+		$fields            = array();
+		$metafields        = $this->get_metafield_sort_options();
+		$conditional_logic = array(
+			array(
+				'field'    => 'field_post_listing_sort_by',
+				'operator' => '==',
+				'value'    => 'metafield',
+			),
+		);
+
+		if ( ! empty( $metafields ) ) {
+			$fields = array_merge(
+				$fields,
+				array(
+					array(
+						'key'               => 'field_post_listing_metafield_sort_by',
+						'name'              => 'metafield_sort_by',
+						'label'             => 'Metafield Sort By',
+						'instructions'      => 'Select the metafield to sort the posts by.',
+						'type'              => 'select',
+						'choices'           => $metafields,
+						'conditional_logic' => $conditional_logic,
+					),
+					array(
+						'key'               => 'field_post_listing_metafield_sort_order',
+						'name'              => 'metafield_sort_order',
+						'label'             => 'Metafield Sort Order',
+						'instructions'      => 'Select the direction to sort the posts by.',
+						'type'              => 'select',
+						'default_value'     => 'DESC',
+						'conditional_logic' => $conditional_logic,
+						'choices'           => array(
+							'ASC'  => 'Ascending',
+							'DESC' => 'Descending',
+						),
+					),
+				)
+			);
+		} else {
+			array_push(
+				$fields,
+				array(
+					'key'               => 'field_post_listing_metafield_sort_message',
+					'type'              => 'message',
+					'message'           => 'No sortable metafields found. Please contact the theme developer if you need to sort by a metafield.',
+					'conditional_logic' => $conditional_logic,
+				)
+			);
+		}
+
+		return $fields;
+	}
+
+	/**
+	 * Returns a keyed array of metafield sort options. Keys are the metafield names and values are the metafield labels.
+	 *
+	 * @return array The metafield sort options array.
+	 */
+	protected function get_metafield_sort_options(): array {
+		return array();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function child_blocks(): array {
 		return array(
 			new Child_Block(
@@ -167,5 +271,52 @@ class Post_Listing_Block extends Block {
 				'core/query-pagination',
 			)
 		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function setup(): bool {
+		$this->modify_query_args();
+		return parent::setup();
+	}
+
+	/**
+	 * Modifies the query args based on the block settings.
+	 */
+	protected function modify_query_args(): void {
+		add_filter(
+			'query_loop_block_query_vars',
+			function ( $query_args, $block ) {
+				if ( isset( $block->attributes['dynamic_context'] ) ) {
+					$query_args = $this->modify_query_args_based_on_dynamic_context( $query_args, $block->attributes['dynamic_context'] );
+				}
+
+				return $query_args;
+			},
+			10,
+			2
+		);
+	}
+
+	/**
+	 * Modifies the query args based on the block's dynamic context.
+	 *
+	 * @param array $query_args The query args.
+	 * @param array $dynamic_context The block's dynamic context.
+	 * @return array The modified query args.
+	 */
+	protected function modify_query_args_based_on_dynamic_context( $query_args, $dynamic_context ): array {
+		if ( isset( $dynamic_context['creode_blocks_sort_by'] ) ) {
+			switch ( $dynamic_context['creode_blocks_sort_by'] ) {
+				case 'metafield':
+					$query_args['meta_key'] = $dynamic_context['sort_meta_key'];
+					$query_args['orderby']  = 'meta_value';
+					$query_args['order']    = $dynamic_context['sort_meta_order'];
+					break;
+			}
+		}
+
+		return $query_args;
 	}
 }
