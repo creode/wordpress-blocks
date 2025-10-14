@@ -42,8 +42,11 @@ While these helpers are available globally, they are **particularly useful withi
 
 use Creode_Blocks\Helpers;
 
+// Get the block instance to access fields
+$block_instance = Helpers::get_block_by_name('my-block');
+
 // Get a related post ID from block fields
-$related_post_id = get_field('related_post');
+$related_post_id = $block_instance->get_field('related_post');
 
 ?>
 

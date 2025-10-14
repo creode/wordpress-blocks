@@ -46,7 +46,8 @@ use Creode_Blocks\Helpers;
 
 // Check if the block has inner content before rendering
 if (!empty($block->parsed_block['innerBlocks'])) {
-    $context_post_id = get_field('related_post');
+    $block_instance = \Creode_Blocks\Helpers::get_block_by_name('your-block-name');
+    $context_post_id = $block_instance->get_field('related_post');
     
     if ($context_post_id) {
         // Render inner blocks with the related post's context
@@ -61,7 +62,8 @@ if (!empty($block->parsed_block['innerBlocks'])) {
 use Creode_Blocks\Helpers;
 
 // In a container block template that displays content from another post
-$featured_post_id = get_field('featured_post');
+$block_instance = Helpers::get_block_by_name('your-block-name');
+$featured_post_id = $block_instance->get_field('featured_post');
 
 if ($featured_post_id) {
     echo '<div class="featured-content">';
@@ -80,7 +82,8 @@ if ($featured_post_id) {
 use Creode_Blocks\Helpers;
 
 // In a post listing block template
-$posts = get_field('posts_to_display');
+$block_instance = Helpers::get_block_by_name('post-listing');
+$posts = $block_instance->get_field('posts_to_display');
 
 foreach ($posts as $post_id) {
     echo '<article class="post-item">';

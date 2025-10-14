@@ -113,17 +113,15 @@ if ($current_post_type === 'landing-page') {
 use Creode_Blocks\Helpers;
 
 // In your theme's functions.php or plugin initialization
-add_action('acf/init', function() {
-    // Set default modes for all your custom blocks
-    
-    // Content blocks default to preview
-    Helpers::set_acf_block_mode('my-theme/hero', 'preview');
-    Helpers::set_acf_block_mode('my-theme/features', 'preview');
-    
-    // Form blocks default to edit for easier configuration
-    Helpers::set_acf_block_mode('my-theme/contact-form', 'edit');
-    Helpers::set_acf_block_mode('my-theme/newsletter-signup', 'edit');
-});
+// Set default modes for all your custom blocks
+
+// Content blocks default to preview
+Helpers::set_acf_block_mode('my-theme/hero', 'preview');
+Helpers::set_acf_block_mode('my-theme/features', 'preview');
+
+// Form blocks default to edit for easier configuration
+Helpers::set_acf_block_mode('my-theme/contact-form', 'edit');
+Helpers::set_acf_block_mode('my-theme/newsletter-signup', 'edit');
 ```
 
 ### Development vs Production

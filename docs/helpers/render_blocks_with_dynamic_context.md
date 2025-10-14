@@ -67,7 +67,8 @@ use Creode_Blocks\Helpers;
 
 // Pass filtering criteria through dynamic context
 $category_id = 5;
-$blocks = parse_blocks(get_field('content_template'));
+$block_instance = \Creode_Blocks\Helpers::get_block_by_name('your-block-name');
+$blocks = parse_blocks($block_instance->get_field('content_template'));
 
 $context = [
     'filter' => [
@@ -87,7 +88,8 @@ use Creode_Blocks\Helpers;
 
 // Indicate preview mode to blocks
 $is_admin = is_admin();
-$blocks = get_field('reusable_content');
+$block_instance = \Creode_Blocks\Helpers::get_block_by_name('your-block-name');
+$blocks = $block_instance->get_field('reusable_content');
 
 $context = [
     'preview_mode' => $is_admin,

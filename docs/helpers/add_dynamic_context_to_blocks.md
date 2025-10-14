@@ -82,8 +82,11 @@ $processed_blocks = process_blocks_with_metadata($blocks, $metadata);
 ```php
 use Creode_Blocks\Helpers;
 
+// Get the block instance to access fields
+$block_instance = Helpers::get_block_by_name('your-block-name');
+
 // Add different context based on conditions
-$blocks = parse_blocks(get_field('content_blocks'));
+$blocks = parse_blocks($block_instance->get_field('content_blocks'));
 
 $context = [
     'timestamp' => time(),

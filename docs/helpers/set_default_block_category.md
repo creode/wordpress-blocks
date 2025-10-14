@@ -61,30 +61,27 @@ Helpers::set_default_block_category('design');
 use Creode_Blocks\Helpers;
 
 // In your theme's functions.php
-add_action('after_setup_theme', function() {
-    // Set default category for theme blocks
-    Helpers::set_default_block_category('my-theme-blocks');
-    
-    // Register the custom category
-    add_filter('block_categories_all', function($categories) {
-        return array_merge(
+
+// Set default category for theme blocks
+Helpers::set_default_block_category('my-theme-blocks');
+
+// Register the custom category
+add_filter('block_categories_all', function($categories) {
+    return array_merge(
+        [
             [
-                [
-                    'slug' => 'my-theme-blocks',
-                    'title' => 'My Theme Blocks',
-                    'icon' => 'admin-customizer'
-                ]
-            ],
-            $categories
-        );
-    });
+                'slug' => 'my-theme-blocks',
+                'title' => 'My Theme Blocks',
+                'icon' => 'admin-customizer'
+            ]
+        ],
+        $categories
+    );
 });
 
-// Later, when blocks are initialized
-add_action('init', function() {
-    Your_Block::init();
-    // Will use 'my-theme-blocks' category
-});
+// Initialize blocks (can be called as soon as the theme loads)
+Your_Block::init();
+// Will use 'my-theme-blocks' category
 ```
 
 ### Plugin-Specific Categories
@@ -96,11 +93,8 @@ use Creode_Blocks\Helpers;
 class My_Blocks_Plugin {
     
     public function __construct() {
-        // Set default category early
-        add_action('plugins_loaded', [$this, 'set_default_category'], 5);
-        
-        // Initialize blocks later
-        add_action('init', [$this, 'init_blocks']);
+        $this->set_default_category();
+        $this->init_blocks();
     }
     
     public function set_default_category() {
@@ -123,11 +117,16 @@ new My_Blocks_Plugin();
 ```php
 use Creode_Blocks\Helpers;
 
+// In your theme's functions.php
 // Set different default categories based on environment
 if (defined('WP_DEBUG') && WP_DEBUG) {
     Helpers::set_default_block_category('development-blocks');
 } else {
     Helpers::set_default_block_category('production-blocks');
 }
+
+// Then initialize your blocks
+Your_Block::init();
+Another_Block::init();
 ```
 
