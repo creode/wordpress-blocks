@@ -89,31 +89,6 @@ array(
 )
 ```
 
-## Pattern Registration
-
-To use this block effectively, register your patterns with consistent slugs:
-
-```php
-// In your theme's functions.php
-register_block_pattern(
-    'hero-section',
-    array(
-        'title' => __('Hero Section', 'textdomain'),
-        'content' => '<!-- wp:group -->...<!-- /wp:group -->',
-        'categories' => array('featured'),
-    )
-);
-
-register_block_pattern(
-    'post-card',
-    array(
-        'title' => __('Post Card', 'textdomain'),
-        'content' => '<!-- wp:group -->...<!-- /wp:group -->',
-        'categories' => array('posts'),
-    )
-);
-```
-
 ## Related Blocks
 
 - [Post Listing Block](/block-library/post-listing) - Often used together for post displays
@@ -121,8 +96,8 @@ register_block_pattern(
 
 ## Best Practices
 
-1. **Pattern Registration** - Register all patterns in your theme, don't rely on database-stored patterns
-2. **Documentation** - Document which patterns your theme requires
+1. **Consistent Slugs** - Use consistent, descriptive slugs for patterns across all environments
+2. **Documentation** - Document which pattern slugs your theme requires
 3. **Testing** - Test pattern rendering across all environments
 4. **Fallbacks** - Consider what happens if a pattern doesn't exist
 5. **Categories** - Organize patterns into logical categories for easier selection
