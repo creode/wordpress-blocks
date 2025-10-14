@@ -81,6 +81,26 @@ export default defineConfig({
           { text: 'set_acf_block_mode', link: '/helpers/set_acf_block_mode' }
         ]
       },
+      {
+        text: 'Block Library',
+        collapsed: false,
+        items: [
+          { text: 'Introduction', link: '/block-library/index' },
+          { text: 'Site Header', link: '/block-library/site-header' },
+          { text: 'Desktop Menu', link: '/block-library/desktop-menu' },
+          { text: 'Mobile Menu', link: '/block-library/mobile-menu' },
+          { text: 'Post Listing', link: '/block-library/post-listing' }
+        ]
+      },
+      {
+        text: 'Utility Blocks',
+        collapsed: false,
+        items: [
+          { text: 'Introduction', link: '/utility-blocks/index' },
+          { text: 'Integrated Menu', link: '/utility-blocks/integrated-menu' },
+          { text: 'Integrated Pattern', link: '/utility-blocks/integrated-pattern' }
+        ]
+      },
     ],
 
     socialLinks: [
