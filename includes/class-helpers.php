@@ -113,4 +113,34 @@ class Helpers {
 			}
 		);
 	}
+
+	/**
+	 * Adds dynamic context to blocks.
+	 * This will add an attribute called dynamic_context to all nested blocks.
+	 *
+	 * @param array $blocks An array of block structures to add dynamic context to.
+	 * @param array $dynamic_context The dynamic context to add to the blocks.
+	 */
+	public static function add_dynamic_context_to_blocks( array &$blocks, $dynamic_context = array() ): void {
+		foreach ( $blocks as &$block ) {
+			if ( isset( $block['attrs'] ) ) {
+				$block['attrs']['dynamic_context'] = $dynamic_context;
+			}
+			if ( isset( $block['innerBlocks'] ) ) {
+				self::add_dynamic_context_to_blocks( $block['innerBlocks'], $dynamic_context );
+			}
+		}
+	}
+
+	/**
+	 * Renders blocks with dynamic context.
+	 * This will add an attribute called dynamic_context to all nested blocks.
+	 *
+	 * @param array $blocks An array of block structures to render.
+	 * @param array $dynamic_context The dynamic context to add to the blocks.
+	 */
+	public static function render_blocks_with_dynamic_context( array $blocks, $dynamic_context = array() ) {
+		self::add_dynamic_context_to_blocks( $blocks, $dynamic_context );
+		self::render_blocks( $blocks );
+	}
 }
