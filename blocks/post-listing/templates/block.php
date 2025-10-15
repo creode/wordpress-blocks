@@ -28,7 +28,7 @@ $allowed_inner_blocks = array(
 ?>
 
 <?php if ( ! $is_preview && isset( $wp_block ) && isset( $wp_block->parsed_block ) && isset( $wp_block->parsed_block['innerBlocks'] ) ) : ?>
-	<div class="post-listing__query-wrapper">
+	<div class="post-listing__query-wrapper" id="<?php echo esc_attr( $block->get_unique_id() ); ?>">
 		<?php
 		Helpers::render_blocks_with_dynamic_context(
 			$wp_block->parsed_block['innerBlocks'],
