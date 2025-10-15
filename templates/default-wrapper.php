@@ -47,6 +47,13 @@ $creode_block = Creode_Blocks\Helpers::get_block_by_name( $block_name );
 if ( ! $creode_block ) {
 	return;
 }
+
+/**
+ * If the block should be hidden within the current context, do nothing.
+ */
+if ( $creode_block->should_hide() ) {
+	return;
+}
 ?>
 
 <?php do_action( 'before_block_' . $block_name ); ?>
