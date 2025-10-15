@@ -205,6 +205,15 @@ abstract class Block {
 	}
 
 	/**
+	 * Whether the block should be hidden within the current context.
+	 *
+	 * @return bool
+	 */
+	public function should_hide(): bool {
+		return false;
+	}
+
+	/**
 	 * Function for providing the block's category.
 	 *
 	 * @return string The block's category.
