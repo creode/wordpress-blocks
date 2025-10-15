@@ -12,6 +12,8 @@ namespace Creode_Blocks;
  */
 class Post_Listing_Block extends Block {
 
+	use Trait_Has_Unique_Id;
+
 	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
 	 *
@@ -38,6 +40,15 @@ class Post_Listing_Block extends Block {
 	 */
 	protected function template(): string {
 		return __DIR__ . '/templates/block.php';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function scripts(): array {
+		return array(
+			new Script( 'post_listing', plugin_dir_url( __FILE__ ) . 'assets/post-listing.js', array( 'jquery' ) ),
+		);
 	}
 
 	/**
