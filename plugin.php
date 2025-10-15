@@ -15,6 +15,7 @@ define( 'CREODE_BLOCKS_PLUGIN_FOLDER', plugin_dir_path( __FILE__ ) );
 require_once plugin_dir_path( __FILE__ ) . 'includes/helpers/all.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-helpers.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/traits/all.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-script.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-child-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'blocks/all.php';

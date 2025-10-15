@@ -49,6 +49,7 @@ abstract class Block {
 		}
 
 		$this->initialize_traits();
+		$this->register_and_enqueue_scripts();
 
 		add_action(
 			'init',
@@ -91,6 +92,31 @@ abstract class Block {
 
 			$this->{$method}();
 		}
+	}
+
+	/**
+	 * Function to register and enqueue the block's scripts.
+	 */
+	private function register_and_enqueue_scripts(): void {
+		$scripts = $this->scripts();
+
+		add_action(
+			'wp_enqueue_scripts',
+			function () use ( $scripts ) {
+				foreach ( $scripts as $script ) {
+					wp_register_script( $script->handle, $script->src, $script->deps, $script->ver, true );
+				}
+			}
+		);
+
+		add_action(
+			'before_block_' . $this->get_name(),
+			function () use ( $scripts ) {
+				foreach ( $scripts as $script ) {
+					wp_enqueue_script( $script->handle );
+				}
+			}
+		);
 	}
 
 	/**
@@ -211,6 +237,15 @@ abstract class Block {
 	 */
 	public function should_hide(): bool {
 		return false;
+	}
+
+	/**
+	 * Provides an array of scripts to be enqueued for the block.
+	 *
+	 * @return Script[]
+	 */
+	protected function scripts(): array {
+		return array();
 	}
 
 	/**
