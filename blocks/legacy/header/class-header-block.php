@@ -9,6 +9,8 @@ namespace Creode_Blocks;
 
 /**
  * Header block definition.
+ *
+ * @deprecated 2.0.0 Use the Site Header Block instead.
  */
 class Legacy_Header_Block extends Block {
 
