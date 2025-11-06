@@ -39,6 +39,7 @@ export default defineConfig({
           { text: 'Fields', link: '/blocks/fields' },
           { text: 'Supports', link: '/blocks/supports' },
           { text: 'Templates', link: '/blocks/template' },
+          { text: 'Block Scripts', link: '/blocks/scripts' },
           { text: 'Child Blocks', link: 'blocks/child-blocks' }
         ]
       },
