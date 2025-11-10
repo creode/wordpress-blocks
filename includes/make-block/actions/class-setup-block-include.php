@@ -5,6 +5,9 @@ namespace Creode_Blocks\Make_Block\Actions;
 use Creode_Blocks\Make_Block\Services\Block_Details;
 use Creode_Blocks\Make_Block\Services\Block_Replacements;
 
+/**
+ * Handles the creation and editing of the block include file.
+ */
 class Setup_Block_Include {
 	/**
 	 * The class for holding the block details.
