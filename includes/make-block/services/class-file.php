@@ -2,6 +2,9 @@
 
 namespace Creode_Blocks\Make_Block\Services;
 
+/**
+ * Helper class for getting files from various locations associated with blocks.
+ */
 class File {
 	/**
 	 * Gets all the files in a directory recursively.
