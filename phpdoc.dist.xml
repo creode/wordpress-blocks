@@ -19,6 +19,7 @@
             <include-source>true</include-source>
             <ignore hidden="true" symlinks="true">
                 <path>includes/class-block-cache.php</path>
+                <path>includes/make-block/stubs</path>
             </ignore>
         </api>
     </version>
