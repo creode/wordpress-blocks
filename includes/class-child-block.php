@@ -66,13 +66,13 @@ class Child_Block {
 	/**
 	 * Data input function.
 	 *
-	 * @param string       $name The child block's name (must be hyphen separated).
-	 * @param string       $label The child block's label.
-	 * @param array        $fields An array of field definitions in ACF format.
-	 * @param string       $template A path to the render template.
+	 * @param string        $name The child block's name (must be hyphen separated).
+	 * @param string        $label The child block's label.
+	 * @param array         $fields An array of field definitions in ACF format.
+	 * @param string        $template A path to the render template.
 	 * @param Child_Block[] $child_blocks (Optional) Array of child blocks.
-	 * @param string       $icon (Optional) Icon for Child block.
-	 * @param array        $supports (Optional) Array of supports configuration.
+	 * @param string        $icon (Optional) Icon for Child block.
+	 * @param array         $supports (Optional) Array of supports configuration.
 	 */
 	public function __construct(
 		string $name,
