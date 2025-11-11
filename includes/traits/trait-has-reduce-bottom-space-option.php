@@ -18,20 +18,8 @@ trait Trait_Has_Reduce_Bottom_Space_Option {
 	 * Trait initialization function.
 	 */
 	protected function init_trait_has_reduce_bottom_space_option() {
-		$this->trait_has_reduce_bottom_space_option_dependency_check();
 		$this->add_reduce_bottom_space_field();
 		$this->add_reduce_bottom_space_modifier_class();
-	}
-
-	/**
-	 * Check to ensure trait is used alongside Creode_Blocks\Trait_Has_Modifier_Classes.
-	 *
-	 * @throws Exception Describes trait requirements and how to resolve the issue.
-	 */
-	private function trait_has_reduce_bottom_space_option_dependency_check() {
-		if ( ! in_array( 'Creode_Blocks\Trait_Has_Modifier_Classes', class_uses( $this::class ), true ) ) {
-			throw new Exception( 'Creode_Blocks\Trait_Has_Reduce_Bottom_Space_Option should only ever be used alongside Creode_Blocks\Trait_Has_Modifier_Classes. Please add this trait to ' . $this::class . ' and conform to its requirements.' );
-		}
 	}
 
 	/**
