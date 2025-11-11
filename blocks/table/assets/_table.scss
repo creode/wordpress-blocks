@@ -1,0 +1,206 @@
+@use '/scss/globals';
+@use '/scss/extenders/container';
+@use '/scss/mixins/integrated-buttons';
+
+@mixin render {
+	.table__outer-wrapper,
+	.wp-block-acf-table {
+		background-color: white;
+		color: globals.$color-a;
+
+		& * {
+			color: inherit;
+		}
+	}
+
+	.table__outer-wrapper {
+		@extend %container__outer-wrapper;
+	}
+
+	.table__wrapper {
+		@extend %container__wrapper;
+		padding-top: calc(globals.$space-vertical * 1.6875);
+		padding-bottom: calc(globals.$space-vertical * 2.65625);
+	}
+
+	.table__inner {
+		@extend %container__inner;
+	}
+
+	.table__sections {
+		display: grid;
+		gap: globals.$space-vertical globals.$space-horizontal;
+		grid-template-columns: 1fr;
+	}
+
+	.table__outer-wrapper .table__section--device-visibility-desktop-only {
+		display: none;
+
+		@media only screen and (min-width: globals.$breakpoint-large) {
+			display: block;
+		}
+	}
+
+	.table__outer-wrapper .table__section--device-visibility-mobile-only {
+		@media only screen and (min-width: globals.$breakpoint-large) {
+			display: none;
+		}
+	}
+
+	.table__additional-content {
+		margin-bottom: calc(globals.$space-bottom * -1);
+
+		.wp-block-heading,
+		p {
+			max-width: 970px;
+
+			&:not(.has-text-align-right, .has-text-align-left) {
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+			}
+
+			&.has-text-align-right {
+				margin-left: auto;
+			}
+		}
+
+		@include integrated-buttons.render;
+
+		.wp-block-buttons-is-layout-flex {
+			justify-content: center;
+		}
+	}
+
+	.table__table.block-editor-block-list__layout {
+		display: table;
+
+		.wp-block-acf-table-table-row {
+			display: table-row-group;
+		}
+
+		.table__table-row {
+			display: table-row;
+		}
+
+		.wp-block-acf-table-table-row-cell {
+			display: table-cell;
+			vertical-align: top;
+		}
+	}
+
+	.table__section--table {
+		overflow: auto;
+	}
+
+	.table__table-outer-wrapper {
+		width: max-content;
+		min-width: 100%;
+		overflow: hidden;
+	}
+
+	.table__table-wrapper {
+		margin: 0 -4px;
+
+		@media only screen and (min-width: globals.$breakpoint-medium) {
+			margin: 0 -8px;
+		}
+	}
+
+	.table__table {
+		min-width: 100%;
+		border-collapse: collapse;
+	}
+
+	.table__table-cell {
+		padding: 0 4px;
+		vertical-align: top;
+
+		@media only screen and (min-width: globals.$breakpoint-medium) {
+			padding: 0 8px;
+		}
+	}
+
+	.table__table-row {
+		.table__table-cell {
+			&:first-child {
+				.table__table-cell-content {
+					justify-content: flex-start;
+				}
+			}
+		}
+	}
+
+	.table__table-row--has-bottom-space .table__table-cell {
+		padding-bottom: 5px;
+	}
+
+	.table__table-cell-content-outer,
+	.wp-block-acf-table-table-row-cell-cell-content {
+		width: min-content;
+		min-width: 100%;
+		background-color: globals.$color-b;
+		color: globals.$color-a;
+
+		@media only screen and (min-width: globals.$breakpoint-medium) {
+			width: auto;
+		}
+
+		&:has(.table__table-cell-content--style-1) {
+			background-color: transparent;
+		}
+
+		&:has(.table__table-cell-content--curved-corners-top-left) {
+			border-top-left-radius: 50px;
+		}
+
+		&:has(.table__table-cell-content--curved-corners-top-right) {
+			border-top-right-radius: 50px;
+		}
+
+		&:has(.table__table-cell-content--curved-corners-bottom-left) {
+			border-bottom-left-radius: 50px;
+		}
+
+		&:has(.table__table-cell-content--curved-corners-bottom-right) {
+			border-bottom-right-radius: 50px;
+		}
+	}
+
+	.table__table-cell-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: calc(globals.$space-vertical * 0.7) globals.$space-horizontal;
+
+		@media only screen and (min-width: globals.$breakpoint-medium) {
+			padding: calc(globals.$space-vertical * 1.1875) calc(globals.$space-horizontal * 1.875);
+		}
+	}
+
+	.table__table-cell-content--style-1 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.table__table-cell-content .table__icon-svg-wrapper {
+		width: 26px;
+		margin-right: globals.$space-horizontal;
+
+		svg {
+			width: 100%;
+			height: auto;
+
+			path {
+				fill: var(--icon-color, globals.$color-a);
+			}
+		}
+	}
+
+	.table__table-cell-content-inner {
+		p {
+			margin-bottom: 0;
+			font-size: 1.5rem;
+		}
+	}
+}
