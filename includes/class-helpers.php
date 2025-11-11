@@ -143,4 +143,49 @@ class Helpers {
 		self::add_dynamic_context_to_blocks( $blocks, $dynamic_context );
 		self::render_blocks( $blocks );
 	}
+
+	/**
+	 * Targets a child block by path from existing child blocks and replaces it with a new one provided.
+	 *
+	 * @param Child_Block[] $existing_child_blocks An array of existing child blocks to search in.
+	 * @param string        $path A "/" separated path to block for example "table/row/cell".
+	 * @param Child_Block   $new_child_block Child block to replace.
+	 * @return Child_Block[] Array of amended child blocks.
+	 */
+	public static function replace_child_block_by_path( array $existing_child_blocks, string $path, Child_Block $new_child_block ): array {
+		// Parse and validate path segments.
+		$path_segments = array_values( array_filter( explode( '/', $path ) ) );
+		if ( empty( $path_segments ) ) {
+			return $existing_child_blocks;
+		}
+
+		$current_segment = array_shift( $path_segments );
+		$remaining_path  = implode( '/', $path_segments );
+
+		// Find and replace the matching child block.
+		foreach ( $existing_child_blocks as $index => $child_block ) {
+			if ( $child_block->name !== $current_segment ) {
+				continue;
+			}
+
+			// If there's a not a remaining path, replace the block, otherwise continue through.
+			if ( empty( $remaining_path ) ) {
+				// Replace the block at this level.
+				$existing_child_blocks[ $index ] = $new_child_block;
+			} else {
+				$updated_child_blocks = self::replace_child_block_by_path(
+					$child_block->child_blocks,
+					$remaining_path,
+					$new_child_block
+				);
+				$child_block->set_child_blocks( $updated_child_blocks );
+			}
+
+			// We've processed the block we need to, therefore
+			// just break out of the loop, no need to process anything else.
+			break;
+		}
+
+		return $existing_child_blocks;
+	}
 }

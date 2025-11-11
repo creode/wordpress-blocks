@@ -100,4 +100,13 @@ class Child_Block {
 	public function __get( string $property ) {
 		return $this->$property;
 	}
+
+	/**
+	 * Sets the child blocks array.
+	 *
+	 * @param Child_Block[] $child_blocks Array of child blocks.
+	 */
+	public function set_child_blocks( array $child_blocks ): void {
+		$this->child_blocks = $child_blocks;
+	}
 }

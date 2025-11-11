@@ -70,6 +70,7 @@ The Helpers class provides functions organized into several categories:
 
 ### Block Management
 - **get_block_by_name** - Retrieve a block instance by its name
+- **replace_child_block_by_path** - Replace a child block in a nested hierarchy by path
 
 ### Block Rendering
 - **render_blocks** - Render blocks from a string or array
@@ -93,6 +94,7 @@ Consider using these helpers when you need to:
 - **Pass custom data** down through nested block structures
 - **Build complex block interactions** that require accessing other block instances
 - **Configure block behavior** programmatically based on conditions
+- **Override child blocks** from parent classes without redefining entire hierarchies
 
 ## Next Steps
 

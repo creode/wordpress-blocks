@@ -265,3 +265,14 @@ add_filter(
 	}
 );
 ```
+
+## Overriding child blocks
+
+When extending a parent block class, you may want to override specific child blocks to add additional fields or modify their configuration. The `replace_child_block_by_path()` helper function allows you to target and replace child blocks within a nested hierarchy without having to redefine the entire child block structure.
+
+This is particularly useful when you need to:
+- Add new fields to a child block defined in a parent class
+- Modify the template or configuration of a nested child block
+- Customize specific child blocks while preserving the rest of the hierarchy
+
+For detailed information and examples, see the [replace_child_block_by_path helper documentation](../helpers/replace_child_block_by_path).
