@@ -38,84 +38,78 @@ The path parameter uses a forward-slash (`/`) separated format to navigate throu
   - Within that, find a child block named "cell"
   - Replace that "cell" block with the new one
 
+## Pairing with get_child_block_by_path
+
+This function pairs exceptionally well with [`get_child_block_by_path()`](/helpers/get_child_block_by_path). The recommended workflow is:
+
+1. Use `get_child_block_by_path()` to retrieve the existing child block you want to modify
+2. Make your modifications to the retrieved block (e.g., add fields, change configuration)
+3. Use `replace_child_block_by_path()` to replace the original block with your modified version
+
+This approach is much easier than manually recreating the entire `Child_Block` instance, especially when you only want to add a few fields or make small modifications to an existing child block.
+
 ## Examples
 
-### Basic Usage - Overriding a Child Block
+### Basic Usage - Extending a Child Block
 
-This example shows how to override a child block defined in a parent class by replacing it with a new version that includes additional fields:
+This example shows the recommended approach for extending a child block defined in a parent class. First, retrieve the existing block using [`get_child_block_by_path()`](/helpers/get_child_block_by_path), modify it, and then replace it. This approach preserves all existing fields and configuration:
 
 ```php
+use Creode_Blocks\Table_Block as Base_Table_Block;
 use Creode_Blocks\Helpers;
-use Creode_Blocks\Child_Block;
 
-/**
- * {@inheritdoc}
- */
-protected function child_blocks(): array {
-	$existing_child_blocks = parent::child_blocks();
+class Table extends Base_Table_Block {
 
-	// Replace the cell-content child block with an enhanced version
-	$replaced_child_blocks = Helpers::replace_child_block_by_path(
-		$existing_child_blocks,
-		'table/row/cell/cell-content',
-		new Child_Block(
-			'cell-content',
-			'Table Cell Content',
-			array(
-				array(
-					'key'     => 'field_table_cell_style',
-					'label'   => 'Style',
-					'name'    => 'style',
-					'type'    => 'select',
-					'choices' => array(
-						''  => 'None',
-						'1' => 'No Padding',
-					),
-				),
-				array(
-					'key'     => 'field_table_cell_curved_corners',
-					'label'   => 'Curved corners',
-					'name'    => 'curved_corners',
-					'type'    => 'checkbox',
-					'choices' => array(
-						'top-left'     => 'Top Left',
-						'top-right'    => 'Top Right',
-						'bottom-right' => 'Bottom Right',
-						'bottom-left'  => 'Bottom Left',
-					),
-				),
-				$this->get_icon_field_schema( 'field_table_cell_icon', true ),
-				array(
-					'key'     => 'field_table_cell_icon_color',
-					'label'   => 'Icon Color',
-					'name'    => 'icon_color',
-					'type'    => 'radio',
-					'choices' => $this->get_color_choices(),
-					'conditional_logic' => array(
-						array(
-							array(
-								'field'    => 'field_table_cell_icon',
-								'operator' => '!=',
-								'value'    => '',
-							),
-						),
-					),
-				),
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function name(): string {
+		return 'table';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function label(): string {
+		return 'Comparison Table';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function child_blocks(): array {
+		$existing_child_blocks = parent::child_blocks();
+
+		// Get the existing cell-content child block
+		$cell_content_child_block = Helpers::get_child_block_by_path(
+			$existing_child_blocks,
+			'table/row/cell/cell-content'
+		);
+
+		// Get the existing fields array and add the new field to it
+		$fields = $cell_content_child_block->fields;
+		$fields[] = array(
+			'key'     => 'creode_field',
+			'label'   => 'Creode Field',
+			'name'    => 'creode_field',
+			'type'    => 'select',
+			'choices' => array(
+				''  => 'hooray',
+				'1' => 'woohoo',
+				'2' => 'I did it',
 			),
-			CREODE_BLOCKS_PLUGIN_FOLDER . '/blocks/table/templates/cell-content.php',
-			array(),
-			'text',
-			array(
-				'mode'  => false,
-				'color' => array(
-					'text'       => true,
-					'background' => true,
-				),
-			),
-		),
-	);
+		);
+		$cell_content_child_block->fields = $fields;
 
-	return $replaced_child_blocks;
+		// Replace the original block with the modified version
+		$replaced_child_blocks = Helpers::replace_child_block_by_path(
+			$existing_child_blocks,
+			'table/row/cell/cell-content',
+			$cell_content_child_block
+		);
+
+		return $replaced_child_blocks;
+	}
 }
 ```
 
@@ -155,6 +149,7 @@ This helper is particularly useful when:
 - **Extending parent block classes**: You want to add fields to a child block defined in a parent class without modifying the parent
 - **Customizing child blocks**: You need to modify the template, fields, or configuration of a nested child block
 - **Selective overrides**: You only want to change specific child blocks in a complex hierarchy rather than redefining everything
+- **Working with existing blocks**: When combined with [`get_child_block_by_path()`](/helpers/get_child_block_by_path), you can easily retrieve, modify, and replace existing child blocks without recreating them from scratch
 
 ## Notes
 

@@ -66,13 +66,13 @@ class Child_Block {
 	/**
 	 * Data input function.
 	 *
-	 * @param string       $name The child block's name (must be hyphen separated).
-	 * @param string       $label The child block's label.
-	 * @param array        $fields An array of field definitions in ACF format.
-	 * @param string       $template A path to the render template.
+	 * @param string        $name The child block's name (must be hyphen separated).
+	 * @param string        $label The child block's label.
+	 * @param array         $fields An array of field definitions in ACF format.
+	 * @param string        $template A path to the render template.
 	 * @param Child_Block[] $child_blocks (Optional) Array of child blocks.
-	 * @param string       $icon (Optional) Icon for Child block.
-	 * @param array        $supports (Optional) Array of supports configuration.
+	 * @param string        $icon (Optional) Icon for Child block.
+	 * @param array         $supports (Optional) Array of supports configuration.
 	 */
 	public function __construct(
 		string $name,
@@ -102,11 +102,26 @@ class Child_Block {
 	}
 
 	/**
-	 * Sets the child blocks array.
+	 * Function to run when setting any properties.
 	 *
-	 * @param Child_Block[] $child_blocks Array of child blocks.
+	 * @param string $name Name of property to set.
+	 * @param mixed  $value Value of the property.
+	 *
+	 * @throws \InvalidArgumentException Thrown if you are trying to set an invalid property.
+	 *
+	 * @return void
 	 */
-	public function set_child_blocks( array $child_blocks ): void {
-		$this->child_blocks = $child_blocks;
+	public function __set( string $name, mixed $value ): void {
+		// Check the property is actually present on the class.
+		if ( ! property_exists( $this, $name ) ) {
+			throw new \InvalidArgumentException( sprintf( 'The property "%s" does not exist on the %s class.', esc_html( $name ), esc_html( __CLASS__ ) ) );
+		}
+
+		// We shouldn't allow name to be changed as it can have a number of negative side effects.
+		if ( 'name' === $name ) {
+			throw new \InvalidArgumentException( 'The "name" property is read-only and cannot be modified.' );
+		}
+
+		$this->{$name} = $value;
 	}
 }
