@@ -160,7 +160,7 @@ class Helpers {
 		}
 
 		$current_segment = array_shift( $path_segments );
-		$remaining_path  = ! empty( $path_segments ) ? implode( '/', $path_segments ) : '';
+		$remaining_path  = implode( '/', $path_segments );
 
 		// Find and replace the matching child block.
 		foreach ( $existing_child_blocks as $index => $child_block ) {
@@ -168,17 +168,17 @@ class Helpers {
 				continue;
 			}
 
-			// If there's a remaining path, recursively replace in child blocks.
-			if ( ! empty( $remaining_path ) ) {
+			// If there's a not a remaining path, replace the block, otherwise continue through.
+			if ( empty( $remaining_path ) ) {
+				// Replace the block at this level.
+				$existing_child_blocks[ $index ] = $new_child_block;
+			} else {
 				$updated_child_blocks = self::replace_child_block_by_path(
 					$child_block->child_blocks,
 					$remaining_path,
 					$new_child_block
 				);
 				$child_block->set_child_blocks( $updated_child_blocks );
-			} else {
-				// Replace the block at this level.
-				$existing_child_blocks[ $index ] = $new_child_block;
 			}
 
 			// We've processed the block we need to, therefore
