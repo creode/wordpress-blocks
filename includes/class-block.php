@@ -50,6 +50,7 @@ abstract class Block {
 
 		$this->initialize_traits();
 		$this->register_and_enqueue_scripts();
+		$this->enqueue_admin_scripts();
 
 		add_action(
 			'init',
@@ -114,6 +115,22 @@ abstract class Block {
 			function () use ( $scripts ) {
 				foreach ( $scripts as $script ) {
 					wp_enqueue_script( $script->handle );
+				}
+			}
+		);
+	}
+
+	/**
+	 * Function to enqueue the block's admin scripts.
+	 */
+	private function enqueue_admin_scripts(): void {
+		$scripts = $this->admin_scripts();
+
+		add_action(
+			'admin_enqueue_scripts',
+			function () use ( $scripts ) {
+				foreach ( $scripts as $script ) {
+					wp_enqueue_script( $script->handle, $script->src, $script->deps, $script->ver, true );
 				}
 			}
 		);
@@ -199,6 +216,16 @@ abstract class Block {
 	}
 
 	/**
+	 * Function for providing additional attributes for the block.
+	 *
+	 * @link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#attributes
+	 *
+	 * @return array An array of additional attributes. These should be in the WordPress block.json format.
+	 */
+	protected function additional_attributes(): array {
+		return array();
+	}
+	/**
 	 * Function for providing a path to the render template.
 	 *
 	 * @return string The path to the render template.
@@ -245,6 +272,15 @@ abstract class Block {
 	 * @return Script[]
 	 */
 	protected function scripts(): array {
+		return array();
+	}
+
+	/**
+	 * Provides an array of scripts to be enqueued for the block in the admin.
+	 *
+	 * @return Script[]
+	 */
+	protected function admin_scripts(): array {
 		return array();
 	}
 
@@ -309,6 +345,10 @@ abstract class Block {
 	 * Function to register the block with ACF.
 	 */
 	protected function register_acf_block(): void {
+		$attributes = array();
+
+		$attributes = array_merge( $attributes, $this->additional_attributes() );
+
 		$this->register_block_type(
 			array(
 				'name'            => 'acf/' . $this->name(),
@@ -320,6 +360,7 @@ abstract class Block {
 				'textdomain'      => 'wordpress-blocks',
 				'supports'        => $this->supports(),
 				'providesContext' => $this->provides_context,
+				'attributes'      => $attributes,
 			)
 		);
 	}
