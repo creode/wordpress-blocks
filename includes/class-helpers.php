@@ -218,6 +218,7 @@ class Helpers {
 		return null;
 	}
 
+	/*
 	 * Finds a child block from an array of existing child blocks based on its path.
 	 *
 	 * @param Child_Block[] $existing_child_blocks An array of existing child blocks to search in.
