@@ -199,6 +199,16 @@ abstract class Block {
 	}
 
 	/**
+	 * Function for providing additional attributes for the block.
+	 *
+	 * @link https://developer.wordpress.org/block-editor/reference-guides/block-api/block-metadata/#attributes
+	 *
+	 * @return array An array of additional attributes. These should be in the WordPress block.json format.
+	 */
+	protected function additional_attributes(): array {
+		return array();
+	}
+	/**
 	 * Function for providing a path to the render template.
 	 *
 	 * @return string The path to the render template.
@@ -309,6 +319,10 @@ abstract class Block {
 	 * Function to register the block with ACF.
 	 */
 	protected function register_acf_block(): void {
+		$attributes = array();
+
+		$attributes = array_merge( $attributes, $this->additional_attributes() );
+
 		$this->register_block_type(
 			array(
 				'name'            => 'acf/' . $this->name(),
@@ -320,6 +334,7 @@ abstract class Block {
 				'textdomain'      => 'wordpress-blocks',
 				'supports'        => $this->supports(),
 				'providesContext' => $this->provides_context,
+				'attributes'      => $attributes,
 			)
 		);
 	}
