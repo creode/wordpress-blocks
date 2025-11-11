@@ -156,20 +156,6 @@
 		}
 	}
 
-	.table__table-cell-content .table__icon-svg-wrapper {
-		width: 26px;
-		margin-right: globals.$space-horizontal;
-
-		svg {
-			width: 100%;
-			height: auto;
-
-			path {
-				fill: var(--icon-color, globals.$color-a);
-			}
-		}
-	}
-
 	.table__table-cell-content-inner {
 		p {
 			margin-bottom: 0;
