@@ -50,6 +50,7 @@ abstract class Block {
 
 		$this->initialize_traits();
 		$this->register_and_enqueue_scripts();
+		$this->enqueue_admin_scripts();
 
 		add_action(
 			'init',
@@ -114,6 +115,22 @@ abstract class Block {
 			function () use ( $scripts ) {
 				foreach ( $scripts as $script ) {
 					wp_enqueue_script( $script->handle );
+				}
+			}
+		);
+	}
+
+	/**
+	 * Function to enqueue the block's admin scripts.
+	 */
+	private function enqueue_admin_scripts(): void {
+		$scripts = $this->admin_scripts();
+
+		add_action(
+			'admin_enqueue_scripts',
+			function () use ( $scripts ) {
+				foreach ( $scripts as $script ) {
+					wp_enqueue_script( $script->handle, $script->src, $script->deps, $script->ver, true );
 				}
 			}
 		);
@@ -255,6 +272,15 @@ abstract class Block {
 	 * @return Script[]
 	 */
 	protected function scripts(): array {
+		return array();
+	}
+
+	/**
+	 * Provides an array of scripts to be enqueued for the block in the admin.
+	 *
+	 * @return Script[]
+	 */
+	protected function admin_scripts(): array {
 		return array();
 	}
 
