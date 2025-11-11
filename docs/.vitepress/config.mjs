@@ -79,7 +79,8 @@ export default defineConfig({
           { text: 'render_inner_blocks_in_post_context', link: '/helpers/render_inner_blocks_in_post_context' },
           { text: 'render_blocks_with_dynamic_context', link: '/helpers/render_blocks_with_dynamic_context' },
           { text: 'add_dynamic_context_to_blocks', link: '/helpers/add_dynamic_context_to_blocks' },
-          { text: 'set_acf_block_mode', link: '/helpers/set_acf_block_mode' }
+          { text: 'replace_child_block_by_path', link: 'helpers/replace_child_block_by_path' },
+          { text: 'set_acf_block_mode', link: '/helpers/set_acf_block_mode' },
         ]
       },
       {
