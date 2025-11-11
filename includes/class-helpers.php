@@ -188,4 +188,33 @@ class Helpers {
 
 		return $existing_child_blocks;
 	}
+
+	/**
+	 * Get a block attribute value from the current block context or the current AJAX render request.
+	 *
+	 * @param string        $attribute_name The attribute name.
+	 * @param WP_Block|null $wp_block The current WordPress block object. Defaults to null if not provided.
+	 * @return mixed|null The attribute value, null if the attribute is not found.
+	 */
+	public static function get_block_attribute( string $attribute_name, WP_Block|null $wp_block = null ): mixed {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! empty( $_REQUEST['block'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$decoded_block = json_decode( sanitize_text_field( wp_unslash( $_REQUEST['block'] ) ), true );
+
+			if ( ! empty( $decoded_block[ $attribute_name ] ) ) {
+				return $decoded_block[ $attribute_name ];
+			}
+		}
+
+		if (
+			! empty( $wp_block ) &&
+			isset( $wp_block->attributes ) &&
+			! empty( $wp_block->attributes[ $attribute_name ] )
+		) {
+			return $wp_block->attributes[ $attribute_name ];
+		}
+
+		return null;
+	}
 }

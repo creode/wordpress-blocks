@@ -69,13 +69,16 @@ class AdminBlock {
 
 	/**
 	 * Set a block attribute.
+	 * Re-render the block.
 	 *
 	 * @param {string} name - The name of the attribute.
 	 * @param {any} value - The value of the attribute.
 	 * @returns {void}
 	 */
 	setAttribute(name, value) {
-		let attributes = {};
+		let attributes = {
+			_forceRender: Date.now()
+		};
 
 		attributes[name] = value;
 
