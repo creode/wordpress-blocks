@@ -152,20 +152,10 @@ trait Trait_Has_Icons {
 		}
 
 		$location = $this->get_icon_location( $icon );
-		$svg      = wp_remote_get( $location['url'] );
 
-		if (
-			empty( $svg['response'] ) ||
-			empty( $svg['response']['code'] ) ||
-			empty( $svg['body'] )
-		) {
-			return '';
-		}
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- This is a valid use of file_get_contents.
+		$svg = file_get_contents( $location['path'] );
 
-		if ( 200 !== $svg['response']['code'] ) {
-			return '';
-		}
-
-		return '<div class="' . $base_class . '__icon-svg-wrapper ' . $base_class . '__icon-svg-wrapper--' . $icon . '">' . $svg['body'] . '</div>';
+		return '<div class="' . $base_class . '__icon-svg-wrapper ' . $base_class . '__icon-svg-wrapper--' . $icon . '">' . $svg . '</div>';
 	}
 }
