@@ -188,4 +188,53 @@ class Helpers {
 
 		return $existing_child_blocks;
 	}
+
+	/**
+	 * Finds a child block from an array of existing child blocks based on its path.
+	 *
+	 * @param Child_Block[] $existing_child_blocks An array of existing child blocks to search in.
+	 * @param string        $path A "/" separated path to block for example "table/row/cell".
+	 *
+	 * @throws \InvalidArgumentException If we cannot parse the data provided or find the block.
+	 *
+	 * @return Child_Block
+	 */
+	public static function get_child_block_by_path( array $existing_child_blocks, string $path ): Child_Block {
+		// Parse and validate path segments.
+		$path_segments = array_values( array_filter( explode( '/', $path ) ) );
+		if ( empty( $path_segments ) ) {
+			throw new \InvalidArgumentException( sprintf( 'Invalid path provided to get_child_block_by_path: "%s". Path must not be empty and must contain at least one valid segment.', esc_html( $path ) ) );
+		}
+
+		$current_blocks = $existing_child_blocks;
+
+		foreach ( $path_segments as $index => $path_segment ) {
+			// Find matching child block at current level using array_filter.
+			$matching_blocks = array_filter(
+				$current_blocks,
+				function ( $child_block ) use ( $path_segment ) {
+					return $child_block->name === $path_segment;
+				}
+			);
+
+			// Throw exception if path segment not found.
+			if ( empty( $matching_blocks ) ) {
+				throw new \InvalidArgumentException( sprintf( 'Child block not found at path segment "%s" in path "%s".', esc_html( $path_segment ), esc_html( $path ) ) );
+			}
+
+			// Get the first matching block (should only be one).
+			$found_block = reset( $matching_blocks );
+			if ( false === $found_block ) {
+				throw new \InvalidArgumentException( sprintf( 'Unexpected error: failed to retrieve child block at path segment "%s" in path "%s".', esc_html( $path_segment ), esc_html( $path ) ) );
+			}
+
+			// If this is the last segment, return the found block.
+			if ( count( $path_segments ) - 1 === $index ) {
+				return $found_block;
+			}
+
+			// Otherwise, dive down into the found block's child blocks.
+			$current_blocks = $found_block->child_blocks;
+		}
+	}
 }
