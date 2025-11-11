@@ -102,11 +102,26 @@ class Child_Block {
 	}
 
 	/**
-	 * Sets the child blocks array.
+	 * Function to run when setting any properties.
 	 *
-	 * @param Child_Block[] $child_blocks Array of child blocks.
+	 * @param string $name Name of property to set.
+	 * @param mixed  $value Value of the property.
+	 *
+	 * @throws \InvalidArgumentException Thrown if you are trying to set an invalid property.
+	 *
+	 * @return void
 	 */
-	public function set_child_blocks( array $child_blocks ): void {
-		$this->child_blocks = $child_blocks;
+	public function __set( string $name, mixed $value ): void {
+		// Check the property is actually present on the class.
+		if ( ! property_exists( $this, $name ) ) {
+			throw new \InvalidArgumentException( sprintf( 'The property "%s" does not exist on the %s class.', esc_html( $name ), esc_html( __CLASS__ ) ) );
+		}
+
+		// We shouldn't allow name to be changed as it can have a number of negative side effects.
+		if ( 'name' === $name ) {
+			throw new \InvalidArgumentException( 'The "name" property is read-only and cannot be modified.' );
+		}
+
+		$this->{$name} = $value;
 	}
 }

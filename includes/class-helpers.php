@@ -178,7 +178,7 @@ class Helpers {
 					$remaining_path,
 					$new_child_block
 				);
-				$child_block->set_child_blocks( $updated_child_blocks );
+				$child_block->child_blocks = $updated_child_blocks;
 			}
 
 			// We've processed the block we need to, therefore
