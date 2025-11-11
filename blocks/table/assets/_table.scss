@@ -139,8 +139,6 @@
 	.wp-block-acf-table-table-row-cell-cell-content {
 		width: min-content;
 		min-width: 100%;
-		background-color: globals.$color-b;
-		color: globals.$color-a;
 
 		@media only screen and (min-width: globals.$breakpoint-medium) {
 			width: auto;
