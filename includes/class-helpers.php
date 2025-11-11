@@ -218,7 +218,7 @@ class Helpers {
 		return null;
 	}
 
-	/*
+	/**
 	 * Finds a child block from an array of existing child blocks based on its path.
 	 *
 	 * @param Child_Block[] $existing_child_blocks An array of existing child blocks to search in.
@@ -246,24 +246,19 @@ class Helpers {
 				}
 			);
 
-			// Throw exception if path segment not found.
-			if ( empty( $matching_blocks ) ) {
-				throw new \InvalidArgumentException( sprintf( 'Child block not found at path segment "%s" in path "%s".', esc_html( $path_segment ), esc_html( $path ) ) );
-			}
-
 			// Get the first matching block (should only be one).
-			$found_block = reset( $matching_blocks );
-			if ( false === $found_block ) {
-				throw new \InvalidArgumentException( sprintf( 'Unexpected error: failed to retrieve child block at path segment "%s" in path "%s".', esc_html( $path_segment ), esc_html( $path ) ) );
+			$matched_block = reset( $matching_blocks );
+			if ( false === $matched_block ) {
+				throw new \InvalidArgumentException( sprintf( 'Child block not found at path segment "%s" in path "%s".', esc_html( $path_segment ), esc_html( $path ) ) );
 			}
 
 			// If this is the last segment, return the found block.
 			if ( count( $path_segments ) - 1 === $index ) {
-				return $found_block;
+				return $matched_block;
 			}
 
 			// Otherwise, dive down into the found block's child blocks.
-			$current_blocks = $found_block->child_blocks;
+			$current_blocks = $matched_block->child_blocks;
 		}
 	}
 }
