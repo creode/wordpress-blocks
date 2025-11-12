@@ -139,10 +139,6 @@
 	.wp-block-acf-table-table-row-cell-cell-content {
 		width: min-content;
 		min-width: 100%;
-
-		@media only screen and (min-width: globals.$breakpoint-medium) {
-			width: auto;
-		}
 	}
 
 	.table__table-cell-content {
