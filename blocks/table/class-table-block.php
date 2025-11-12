@@ -162,4 +162,14 @@ class Table_Block extends Block {
 			),
 		);
 	}
+
+	/**
+	 * {@inheritdoc
+	 */
+	protected function scripts(): array {
+		return array(
+			new Script( 'match-height', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js', array( 'jquery' ), '0.7.2' ),
+			new Script( 'match-table-height', plugin_dir_url( __FILE__ ) . 'assets/match-table-height.js', array( 'match-height' ), '1' ),
+		);
+	}
 }
