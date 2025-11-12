@@ -147,11 +147,6 @@
 
 	.table__table-cell-content {
 		display: flex;
-		padding: calc(globals.$space-vertical * 0.7) globals.$space-horizontal;
-
-		@media only screen and (min-width: globals.$breakpoint-medium) {
-			padding: calc(globals.$space-vertical * 1.1875) calc(globals.$space-horizontal * 1.875);
-		}
 	}
 
 	.table__table-cell-content-inner {
