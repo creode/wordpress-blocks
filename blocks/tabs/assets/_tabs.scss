@@ -1,0 +1,47 @@
+@use '/scss/globals';
+@use '/scss/extenders/container';
+
+@mixin render {
+	.tabs__outer-wrapper {
+		@extend %container__outer-wrapper;
+	}
+
+	.tabs__wrapper {
+		@extend %container__wrapper;
+	}
+
+	.tabs__wrapper--reduce-bottom-space {
+		@extend %container__wrapper--reduce-bottom-space;
+	}
+
+	.tabs__inner {
+		@extend %container__inner;
+	}
+	
+	.tabs__tabs {
+		display: flex;
+	}
+
+	.tabs__tab-outer-wrapper,
+	.wp-block-acf-tabs-tab {
+		background-color: lightgray;
+	}
+
+	.tabs__tab {
+		padding: globals.$space-top globals.$space-right 0 globals.$space-left;
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+	}
+
+	.tabs__tab--active {
+		background-color: gray;
+	}
+
+	.tabs__pattern {
+		&[hidden],
+		&[aria-hidden="true"] {
+			display: none;
+		}
+	}
+}
