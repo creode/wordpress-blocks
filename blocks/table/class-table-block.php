@@ -43,6 +43,21 @@ class Table_Block extends Block {
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function setup(): bool {
+		add_action(
+			'wp_enqueue_scripts',
+			function () {
+				$this->check_js_dependencies();
+			},
+			20
+		);
+
+		return true;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function fields(): array {
 		return array(
 			array(
@@ -168,8 +183,21 @@ class Table_Block extends Block {
 	 */
 	protected function scripts(): array {
 		return array(
-			new Script( 'match-height', 'https://cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.2/jquery.matchHeight-min.js', array( 'jquery' ), '0.7.2' ),
 			new Script( 'match-table-height', plugin_dir_url( __FILE__ ) . 'assets/match-table-height.js', array( 'match-height' ), '1' ),
 		);
+	}
+
+	/**
+	 * Checks if the js dependencies are working correctly.
+	 *
+	 * @throws \Exception If dependencies are not met.
+	 *
+	 * @return void
+	 */
+	protected function check_js_dependencies() {
+		// Check if we have match heights script.
+		if ( ! wp_script_is( 'match-height', 'registered' ) ) {
+			throw new \Exception( 'Please ensure that the match heights script has been registered. You can find an example of how to add this to existing projects inside the theme package.' );
+		}
 	}
 }
