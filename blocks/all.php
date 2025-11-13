@@ -48,4 +48,5 @@ require_once plugin_dir_path( __FILE__ ) . 'desktop-menu/class-desktop-menu-bloc
 require_once plugin_dir_path( __FILE__ ) . 'mobile-menu/class-mobile-menu-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'post-listing/class-post-listing-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'search-and-filter/class-search-and-filter-block.php';
+require_once plugin_dir_path( __FILE__ ) . 'tabs/class-tabs-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'table/class-table-block.php';

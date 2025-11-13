@@ -7,6 +7,12 @@
 class AdminBlock {
 
 	/**
+	 * The listeners to trigger when changes are detected.
+	 * @type {Array<Function>}
+	 */
+	listeners = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param {jQuery} blockDiv - The block's outermost div.
@@ -26,6 +32,7 @@ class AdminBlock {
 
 		this.blockDiv = blockDiv;
 		this.loadBlock();
+		this.watchBlock();
 		this.setup();
 	}
 
@@ -60,6 +67,45 @@ class AdminBlock {
 	loadBlock() {
 		const clientId = this.blockDiv.data('block');
 		this.block = wp.data.select('core/block-editor').getBlock(clientId);
+	}
+
+	/**
+	 * Watch the block for changes and trigger listeners when changes are detected.
+	 *
+	 * @returns {void}
+	 */
+	watchBlock() {
+		const clientId = this.blockDiv.data('block');
+
+			wp.data.subscribe(
+			() => {
+				const updatedBlock = wp.data.select('core/block-editor').getBlock(clientId);
+
+				AdminHelpers.deepCompare(
+					this.block,
+					updatedBlock,
+					(path, originalValue, newValue) => {
+						for (const listener of this.listeners) {
+							listener(path, originalValue, newValue);
+						}
+						this.loadBlock();
+					}
+				);
+			}
+		);
+	}
+
+	/**
+	 * Add a listener to the block. The listener will be triggered when changes are detected.
+	 *
+	 * @param {Function} listener - The listener to add. The listener will be triggered with the following arguments:
+	 * - {string} path - The path of the attribute that changed.
+	 * - {any} originalValue - The original value of the attribute.
+	 * - {any} newValue - The new value of the attribute.
+	 * @returns {void}
+	 */
+	addListener(listener) {
+		this.listeners.push(listener);
 	}
 
 	/**
