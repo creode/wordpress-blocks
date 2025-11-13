@@ -4,6 +4,8 @@ class Tabs {
 
 	constructor(wrapper) {
 		this.loadElements(wrapper);
+		this.addAriaControls();
+		this.setTabByHash();
 		this.setTabActiveState();
 		this.addEventListeners();
 	}
@@ -12,6 +14,41 @@ class Tabs {
 		this.elements.wrapper = wrapper;
 		this.elements.tab = wrapper.find('.tabs__tab');
 		this.elements.pattern = wrapper.next().find('.tabs__pattern');
+	}
+
+	addAriaControls() {
+		this.elements.tab.each(
+			(index) => {
+				const tab = this.elements.tab.eq(index);
+				const pattern = this.elements.pattern.eq(index);
+
+				tab.attr('aria-controls', pattern.attr('id'));
+			}
+		);
+	}
+
+	setTabByHash() {
+		const hash = location.hash;
+
+		if (!hash) {
+			return;
+		}
+
+		this.elements.pattern.each(
+			(index) => {
+				const pattern = this.elements.pattern.eq(index);
+
+				if (pattern.is(hash)) {
+					this.setActiveTab(index);
+					return false;
+				}
+
+				if (pattern.find(hash).length) {
+					this.setActiveTab(index);
+					return false;
+				}
+			}
+		);
 	}
 
 	setTabActiveState() {
@@ -31,9 +68,20 @@ class Tabs {
 	addEventListeners() {
 		this.elements.tab.on(
 			'click',
+			(event) => {
+				const tab = jQuery(event.currentTarget);
+				const patternId = tab.attr('aria-controls');
+
+				history.pushState({}, '', '#' + patternId);
+				this.setTabByHash();
+				this.setTabActiveState();
+			}
+		);
+
+		window.addEventListener(
+			'popstate',
 			() => {
-				const index = this.elements.tab.index(event.currentTarget);
-				this.setActiveTab(index);
+				this.setTabByHash();
 				this.setTabActiveState();
 			}
 		);

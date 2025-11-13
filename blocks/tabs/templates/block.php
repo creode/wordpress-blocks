@@ -85,11 +85,13 @@ $inner_block_template = array(
 	</div>
 </div>
 
+<?php $tab_counter = apply_filters( 'tabs_block_tab_counter', 1 ); ?>
+
 <div class="tabs__patterns">
 	<?php foreach ( $patterns as $index => $pattern ) : ?>
 		<div
 			class="tabs__pattern"
-			data-index="<?php echo esc_attr( $index ); ?>"
+			id="tab-<?php echo esc_attr( $tab_counter ); ?>"
 			<?php if ( $index !== $active_tab ) : ?>
 				hidden
 				aria-hidden="true"
@@ -97,8 +99,18 @@ $inner_block_template = array(
 		>
 			<?php $creode_block->render_block_pattern( $pattern ); ?>
 		</div>
+		<?php $tab_counter++; ?>
 	<?php endforeach; ?>
 </div>
+
+<?php
+add_filter(
+	'tabs_block_tab_counter',
+	function () use ( $tab_counter ) {
+		return $tab_counter;
+	}
+);
+?>
 
 <?php if ( ! $is_preview ) : ?>
 	</div>
