@@ -49,7 +49,6 @@ $inner_block_template = apply_filters(
 	<InnerBlocks
 		allowedBlocks="<?php echo esc_attr( wp_json_encode( $allowed_inner_blocks ) ); ?>"
 		template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
-		templateLock="false"
 		class="table__table-cell-content-inner"
 	/>
 </div>
