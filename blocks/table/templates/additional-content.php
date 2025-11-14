@@ -2,7 +2,7 @@
 /**
  * Table block template file.
  *
- * @package Sovereign Health Care
+ * @package Creode Blocks
  */
 
 $allowed_inner_blocks = array(

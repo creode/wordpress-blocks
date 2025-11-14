@@ -2,7 +2,7 @@
 /**
  * Table block template file.
  *
- * @package Sovereign Health Care
+ * @package Creode Blocks
  */
 
 /**
@@ -12,12 +12,7 @@
  */
 $block = Creode_Blocks\Helpers::get_block_by_name( 'table' );
 
-$modifier_classes = array();
-
-$has_bottom_space = $block->get_field( 'has_bottom_space' );
-if ( is_null( $has_bottom_space ) || ! empty( $has_bottom_space ) ) {
-	$modifier_classes[] = 'has-bottom-space';
-}
+$modifier_classes = apply_filters( 'creode_blocks_table_row_modifier_classes', array() );
 
 $modifier_classes = array_map(
 	function ( $modifier_class ) {

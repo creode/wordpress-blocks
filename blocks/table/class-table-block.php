@@ -2,10 +2,12 @@
 /**
  * Table block class.
  *
- * @package Sovereign Health Care
+ * @package Creode Blocks
  */
 
 namespace Creode_Blocks;
+
+use Exception;
 
 /**
  * Table block class.
@@ -14,10 +16,7 @@ namespace Creode_Blocks;
  */
 class Table_Block extends Block {
 
-	use Trait_Has_Modifier_Classes;
 	use Trait_Has_Reduce_Bottom_Space_Option;
-	use Trait_Has_Icons;
-	use Trait_Has_Color_Choices;
 
 	/**
 	 * The blocks icon from https://developer.wordpress.org/resource/dashicons/ or an inline SVG.
@@ -38,21 +37,6 @@ class Table_Block extends Block {
 	 */
 	protected function label(): string {
 		return 'Table';
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function setup(): bool {
-		add_action(
-			'wp_enqueue_scripts',
-			function () {
-				$this->check_js_dependencies();
-			},
-			20
-		);
-
-		return true;
 	}
 
 	/**
@@ -104,16 +88,7 @@ class Table_Block extends Block {
 					new Child_Block(
 						'row',
 						'Table Row',
-						array(
-							array(
-								'key'           => 'field_table_row_has_bottom_space',
-								'label'         => 'Bottom Space',
-								'name'          => 'has_bottom_space',
-								'type'          => 'true_false',
-								'message'       => 'Has bottom space?',
-								'default_value' => true,
-							),
-						),
+						array(),
 						__DIR__ . '/templates/row.php',
 						array(
 							new Child_Block(
@@ -168,6 +143,40 @@ class Table_Block extends Block {
 	/**
 	 * {@inheritdoc}
 	 */
+	protected function scripts(): array {
+		return array(
+			new Script(
+				'table-block',
+				plugin_dir_url( __FILE__ ) . 'assets/table-block.js',
+				array(
+					'jquery',
+					'match-height',
+				),
+				'1'
+			),
+		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function admin_scripts(): array {
+		return array(
+			new Script(
+				'admin-table-block',
+				plugin_dir_url( __FILE__ ) . 'assets/admin-table-block.js',
+				array(
+					'admin-block-initializer',
+					'match-height',
+				),
+				'1'
+			),
+		);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function supports(): array {
 		return array(
 			'mode'  => false,
@@ -179,25 +188,38 @@ class Table_Block extends Block {
 	}
 
 	/**
-	 * {@inheritdoc
+	 * {@inheritdoc}
 	 */
-	protected function scripts(): array {
-		return array(
-			new Script( 'match-table-height', plugin_dir_url( __FILE__ ) . 'assets/match-table-height.js', array( 'match-height' ), '1' ),
-		);
+	protected function setup(): bool {
+		$this->check_js_dependencies();
+		return parent::setup();
 	}
 
 	/**
 	 * Checks if the js dependencies are working correctly.
 	 *
-	 * @throws \Exception If dependencies are not met.
+	 * @throws Exception If dependencies are not met.
 	 *
 	 * @return void
 	 */
 	protected function check_js_dependencies() {
-		// Check if we have match heights script.
-		if ( ! wp_script_is( 'match-height', 'registered' ) ) {
-			throw new \Exception( 'Please ensure that the match heights script has been registered. You can find an example of how to add this to existing projects inside the theme package.' );
-		}
+		add_action(
+			'wp_enqueue_scripts',
+			function () {
+				if ( ! wp_script_is( 'match-height', 'registered' ) ) {
+					throw new Exception( 'Please ensure that jQuery Match Height has been registered as a frontend script with the handle "match-height". https://github.com/liabru/jquery-match-height.' );
+				}
+			},
+			1000
+		);
+		add_action(
+			'admin_enqueue_scripts',
+			function () {
+				if ( ! wp_script_is( 'match-height', 'registered' ) ) {
+					throw new Exception( 'Please ensure that jQuery Match Height has been registered as an admin script with the handle "match-height". https://github.com/liabru/jquery-match-height.' );
+				}
+			},
+			1000
+		);
 	}
 }
