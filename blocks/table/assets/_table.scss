@@ -5,9 +5,6 @@
 @mixin render {
 	.table__outer-wrapper,
 	.wp-block-acf-table {
-		background-color: white;
-		color: globals.$color-a;
-
 		& * {
 			color: inherit;
 		}
@@ -19,8 +16,6 @@
 
 	.table__wrapper {
 		@extend %container__wrapper;
-		padding-top: calc(globals.$space-vertical * 1.6875);
-		padding-bottom: calc(globals.$space-vertical * 2.65625);
 	}
 
 	.table__inner {
@@ -44,31 +39,6 @@
 	.table__outer-wrapper .table__section--device-visibility-mobile-only {
 		@media only screen and (min-width: globals.$breakpoint-large) {
 			display: none;
-		}
-	}
-
-	.table__additional-content {
-		margin-bottom: calc(globals.$space-bottom * -1);
-
-		.wp-block-heading,
-		p {
-			max-width: 970px;
-
-			&:not(.has-text-align-right, .has-text-align-left) {
-				margin-left: auto;
-				margin-right: auto;
-				text-align: center;
-			}
-
-			&.has-text-align-right {
-				margin-left: auto;
-			}
-		}
-
-		@include integrated-buttons.render;
-
-		.wp-block-buttons-is-layout-flex {
-			justify-content: center;
 		}
 	}
 
@@ -99,26 +69,14 @@
 		overflow: hidden;
 	}
 
-	.table__table-wrapper {
-		margin: 0 -4px;
-
-		@media only screen and (min-width: globals.$breakpoint-medium) {
-			margin: 0 -8px;
-		}
-	}
-
 	.table__table {
 		min-width: 100%;
 		border-collapse: collapse;
 	}
 
 	.table__table-cell {
-		padding: 0 4px;
 		vertical-align: top;
-
-		@media only screen and (min-width: globals.$breakpoint-medium) {
-			padding: 0 8px;
-		}
+		padding: 0;
 	}
 
 	.table__table-row {
@@ -129,10 +87,6 @@
 				}
 			}
 		}
-	}
-
-	.table__table-row--has-bottom-space .table__table-cell {
-		padding-bottom: 5px;
 	}
 
 	.table__table-cell-content-outer,
@@ -146,9 +100,7 @@
 	}
 
 	.table__table-cell-content-inner {
-		p {
-			margin-bottom: 0;
-			font-size: 1.5rem;
-		}
+		width: 100%;
+		padding: globals.$space-vertical globals.$space-horizontal 0;
 	}
 }
