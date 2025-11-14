@@ -21,16 +21,22 @@ $modifier_classes = array_map(
 	$modifier_classes
 );
 
-$allowed_inner_blocks = array(
-	'core/paragraph',
-);
-$inner_block_template = array(
+$allowed_inner_blocks = apply_filters(
+	'creode_blocks_table_cell_content_allowed_inner_blocks',
 	array(
 		'core/paragraph',
+	)
+);
+$inner_block_template = apply_filters(
+	'creode_blocks_table_cell_content_inner_block_template',
+	array(
 		array(
-			'content' => 'Table cell content.',
+			'core/paragraph',
+			array(
+				'content' => 'Table cell content.',
+			),
 		),
-	),
+	)
 );
 ?>
 
