@@ -23,7 +23,6 @@ $inner_block_template = array(
 	<InnerBlocks
 		allowedBlocks="<?php echo esc_attr( wp_json_encode( array() ) ); ?>"
 		template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
-		templateLock="all"
 		class="table__table-cell"
 	/>
 <?php else : ?>
