@@ -152,7 +152,7 @@ class Table_Block extends Block {
 					'jquery',
 					'match-height',
 				),
-				'1'
+				'1.1.0'
 			),
 		);
 	}
@@ -169,7 +169,7 @@ class Table_Block extends Block {
 					'admin-block-initializer',
 					'match-height',
 				),
-				'1'
+				'1.1.0'
 			),
 		);
 	}
