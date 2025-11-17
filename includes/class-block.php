@@ -127,8 +127,12 @@ abstract class Block {
 		$scripts = $this->admin_scripts();
 
 		add_action(
-			'admin_enqueue_scripts',
+			'enqueue_block_assets',
 			function () use ( $scripts ) {
+				if ( ! is_admin() ) {
+					return;
+				}
+
 				foreach ( $scripts as $script ) {
 					wp_enqueue_script( $script->handle, $script->src, $script->deps, $script->ver, true );
 				}

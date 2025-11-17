@@ -186,40 +186,4 @@ class Table_Block extends Block {
 			),
 		);
 	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function setup(): bool {
-		$this->check_js_dependencies();
-		return parent::setup();
-	}
-
-	/**
-	 * Checks if the js dependencies are working correctly.
-	 *
-	 * @throws Exception If dependencies are not met.
-	 *
-	 * @return void
-	 */
-	protected function check_js_dependencies() {
-		add_action(
-			'wp_enqueue_scripts',
-			function () {
-				if ( ! wp_script_is( 'match-height', 'registered' ) ) {
-					throw new Exception( 'Please ensure that jQuery Match Height has been registered as a frontend script with the handle "match-height". https://github.com/liabru/jquery-match-height.' );
-				}
-			},
-			1000
-		);
-		add_action(
-			'admin_enqueue_scripts',
-			function () {
-				if ( ! wp_script_is( 'match-height', 'registered' ) ) {
-					throw new Exception( 'Please ensure that jQuery Match Height has been registered as an admin script with the handle "match-height". https://github.com/liabru/jquery-match-height.' );
-				}
-			},
-			1000
-		);
-	}
 }

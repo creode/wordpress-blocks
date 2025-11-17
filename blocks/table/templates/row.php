@@ -22,9 +22,27 @@ $modifier_classes = array_map(
 );
 
 $inner_block_template = array(
-	array( 'acf/table-table-row-cell' ),
-	array( 'acf/table-table-row-cell' ),
-	array( 'acf/table-table-row-cell' ),
+	array(
+		'acf/table-table-row-cell',
+		array(),
+		array(
+			array( 'acf/table-table-row-cell-cell-content' ),
+		),
+	),
+	array(
+		'acf/table-table-row-cell',
+		array(),
+		array(
+			array( 'acf/table-table-row-cell-cell-content' ),
+		),
+	),
+	array(
+		'acf/table-table-row-cell',
+		array(),
+		array(
+			array( 'acf/table-table-row-cell-cell-content' ),
+		),
+	),
 );
 ?>
 

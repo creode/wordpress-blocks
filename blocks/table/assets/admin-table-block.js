@@ -2,9 +2,10 @@ class AdminTableBlock {
 
 	elements = {};
 
-	constructor(blockDiv) {
-		this.elements.blockDiv = blockDiv;
+	constructor(main) {
+		this.elements.main = main;
 		this.setObserver();
+		this.listenForVisibilityChanges();
 		this.applyMatchHeight();
 	}
 
@@ -15,11 +16,35 @@ class AdminTableBlock {
 			}
 		);
 
-		observer.observe(this.elements.blockDiv.get(0), { childList: true, subtree: true });
+		observer.observe(this.elements.main.get(0), { childList: true, subtree: true });
+	}
+
+	listenForVisibilityChanges() {
+		const visibilityStates = new WeakMap();
+		const checker = () => {
+			const tableCellContents = this.elements.main.find('.table__table-cell-content');
+			let hasChanged = false;
+		
+			tableCellContents.each(
+				(index) => {
+					const tableCellContent = tableCellContents.eq(index);
+					const isVisible = tableCellContent.is(':visible');
+
+					if (!hasChanged && visibilityStates.get(tableCellContent.get(0)) !== isVisible) {
+						this.applyMatchHeight();
+						hasChanged = true;
+					}
+
+					visibilityStates.set(tableCellContent.get(0), isVisible);
+				}
+			);
+			requestAnimationFrame(checker);
+		};
+		requestAnimationFrame(checker);
 	}
 
 	applyMatchHeight() {
-		const tableCellContent = this.elements.blockDiv.find('.table__table-cell-content');
+		const tableCellContent = this.elements.main.find('.table__table-cell-content');
 
 		tableCellContent.matchHeight({ remove: true });
 		tableCellContent.matchHeight();
@@ -27,8 +52,8 @@ class AdminTableBlock {
 }
 
 new AdminBlockInitializer(
-	'.wp-block-acf-table',
-	function (blockDiv) {
-		new AdminTableBlock(blockDiv);
+	'.table__main',
+	function (main) {
+		new AdminTableBlock(main);
 	}
 );
