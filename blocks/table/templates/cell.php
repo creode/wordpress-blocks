@@ -13,16 +13,11 @@
 $block = Creode_Blocks\Helpers::get_block_by_name( 'table' );
 
 $colspan = $block->get_field( 'colspan' );
-
-$inner_block_template = array(
-	array( 'acf/table-table-row-cell-cell-content' ),
-);
 ?>
 
 <?php if ( $is_preview ) : ?>
 	<InnerBlocks
 		allowedBlocks="<?php echo esc_attr( wp_json_encode( array() ) ); ?>"
-		template="<?php echo esc_attr( wp_json_encode( $inner_block_template ) ); ?>"
 		class="table__table-cell"
 	/>
 <?php else : ?>
