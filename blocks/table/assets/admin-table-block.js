@@ -2,8 +2,8 @@ class AdminTableBlock {
 
 	elements = {};
 
-	constructor(blockDiv) {
-		this.elements.blockDiv = blockDiv;
+	constructor(main) {
+		this.elements.main = main;
 		this.setObserver();
 		this.applyMatchHeight();
 	}
@@ -15,11 +15,11 @@ class AdminTableBlock {
 			}
 		);
 
-		observer.observe(this.elements.blockDiv.get(0), { childList: true, subtree: true });
+		observer.observe(this.elements.main.get(0), { childList: true, subtree: true });
 	}
 
 	applyMatchHeight() {
-		const tableCellContent = this.elements.blockDiv.find('.table__table-cell-content');
+		const tableCellContent = this.elements.main.find('.table__table-cell-content');
 
 		tableCellContent.matchHeight({ remove: true });
 		tableCellContent.matchHeight();
@@ -27,8 +27,8 @@ class AdminTableBlock {
 }
 
 new AdminBlockInitializer(
-	'.wp-block-acf-table',
-	function (blockDiv) {
-		new AdminTableBlock(blockDiv);
+	'.table__main',
+	function (main) {
+		new AdminTableBlock(main);
 	}
 );
