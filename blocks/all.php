@@ -42,11 +42,9 @@ add_action(
 );
 
 // Load optional blocks.
-require_once plugin_dir_path( __FILE__ ) . 'legacy/header/class-header-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'site-header/class-site-header-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'desktop-menu/class-desktop-menu-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'mobile-menu/class-mobile-menu-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'post-listing/class-post-listing-block.php';
-require_once plugin_dir_path( __FILE__ ) . 'search-and-filter/class-search-and-filter-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'tabs/class-tabs-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'table/class-table-block.php';
