@@ -505,18 +505,18 @@ abstract class Block {
 
 		$this->register_block_type(
 			array(
-				'name'       => $parent_block . '-' . $child_block->name,
-				'title'      => $child_block->label,
-				'render'     => $child_block->template,
-				'category'   => $this->category(),
-				'icon'       => $child_block->icon,
-				'parent'     => array(
+				'name'            => $parent_block . '-' . $child_block->name,
+				'title'           => $child_block->label,
+				'render'          => $child_block->template,
+				'category'        => $this->category(),
+				'icon'            => $child_block->icon ? $child_block->icon : $this->icon,
+				'textdomain'      => 'wordpress-blocks',
+				'supports'        => $child_block->supports,
+				'providesContext' => $this->provides_context,
+				'usesContext'     => $this->provides_context ? $ancestor_blocks : false,
+				'parent'          => array(
 					$parent_block,
 				),
-				'textdomain' => 'wordpress-blocks',
-				'supports'   => $child_block->supports,
-				'providesContext' => $this->provides_context,
-				'usesContext' => $this->provides_context ? $ancestor_blocks : false,
 			)
 		);
 

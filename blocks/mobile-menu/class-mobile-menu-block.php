@@ -48,6 +48,7 @@ class Mobile_Menu_Block extends Block {
 			new Child_Block(
 				'menu',
 				'Menu',
+				__DIR__ . '/templates/menu.php',
 				array(
 					array(
 						'key'     => 'field_mobile_menu_block_menu_location',
@@ -57,7 +58,6 @@ class Mobile_Menu_Block extends Block {
 						'choices' => $this->get_menu_choices(),
 					),
 				),
-				__DIR__ . '/templates/menu.php',
 				array(),
 				'menu'
 			),
