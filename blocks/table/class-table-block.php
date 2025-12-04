@@ -61,14 +61,15 @@ class Table_Block extends Block {
 			new Child_Block(
 				'additional-content',
 				'Additional Content',
-				array(),
 				__DIR__ . '/templates/additional-content.php',
+				array(),
 				array(),
 				'text'
 			),
 			new Child_Block(
 				'table',
 				'Table',
+				__DIR__ . '/templates/table.php',
 				array(
 					array(
 						'key'          => 'field_table_device_visibility',
@@ -83,17 +84,17 @@ class Table_Block extends Block {
 						),
 					),
 				),
-				__DIR__ . '/templates/table.php',
 				array(
 					new Child_Block(
 						'row',
 						'Table Row',
-						array(),
 						__DIR__ . '/templates/row.php',
+						array(),
 						array(
 							new Child_Block(
 								'cell',
 								'Table Cell',
+								__DIR__ . '/templates/cell.php',
 								array(
 									array(
 										'key'           => 'field_table_cell_colspan',
@@ -104,22 +105,16 @@ class Table_Block extends Block {
 										'default_value' => 1,
 									),
 								),
-								__DIR__ . '/templates/cell.php',
 								array(
 									new Child_Block(
 										'cell-content',
 										'Table Cell Content',
-										array(),
 										__DIR__ . '/templates/cell-content.php',
 										array(),
+										array(),
 										'text',
-										array(
-											'mode'  => false,
-											'color' => array(
-												'text' => true,
-												'background' => true,
-											),
-										),
+										true,
+										true,
 									),
 								),
 								'table-col-after'

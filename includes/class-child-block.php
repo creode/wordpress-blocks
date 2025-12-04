@@ -52,9 +52,9 @@ class Child_Block {
 	/**
 	 * Icon for Child block.
 	 *
-	 * @var string
+	 * @var string|null
 	 */
-	protected $icon = 'block-default';
+	protected $icon = null;
 
 	/**
 	 * Allows configuration to supports section of block configuration.
@@ -68,28 +68,38 @@ class Child_Block {
 	 *
 	 * @param string        $name The child block's name (must be hyphen separated).
 	 * @param string        $label The child block's label.
-	 * @param array         $fields An array of field definitions in ACF format.
 	 * @param string        $template A path to the render template.
+	 * @param array         $fields (Optional) An array of field definitions in ACF format.
 	 * @param Child_Block[] $child_blocks (Optional) Array of child blocks.
-	 * @param string        $icon (Optional) Icon for Child block.
-	 * @param array         $supports (Optional) Array of supports configuration.
+	 * @param string|null   $icon (Optional) Icon for Child block. If not provided, icon will be inherited from the parent block.
+	 * @param bool          $background_color_configurable (Optional) Whether the background color is configurable.
+	 * @param bool          $text_color_configurable (Optional) Whether the text color is configurable.
 	 */
 	public function __construct(
 		string $name,
 		string $label,
+		string $template,
 		array $fields = array(),
-		string $template = '',
 		array $child_blocks = array(),
-		string $icon = 'block-default',
-		array $supports = array(),
+		?string $icon = null,
+		bool $background_color_configurable = false,
+		bool $text_color_configurable = false,
 	) {
 		$this->name         = $name;
 		$this->label        = $label;
-		$this->fields       = $fields;
 		$this->template     = $template;
+		$this->fields       = $fields;
 		$this->child_blocks = $child_blocks;
 		$this->icon         = $icon;
-		$this->supports     = array_merge( array( 'mode' => false ), $supports );
+
+		// Generate supports array.
+		$this->supports = array(
+			'mode'  => false,
+			'color' => array(
+				'background' => $background_color_configurable,
+				'text'       => $text_color_configurable,
+			),
+		);
 	}
 
 	/**
@@ -123,5 +133,16 @@ class Child_Block {
 		}
 
 		$this->{$name} = $value;
+	}
+
+	/**
+	 * Function to update the supports configuration.
+	 *
+	 * @param callable $updater The updater function. This will be passed the current supports array and should return the new supports array.
+	 *
+	 * @return void
+	 */
+	public function update_supports( callable $updater ): void {
+		$this->supports = $updater( $this->supports );
 	}
 }

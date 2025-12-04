@@ -46,6 +46,7 @@ class Site_Header_Block extends Block {
 			new Child_Block(
 				'general',
 				'General',
+				__DIR__ . '/templates/general.php',
 				array(
 					array(
 						'key'     => 'field_header_block_general_device_visibility',
@@ -59,13 +60,13 @@ class Site_Header_Block extends Block {
 						),
 					),
 				),
-				__DIR__ . '/templates/general.php',
 				array(),
 				'editor-help'
 			),
 			new Child_Block(
 				'logo',
 				'Logo',
+				__DIR__ . '/templates/logo.php',
 				array(
 					array(
 						'key'     => 'field_header_block_logo_information',
@@ -75,13 +76,13 @@ class Site_Header_Block extends Block {
 						'message' => 'This will render the file located at: "/images/logo.svg", relative to the active theme root directory.',
 					),
 				),
-				__DIR__ . '/templates/logo.php',
 				array(),
 				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 3c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 1.5c4.1 0 7.5 3.4 7.5 7.5v.1c-1.4-.8-3.3-1.7-3.4-1.8-.2-.1-.5-.1-.8.1l-2.9 2.1L9 11.3c-.2-.1-.4 0-.6.1l-3.7 2.2c-.1-.5-.2-1-.2-1.5 0-4.2 3.4-7.6 7.5-7.6zm0 15c-3.1 0-5.7-1.9-6.9-4.5l3.7-2.2 3.5 1.2c.2.1.5 0 .7-.1l2.9-2.1c.8.4 2.5 1.2 3.5 1.9-.9 3.3-3.9 5.8-7.4 5.8z"></path></svg>',
 			),
 			new Child_Block(
 				'desktop-menu',
 				'Desktop Menu',
+				__DIR__ . '/templates/desktop-menu.php',
 				array(
 					array(
 						'key'     => 'field_header_block_desktop_menu_information',
@@ -91,13 +92,13 @@ class Site_Header_Block extends Block {
 						'message' => 'The "desktop-menu" template part will be rendered here.',
 					),
 				),
-				__DIR__ . '/templates/desktop-menu.php',
 				array(),
 				'<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true" focusable="false"><path d="M12 4c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14.5c-3.6 0-6.5-2.9-6.5-6.5S8.4 5.5 12 5.5s6.5 2.9 6.5 6.5-2.9 6.5-6.5 6.5zM9 16l4.5-3L15 8.4l-4.5 3L9 16z"></path></svg>'
 			),
 			new Child_Block(
 				'mobile-menu-toggle',
 				'Mobile Menu Toggle',
+				__DIR__ . '/templates/mobile-menu-toggle.php',
 				array(
 					array(
 						'key'     => 'field_header_block_mobile_menu_toggle_information',
@@ -107,7 +108,6 @@ class Site_Header_Block extends Block {
 						'message' => 'This button will toggle the display of the "mobile-menu" template part.',
 					),
 				),
-				__DIR__ . '/templates/mobile-menu-toggle.php',
 				array(),
 				'menu'
 			),
