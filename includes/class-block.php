@@ -507,7 +507,7 @@ abstract class Block {
 			array(
 				'name'            => $parent_block . '-' . $child_block->name,
 				'title'           => $child_block->label,
-				'render'          => $child_block->template,
+				'render'          => __DIR__ . '/../templates/child-block-wrapper.php',
 				'category'        => $this->category(),
 				'icon'            => $child_block->icon ? $child_block->icon : $this->icon,
 				'textdomain'      => 'wordpress-blocks',
