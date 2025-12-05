@@ -57,14 +57,24 @@ class Helpers {
 	 * @return Child_Block|null The child block instance or null if it cannot be found.
 	 */
 	public static function get_child_block_by_name( string $name ): Child_Block|null {
+		// Get the block that contains the child block.
 		$block = self::get_block_by_child_block_name( $name );
 
+		// If the block cannot be found, return null.
 		if ( ! $block ) {
 			return null;
 		}
 
+		// Remove the vendor prefix because it does not relate to any stored value within Child_Block objects.
 		$name_without_vendor_prefix = str_replace( 'acf/', '', $name );
 
+		/**
+		 * Recursively finds a child block using $name_without_vendor_prefix as the target name.
+		 *
+		 * @param Child_Block[] $child_blocks The child blocks array to search through.
+		 * @param string $name_prefix The name prefix to prepend to the child block name when making a comparison.
+		 * @return Child_Block|null The child block or null if it cannot be found.
+		 */
 		$find_child_block = function ( array $child_blocks, string $name_prefix ) use ( $name_without_vendor_prefix, &$find_child_block ) {
 			foreach ( $child_blocks as $child_block ) {
 				if ( $name_prefix . '-' . $child_block->name === $name_without_vendor_prefix ) {
@@ -78,10 +88,10 @@ class Helpers {
 					}
 				}
 			}
-
 			return null;
 		};
 
+		// Recursively find the child block.
 		return $find_child_block( $block->get_child_blocks(), $block->get_name() );
 	}
 
