@@ -8,6 +8,7 @@
 namespace Creode_Blocks;
 
 use WP_Block;
+use WP_Block_Type_Registry;
 
 /**
  * Global helper functions
@@ -30,6 +31,68 @@ class Helpers {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Gets the block by child block name.
+	 *
+	 * @param string $name The child block name.
+	 * @return Block|null The block instance or null if it cannot be found.
+	 */
+	public static function get_block_by_child_block_name( string $name ): Block|null {
+		$registry   = WP_Block_Type_Registry::get_instance();
+		$block_type = $registry->get_registered( $name );
+
+		while ( isset( $block_type->parent ) && ! empty( $block_type->parent[0] ) ) {
+			$block_type = $registry->get_registered( $block_type->parent[0] );
+		}
+
+		return self::get_block_by_name( str_replace( 'acf/', '', $block_type->name ) );
+	}
+
+	/**
+	 * Gets a child block by name.
+	 *
+	 * @param string $name The child block name.
+	 * @return Child_Block|null The child block instance or null if it cannot be found.
+	 */
+	public static function get_child_block_by_name( string $name ): Child_Block|null {
+		// Get the block that contains the child block.
+		$block = self::get_block_by_child_block_name( $name );
+
+		// If the block cannot be found, return null.
+		if ( ! $block ) {
+			return null;
+		}
+
+		// Remove the vendor prefix because it does not relate to any stored value within Child_Block objects.
+		$name_without_vendor_prefix = str_replace( 'acf/', '', $name );
+
+		/**
+		 * Recursively finds a child block using $name_without_vendor_prefix as the target name.
+		 *
+		 * @param Child_Block[] $child_blocks The child blocks array to search through.
+		 * @param string $name_prefix The name prefix to prepend to the child block name when making a comparison.
+		 * @return Child_Block|null The child block or null if it cannot be found.
+		 */
+		$find_child_block = function ( array $child_blocks, string $name_prefix ) use ( $name_without_vendor_prefix, &$find_child_block ) {
+			foreach ( $child_blocks as $child_block ) {
+				if ( $name_prefix . '-' . $child_block->name === $name_without_vendor_prefix ) {
+					return $child_block;
+				}
+				$grand_child_blocks = $child_block->child_blocks;
+				if ( ! empty( $grand_child_blocks ) ) {
+					$found_grand_child_block = $find_child_block( $grand_child_blocks, $name_prefix . '-' . $child_block->name );
+					if ( $found_grand_child_block ) {
+						return $found_grand_child_block;
+					}
+				}
+			}
+			return null;
+		};
+
+		// Recursively find the child block.
+		return $find_child_block( $block->get_child_blocks(), $block->get_name() );
 	}
 
 	/**
