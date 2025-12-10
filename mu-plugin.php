@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WordPress Blocks
+ * Plugin Name: Mosaic Blocks
  * Plugin URI:  https://blocks.creode.dev
- * Description: WordPress Blocks plugin used by Creode to assist in the development of WordPress blocks.
+ * Description: A block development framework.
  * Version: :PLUGIN_VERSION:
  * Author: Creode
  * Author URI: https://creode.co.uk
