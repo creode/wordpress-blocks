@@ -3,13 +3,13 @@ name: "Documentation"
 on: # yamllint disable-line rule:truthy
   push:
     branches:
-      - "2.x"
+      - "3.x"
   pull_request:
     branches:
-      - "2.x"
+      - "3.x"
   workflow_dispatch:
     branches:
-      - '2.x'
+      - '3.x'
 
 jobs:
   build:
@@ -46,7 +46,7 @@ jobs:
   
   deploy:
     name: "Deploy"
-    # Only deploy on pushes to 2.x (not on PRs)
+    # Only deploy on pushes to 3.x (not on PRs)
     if: "${{ github.event_name == 'push' }}"
     runs-on: "ubuntu-latest"
 
