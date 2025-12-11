@@ -107,6 +107,10 @@ export default defineConfig({
       },
     ],
 
+    outline: {
+      level: [2, 4]
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/creode/wordpress-blocks' }
     ]
