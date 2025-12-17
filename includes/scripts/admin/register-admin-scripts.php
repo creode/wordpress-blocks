@@ -50,5 +50,14 @@ add_action(
 			'1.0.0',
 			true
 		);
+
+		// Enqueue block scripts.
+		wp_enqueue_script(
+			'admin-block-pattern-link',
+			plugin_dir_url( __FILE__ ) . 'block-pattern-link.js',
+			array( 'jquery' ),
+			'1.0.0',
+			true
+		);
 	}
 );

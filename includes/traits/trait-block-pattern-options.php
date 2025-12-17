@@ -54,7 +54,16 @@ trait Trait_Block_Pattern_Options {
 				continue;
 			}
 
+			if ( is_admin() ) {
+				echo '<div data-href="' . esc_url( get_site_url() ) . '/wp-admin/site-editor.php?p=/wp_block/' . esc_attr( $block_post->ID ) . '&canvas=edit" target="_blank" class="block-pattern-link">';
+				echo '<span class="block-pattern-link__information">' . esc_html( __( 'Edit this pattern', 'creode-blocks' ) ) . '</span>';
+			}
+
 			Helpers::render_blocks( '<!-- wp:block {"ref":' . $block_post->ID . '} /-->' );
+
+			if ( is_admin() ) {
+				echo '</div>';
+			}
 		}
 	}
 

@@ -17,6 +17,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-helpers.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/traits/all.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-script.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/scripts/admin/register-admin-scripts.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/styles/admin/enqueue-admin-styles.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-child-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-block.php';
 require_once plugin_dir_path( __FILE__ ) . 'blocks/all.php';
